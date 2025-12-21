@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.campus.management.controller.StudentController"
+      spacing="8"
+      padding="12 12 12 12">
+
+    <children>
+        <Label text="Approved Events" style="-fx-font-size:16px;"/>
+
+        <ListView fx:id="eventsListView" prefHeight="320"/>
+
+        <HBox spacing="8">
+            <children>
+                <Button text="Refresh" onAction="#loadApprovedEvents"/>
+                <Button text="Register" onAction="#onRegister"/>
+            </children>
+        </HBox>
+    </children>
+</VBox>
