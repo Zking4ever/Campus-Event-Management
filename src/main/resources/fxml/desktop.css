@@ -1,38 +1,31 @@
-.background {
-    -fx-background-color: linear-gradient(to bottom right, #4f46e5, #6366f1);
-}
-
-.login-card {
-    -fx-background-color: white;
-    -fx-padding: 30;
-    -fx-background-radius: 16;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0, 0, 5);
-}
-
+/* Background colors */
 .title {
-    -fx-font-size: 24px;
+    -fx-font-size: 26px;
     -fx-font-weight: bold;
+    -fx-text-fill: #1f2937;
 }
 
 .subtitle {
     -fx-text-fill: #6b7280;
+    -fx-font-size: 15px;
 }
 
 .input-box {
     -fx-background-color: #f3f4f6;
-    -fx-padding: 10 12;
+    -fx-padding: 12;
     -fx-background-radius: 10;
 }
 
 .input-box TextField,
-.input-box PasswordField {
+.input-box PasswordField,
+.input-box ChoiceBox {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-pref-width: 240;
+    -fx-pref-width: 280;
 }
 
 .icon {
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
 }
 
 .login-button {
@@ -40,12 +33,25 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 10;
-    -fx-padding: 10 0 10 0;
-    -fx-pref-width: 260;
+    -fx-padding: 12 0 12 0;
+    -fx-pref-width: 300;
 }
 
 .login-button:hover {
     -fx-background-color: #4338ca;
+}
+
+.register-button {
+    -fx-background-color: #22c55e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 12 0 12 0;
+    -fx-pref-width: 300;
+}
+
+.register-button:hover {
+    -fx-background-color: #16a34a;
 }
 
 .signup-link {
@@ -55,28 +61,5 @@
 
 .error-label {
     -fx-text-fill: #dc2626;
+    -fx-font-size: 13px;
 }
-
-.register-button {
-    -fx-background-color: #22c55e;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 10;
-    -fx-padding: 10 0 10 0;
-    -fx-pref-width: 260;
-}
-
-.register-button:hover {
-    -fx-background-color: #16a34a;
-}
-
-.input-box ChoiceBox {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-}
-
-.signup-link {
-    -fx-text-fill: #4f46e5;
-    -fx-font-weight: bold;
-}
-

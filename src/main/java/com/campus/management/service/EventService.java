@@ -8,5 +8,7 @@ public interface EventService {
     Event createEvent(Event event);
     List<Event> listEvents();
     Event findById(String id);
-    Event updateStatus(String id, String status); // status string mapped to enum
+    Event updateStatus(String id, String status);
+    List<Event> listEventsByOrganizer(String organizerId);
+    Event updateEvent(Event updated); // status string mapped to enum
 }

@@ -1,29 +1,33 @@
-// src/main/java/com/campus/management/service/impl/EventServiceImpl.java
 package com.campus.management.service.impl;
 
 import com.campus.management.model.Event;
 import com.campus.management.model.EventStatus;
 import com.campus.management.service.EventService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class EventServiceImpl implements EventService {
+
+
     private final List<Event> events = new ArrayList<>();
 
     @Override
     public Event createEvent(Event event) {
         Event e = new Event(UUID.randomUUID().toString(), event.getTitle(), event.getDescription(),
                 event.getOrganizerId(), event.getStart(), event.getEnd(), EventStatus.PENDING);
+        e.setDateCreated(LocalDateTime.now());
+        e.setFeedback(new ArrayList<>());
         events.add(e);
         return e;
     }
 
     @Override
     public List<Event> listEvents() {
-        return events.stream().collect(Collectors.toList());
+        return new ArrayList<>(events);
     }
 
     @Override
@@ -36,6 +40,26 @@ public class EventServiceImpl implements EventService {
         Event e = findById(id);
         if (e != null) {
             e.setStatus(EventStatus.valueOf(status));
+        }
+        return e;
+    }
+
+    @Override
+    public List<Event> listEventsByOrganizer(String organizerId) {
+        return events.stream()
+                .filter(e -> e.getOrganizerId().equals(organizerId))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Event updateEvent(Event updated) {
+        Event e = findById(updated.getId());
+        if (e != null) {
+            e.setTitle(updated.getTitle());
+            e.setDescription(updated.getDescription());
+            e.setStart(updated.getStart());
+            e.setEnd(updated.getEnd());
+            e.setStatus(updated.getStatus());
         }
         return e;
     }

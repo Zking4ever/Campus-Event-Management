@@ -31,7 +31,12 @@ public class LoginController {
         }
         AppContext.setCurrentUser(user);
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+            String fxml = switch (user.getRole()) {
+                case ADMIN -> "/fxml/admin.fxml";
+                case ORGANIZER -> "/fxml/organizer.fxml";
+                default -> "/fxml/student.fxml";
+            };
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
             Parent root = loader.load();
             Stage stage = (Stage) usernameField.getScene().getWindow();
 

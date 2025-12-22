@@ -3,66 +3,46 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.campus.management.controller.StudentController"
+            prefWidth="900"
+            prefHeight="600"
+            style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);">
 
-<VBox xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.campus.management.controller.StudentController"
-      alignment="CENTER"
-      spacing="25"
-      prefWidth="700"
-      prefHeight="500"
-      style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);">
+    <!-- Left Panel: Profile Info -->
+    <left>
+        <VBox spacing="20" alignment="TOP_CENTER"
+              style="-fx-background-color: #4f46e5;"
+              prefWidth="250">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30"/>
+            </padding>
 
-    <!-- Page Padding -->
-    <padding>
-        <Insets top="30" right="30" bottom="30" left="30"/>
-    </padding>
+            <Label fx:id="usernameLabel" text="Student Name"
+                   style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <Label fx:id="statusLabel" text="Status: Active"
+                   style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+            <Button text="Logout" onAction="#onLogout"
+                    style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 8 20;"/>
+        </VBox>
+    </left>
 
-    <!-- Title Card -->
-    <VBox spacing="8"
-          alignment="CENTER"
-          style="-fx-background-color: white;
-                 -fx-background-radius: 12;
-                 -fx-padding: 20;
-                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);">
+    <!-- Center Panel: Events List -->
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30"/>
+            </padding>
 
-        <Label text="Approved Events"
-               style="-fx-font-size: 20px;
-                      -fx-font-weight: bold;
-                      -fx-text-fill: #1e293b;"/>
+            <VBox spacing="5">
+                <Label text="Approved Events"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Label text="Browse and register for campus events"
+                       style="-fx-text-fill: #64748b;"/>
+            </VBox>
 
-        <Label text="View and register for approved events"
-               style="-fx-font-size: 13px;
-                      -fx-text-fill: #64748b;"/>
-    </VBox>
-
-    <!-- Events List Card -->
-    <VBox spacing="12"
-          alignment="CENTER"
-          style="-fx-background-color: white;
-                 -fx-background-radius: 12;
-                 -fx-padding: 25;
-                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);">
-
-        <ListView fx:id="eventsListView" prefHeight="320" maxWidth="500"/>
-
-        <HBox spacing="15" alignment="CENTER">
-            <Button text="Refresh"
-                    onAction="#loadApprovedEvents"
-                    style="-fx-background-color: #4f46e5;
-                           -fx-text-fill: white;
-                           -fx-font-size: 13px;
-                           -fx-background-radius: 8;
-                           -fx-padding: 10 18;"/>
-
-            <Button text="Register"
-                    onAction="#onRegister"
-                    style="-fx-background-color: #16a34a;
-                           -fx-text-fill: white;
-                           -fx-font-size: 13px;
-                           -fx-background-radius: 8;
-                           -fx-padding: 10 18;"/>
-        </HBox>
-    </VBox>
-
-</VBox>
+            <ListView fx:id="eventsListView" prefHeight="400" maxWidth="600"/>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,67 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21"
+<BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.campus.management.controller.LoginController"
-            stylesheets="@login.css">
+            stylesheets="@desktop.css">
 
-    <!-- Background -->
-    <children>
-        <StackPane AnchorPane.topAnchor="0"
-                   AnchorPane.bottomAnchor="0"
-                   AnchorPane.leftAnchor="0"
-                   AnchorPane.rightAnchor="0"
-                   styleClass="background">
+    <!-- Left Panel: Illustration + description -->
+    <left>
+        <VBox alignment="CENTER" spacing="20"
+              style="-fx-background-color: #4f46e5;-fx-padding: 40;"
+              prefWidth="400"
+        >
 
-            <!-- Login Card -->
-            <VBox spacing="18"
-                  alignment="CENTER"
-                  maxWidth="380"
-                  styleClass="login-card">
+            <Label text="Campus Event Manager"
+                   style="-fx-font-size:28px; -fx-text-fill:white; -fx-font-weight:bold;"/>
 
-                <Label text="Welcome Back"
-                       styleClass="title"/>
+            <Label text="Register, manage, and attend all campus events seamlessly."
+                   wrapText="true"
+                   style="-fx-font-size:16px; -fx-text-fill:white;"/>
 
-                <Label text="Sign in to your campus account"
-                       styleClass="subtitle"/>
+            <!-- Optional illustration -->
+            <ImageView fx:id="loginIllustration"
+                       fitWidth="200"
+                       preserveRatio="true"
+                       pickOnBounds="true"
+                       smooth="true"
+                       style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10,0,0,5);"/>
+        </VBox>
+    </left>
 
-                <!-- Username -->
-                <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
-                    <Label text="👤" styleClass="icon"/>
-                    <TextField fx:id="usernameField"
-                               promptText="Username"/>
-                </HBox>
+    <!-- Right Panel: Login Form -->
+    <center>
+        <VBox alignment="CENTER" spacing="18" style="-fx-padding: 60; -fx-background-color: #f8fafc;">
+            <Label text="Sign in" styleClass="title"/>
+            <Label text="Enter your campus account credentials" styleClass="subtitle"/>
 
-                <!-- Password -->
-                <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
-                    <Label text="🔒" styleClass="icon"/>
-                    <PasswordField fx:id="passwordField"
-                                   promptText="Password"/>
-                </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
+                <Label text="👤" styleClass="icon"/>
+                <TextField fx:id="usernameField" promptText="Username"/>
+            </HBox>
 
-                <!-- Login Button -->
-                <Button text="Login"
-                        onAction="#onLogin"
-                        styleClass="login-button"/>
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
+                <Label text="🔒" styleClass="icon"/>
+                <PasswordField fx:id="passwordField" promptText="Password"/>
+            </HBox>
 
-                <!-- Status -->
-                <Label fx:id="statusLabel"
-                       styleClass="error-label"/>
+            <Button text="Login" onAction="#onLogin" styleClass="login-button"/>
+            <Label fx:id="statusLabel" styleClass="error-label"/>
 
-                <!-- Sign Up Link -->
-                <HBox alignment="CENTER">
-                    <Label text="Don't have an account? "/>
-                    <Hyperlink text="Sign up"
-                               onAction="#goToRegister"
-                               styleClass="signup-link"/>
-                </HBox>
-
-            </VBox>
-        </StackPane>
-    </children>
-</AnchorPane>
+            <HBox alignment="CENTER">
+                <Label text="Don't have an account? "/>
+                <Hyperlink text="Sign up" onAction="#goToRegister" styleClass="signup-link"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,65 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<VBox xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.campus.management.controller.OrganizerController"
-      alignment="CENTER"
-      spacing="25"
-      prefWidth="700"
-      prefHeight="500"
+      alignment="TOP_CENTER" spacing="20" prefWidth="800" prefHeight="600"
       style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);">
 
-    <!-- Page padding -->
     <padding>
-        <Insets top="30" right="30" bottom="30" left="30"/>
+        <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <!-- Title Card -->
-    <VBox spacing="8"
-          alignment="CENTER"
-          style="-fx-background-color: white;
-                 -fx-background-radius: 12;
-                 -fx-padding: 20;
-                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);">
+    <Label text="Organizer Dashboard" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+    <Label text="Create and manage your events" style="-fx-font-size: 14px; -fx-text-fill: #64748b;"/>
 
-        <Label text="Create Event"
-               style="-fx-font-size: 20px;
-                      -fx-font-weight: bold;
-                      -fx-text-fill: #1e293b;"/>
+    <HBox spacing="15" alignment="CENTER">
+        <VBox spacing="10">
+            <TextField fx:id="titleField" promptText="Event Title" maxWidth="300"/>
+            <TextArea fx:id="descArea" promptText="Event Description" prefRowCount="4" maxWidth="300"/>
+            <HBox spacing="10">
+                <DatePicker fx:id="startDatePicker"/>
+                <DatePicker fx:id="endDatePicker"/>
+            </HBox>
+            <Button text="Create Event" onAction="#onCreateEvent"
+                    style="-fx-background-color: #0ea5e9; -fx-text-fill: white; -fx-font-size: 13px; -fx-background-radius: 8; -fx-padding: 10 18;"/>
+            <Button text="Edit Selected Event" onAction="#onEditEvent"
+                    style="-fx-background-color: #f59e0b; -fx-text-fill: white; -fx-font-size: 13px; -fx-background-radius: 8; -fx-padding: 10 18;"/>
+            <Button text="View Feedback" onAction="#onViewFeedback"
+                    style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-size: 13px; -fx-background-radius: 8; -fx-padding: 10 18;"/>
+            <Label fx:id="statusLabel" style="-fx-text-fill: red;"/>
+        </VBox>
 
-        <Label text="Add details for your new event"
-               style="-fx-font-size: 13px;
-                      -fx-text-fill: #64748b;"/>
-    </VBox>
-
-    <!-- Form Card -->
-    <VBox spacing="12"
-          alignment="CENTER"
-          style="-fx-background-color: white;
-                 -fx-background-radius: 12;
-                 -fx-padding: 25;
-                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);">
-
-        <TextField fx:id="titleField"
-                   promptText="Event title"
-                   maxWidth="350"/>
-
-        <TextArea fx:id="descArea"
-                  promptText="Event description"
-                  prefRowCount="6"
-                  maxWidth="350"/>
-
-        <Button text="Create Event"
-                onAction="#onCreateEvent"
-                style="-fx-background-color: #0ea5e9;
-                       -fx-text-fill: white;
-                       -fx-font-size: 13px;
-                       -fx-background-radius: 8;
-                       -fx-padding: 10 22;"/>
-    </VBox>
-
+        <ListView fx:id="eventsListView" prefWidth="400" prefHeight="400"/>
+    </HBox>
 </VBox>
