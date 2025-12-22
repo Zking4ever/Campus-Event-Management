@@ -18,7 +18,11 @@ public class AuthServiceImpl implements AuthService {
         // seed admin
         String id = UUID.randomUUID().toString();
         users.put("admin", new User(id, "admin", "adminHash", Role.ADMIN));
-        passwordStore.put("admin", "admin"); // in production store hashes
+        users.put("student", new User(id, "astawus", "123456", Role.STUDENT));
+        users.put("organizer", new User(id, "organizer", "123456", Role.ORGANIZER));
+        passwordStore.put("admin", "admin");
+        passwordStore.put("student", "123456");
+        passwordStore.put("organizer", "123456");
     }
 
     @Override

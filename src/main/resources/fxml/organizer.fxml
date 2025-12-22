@@ -1,27 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.campus.management.controller.OrganizerController"
-      spacing="10"
-      padding="16 16 16 16">
+      alignment="CENTER"
+      spacing="25"
+      prefWidth="700"
+      prefHeight="500"
+      style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);">
 
-    <children>
-        <Label text="Create Event" style="-fx-font-size:16px;"/>
+    <!-- Page padding -->
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
 
-        <TextField fx:id="titleField" promptText="Event title"/>
+    <!-- Title Card -->
+    <VBox spacing="8"
+          alignment="CENTER"
+          style="-fx-background-color: white;
+                 -fx-background-radius: 12;
+                 -fx-padding: 20;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);">
+
+        <Label text="Create Event"
+               style="-fx-font-size: 20px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #1e293b;"/>
+
+        <Label text="Add details for your new event"
+               style="-fx-font-size: 13px;
+                      -fx-text-fill: #64748b;"/>
+    </VBox>
+
+    <!-- Form Card -->
+    <VBox spacing="12"
+          alignment="CENTER"
+          style="-fx-background-color: white;
+                 -fx-background-radius: 12;
+                 -fx-padding: 25;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);">
+
+        <TextField fx:id="titleField"
+                   promptText="Event title"
+                   maxWidth="350"/>
 
         <TextArea fx:id="descArea"
                   promptText="Event description"
-                  prefRowCount="6"/>
+                  prefRowCount="6"
+                  maxWidth="350"/>
 
-        <HBox spacing="8">
-            <children>
-                <Button text="Create" onAction="#onCreateEvent"/>
-            </children>
-        </HBox>
-    </children>
+        <Button text="Create Event"
+                onAction="#onCreateEvent"
+                style="-fx-background-color: #0ea5e9;
+                       -fx-text-fill: white;
+                       -fx-font-size: 13px;
+                       -fx-background-radius: 8;
+                       -fx-padding: 10 22;"/>
+    </VBox>
+
 </VBox>

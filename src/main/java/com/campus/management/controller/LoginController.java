@@ -1,21 +1,23 @@
-// src/main/java/com/campus/management/controller/LoginController.java
 package com.campus.management.controller;
 
-import com.campus.management.model.Role;
+import com.campus.management.AppContext;
 import com.campus.management.model.User;
 import com.campus.management.service.AuthService;
-import com.campus.management.service.impl.AuthServiceImpl;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class LoginController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Label statusLabel;
 
-    private final AuthService authService = new AuthServiceImpl();
+    private final AuthService authService = AppContext.getAuthService();
 
     @FXML
     protected void onLogin() {
@@ -26,13 +28,17 @@ public class LoginController {
             statusLabel.setText("Invalid credentials");
             return;
         }
-        // route by role (replace with scene switch logic)
-        if (user.getRole() == Role.ADMIN) {
-            statusLabel.setText("Welcome Admin");
-        } else if (user.getRole() == Role.ORGANIZER) {
-            statusLabel.setText("Welcome Organizer");
-        } else {
-            statusLabel.setText("Welcome Student");
+        AppContext.setCurrentUser(user);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+
+            stage.setScene(new Scene(root, 800, 600));
+            stage.setTitle("Dashboard - " + user.getUsername());
+        } catch (Exception ex) {
+            statusLabel.setText("Failed to open dashboard");
+            ex.printStackTrace();
         }
     }
 }
