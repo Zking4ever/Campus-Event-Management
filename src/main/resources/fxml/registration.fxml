@@ -41,6 +41,15 @@
 
             <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
                 <Label text="👤" styleClass="icon"/>
+                <TextField fx:id="nameField" promptText="Full name"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
+                <Label text="📧" styleClass="icon"/>
+                <TextField fx:id="emailField" promptText="Email"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
+                <Label text="👤" styleClass="icon"/>
                 <TextField fx:id="usernameField" promptText="Username"/>
             </HBox>
 

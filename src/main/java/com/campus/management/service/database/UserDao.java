@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class UserDao {
-    public static  boolean registerUser(User u){
+    public static  User registerUser(User u){
         String sql = """
         Insert into users(userid,username,name,email,password,role)
         values(?,?,?,?,?,?)
@@ -16,9 +16,8 @@ public class UserDao {
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
                 if(con == null) {
-                    return false;
+                    return null;
                 }
-
             ps.setString(1, u.getUserid());
             ps.setString(2, u.getUsername());
             ps.setString(3, u.getName());
@@ -27,19 +26,19 @@ public class UserDao {
             ps.setString(6,u.getRole().toString());
 
             ps.execute();
-            return true;
+            return u;
 
         }catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
-        }
+    }
 
     public static User authenticate(String emailORusername, String password) {
         String sql = """
         SELECT userid, username, name, email, password, role
         FROM users
-        WHERE username = ?  AND password = ?
+        WHERE (username = ?  AND password = ?) OR (email = ?  AND password = ?)
     """;
 
         try (Connection con = DBConnection.getConnection();
@@ -51,6 +50,8 @@ public class UserDao {
 
             ps.setString(1, emailORusername);
             ps.setString(2, password);
+            ps.setString(3, emailORusername);
+            ps.setString(4, password);
 
             ResultSet rs = ps.executeQuery();
 

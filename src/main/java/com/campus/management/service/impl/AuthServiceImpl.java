@@ -23,7 +23,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean register(User user) {
+    public User register(User user) {
         //process the password to set it to hash in here
         return UserDao.registerUser(user); // saves to db
     }

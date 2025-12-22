@@ -16,10 +16,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.UUID;
 
 public class RegistrationController {
     @FXML private TextField usernameField;
+    @FXML private TextField nameField;
+    @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private ChoiceBox<Role> roleChoice;
     @FXML private Label statusLabel;
@@ -34,34 +35,51 @@ public class RegistrationController {
 
     @FXML
     protected void onRegister() {
-        String username = usernameField.getText();
-        String rawPassword = passwordField.getText();
-        Role role = roleChoice.getValue();
-
-        if (username == null || username.isBlank() || rawPassword == null || rawPassword.isBlank()) {
-            statusLabel.setText("Username and password required");
+        if (usernameField.getText().isEmpty() ||
+                nameField.getText().isEmpty() ||
+                emailField.getText().isEmpty() ||
+                passwordField.getText().isEmpty()){
+            statusLabel.setText("Please fill all the fields");
+            return;
+        }
+        if (!emailField.getText().contains("@gmail.com")) {
+            statusLabel.setText("Email address is invalid");
             return;
         }
 
-        String id = "randomuserId";
-        // store raw password for the simple in-memory impl (replace with hashed in production)
-        User user = new User(id, username, "hardCodedInput", "sample@gmail.com",rawPassword,Role.STUDENT);
-        boolean registered = authService.register(user);
-        if (registered){
-            statusLabel.setText("Registered successfully");
-        }else{
-            statusLabel.setText("Registeration failed");
-        }
+        String userid = User.getRandomId();
 
-//        // return to login
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-//            Parent root = loader.load();
-//            Stage stage = (Stage) usernameField.getScene().getWindow();
-//            stage.setScene(new Scene(root, 800, 600));
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
+        // store raw password for the simple in-memory impl (replace with hashed in production)
+        User user = new User(
+                            userid,
+                            usernameField.getText(),
+                            nameField.getText(),
+                            emailField.getText(),
+                            passwordField.getText(),
+                            roleChoice.getValue());
+        if (authService.register(user) == null){
+            statusLabel.setText("Registeration failed");
+            return;
+        }
+        statusLabel.setText("Registered successfully");
+        AppContext.setCurrentUser(user);
+
+        try {
+            String fxml = switch (user.getRole()) {
+                case ADMIN -> "/fxml/admin.fxml";
+                case ORGANIZER -> "/fxml/organizer.fxml";
+                default -> "/fxml/student.fxml";
+            };
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent root = loader.load();
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+
+            stage.setScene(new Scene(root, 800, 600));
+            stage.setTitle("Dashboard - " + user.getUsername());
+        } catch (Exception ex) {
+            statusLabel.setText("Failed to open dashboard");
+            ex.printStackTrace();
+        }
     }
     @FXML
     private void goToLogin(){

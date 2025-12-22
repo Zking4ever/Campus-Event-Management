@@ -35,6 +35,7 @@ public class LoginController {
             return;
         }
         AppContext.setCurrentUser(user);
+
         try {
             String fxml = switch (user.getRole()) {
                 case ADMIN -> "/fxml/admin.fxml";
