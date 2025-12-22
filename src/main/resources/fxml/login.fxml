@@ -3,37 +3,65 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.campus.management.controller.LoginController"
-      spacing="12"
-      alignment="CENTER"
-      prefWidth="600"
-      prefHeight="400">
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.campus.management.controller.LoginController"
+            stylesheets="@login.css">
 
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
-
+    <!-- Background -->
     <children>
-        <Label text="Campus Management - Login"
-               style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+        <StackPane AnchorPane.topAnchor="0"
+                   AnchorPane.bottomAnchor="0"
+                   AnchorPane.leftAnchor="0"
+                   AnchorPane.rightAnchor="0"
+                   styleClass="background">
 
-        <TextField fx:id="usernameField"
-                   promptText="Username"
-                   maxWidth="300"/>
+            <!-- Login Card -->
+            <VBox spacing="18"
+                  alignment="CENTER"
+                  maxWidth="380"
+                  styleClass="login-card">
 
-        <PasswordField fx:id="passwordField"
-                       promptText="Password"
-                       maxWidth="300"/>
+                <Label text="Welcome Back"
+                       styleClass="title"/>
 
-        <HBox spacing="10" alignment="CENTER">
-            <children>
-                <Button text="Login" onAction="#onLogin"/>
-            </children>
-        </HBox>
+                <Label text="Sign in to your campus account"
+                       styleClass="subtitle"/>
 
-        <Label fx:id="statusLabel" textFill="red"/>
+                <!-- Username -->
+                <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
+                    <Label text="👤" styleClass="icon"/>
+                    <TextField fx:id="usernameField"
+                               promptText="Username"/>
+                </HBox>
+
+                <!-- Password -->
+                <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
+                    <Label text="🔒" styleClass="icon"/>
+                    <PasswordField fx:id="passwordField"
+                                   promptText="Password"/>
+                </HBox>
+
+                <!-- Login Button -->
+                <Button text="Login"
+                        onAction="#onLogin"
+                        styleClass="login-button"/>
+
+                <!-- Status -->
+                <Label fx:id="statusLabel"
+                       styleClass="error-label"/>
+
+                <!-- Sign Up Link -->
+                <HBox alignment="CENTER">
+                    <Label text="Don't have an account? "/>
+                    <Hyperlink text="Sign up"
+                               onAction="#goToRegister"
+                               styleClass="signup-link"/>
+                </HBox>
+
+            </VBox>
+        </StackPane>
     </children>
-</VBox>
+</AnchorPane>

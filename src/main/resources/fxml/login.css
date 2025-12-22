@@ -1,0 +1,82 @@
+.background {
+    -fx-background-color: linear-gradient(to bottom right, #4f46e5, #6366f1);
+}
+
+.login-card {
+    -fx-background-color: white;
+    -fx-padding: 30;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0, 0, 5);
+}
+
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.subtitle {
+    -fx-text-fill: #6b7280;
+}
+
+.input-box {
+    -fx-background-color: #f3f4f6;
+    -fx-padding: 10 12;
+    -fx-background-radius: 10;
+}
+
+.input-box TextField,
+.input-box PasswordField {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-pref-width: 240;
+}
+
+.icon {
+    -fx-font-size: 16px;
+}
+
+.login-button {
+    -fx-background-color: #4f46e5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 10 0 10 0;
+    -fx-pref-width: 260;
+}
+
+.login-button:hover {
+    -fx-background-color: #4338ca;
+}
+
+.signup-link {
+    -fx-text-fill: #4f46e5;
+    -fx-font-weight: bold;
+}
+
+.error-label {
+    -fx-text-fill: #dc2626;
+}
+
+.register-button {
+    -fx-background-color: #22c55e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 10 0 10 0;
+    -fx-pref-width: 260;
+}
+
+.register-button:hover {
+    -fx-background-color: #16a34a;
+}
+
+.input-box ChoiceBox {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.signup-link {
+    -fx-text-fill: #4f46e5;
+    -fx-font-weight: bold;
+}
+

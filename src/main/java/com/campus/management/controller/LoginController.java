@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+
 public class LoginController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
@@ -39,6 +40,19 @@ public class LoginController {
         } catch (Exception ex) {
             statusLabel.setText("Failed to open dashboard");
             ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goToRegister(){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/registration.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setScene(new Scene(root, 800, 600));
+        } catch (Exception e){
+            statusLabel.setText("Failed to open registration page");
+            e.printStackTrace();
         }
     }
 }

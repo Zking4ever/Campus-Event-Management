@@ -59,4 +59,16 @@ public class RegistrationController {
             ex.printStackTrace();
         }
     }
+    @FXML
+    private void goToLogin(){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        }
 }
+
