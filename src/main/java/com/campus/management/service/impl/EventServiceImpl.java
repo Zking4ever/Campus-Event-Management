@@ -63,4 +63,7 @@ public class EventServiceImpl implements EventService {
         }
         return e;
     }
+    public void deleteEvent(String id) {
+        events.removeIf(e -> e.getId().equals(id));
+    }
 }
