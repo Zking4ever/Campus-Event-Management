@@ -22,8 +22,13 @@ public class LoginController {
 
     @FXML
     protected void onLogin() {
+        statusLabel.setText("");
         String u = usernameField.getText();
         String p = passwordField.getText();
+        if (u.equals("") || p.equals("")) {
+            statusLabel.setText("All fields are required!");
+            return;
+        }
         User user = authService.authenticate(u, p);
         if (user == null) {
             statusLabel.setText("Invalid credentials");

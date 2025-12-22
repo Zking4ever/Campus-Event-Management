@@ -43,21 +43,25 @@ public class RegistrationController {
             return;
         }
 
-        String id = UUID.randomUUID().toString();
+        String id = "randomuserId";
         // store raw password for the simple in-memory impl (replace with hashed in production)
-        User user = new User(id, username, rawPassword, role);
-        authService.register(user, rawPassword);
-        statusLabel.setText("Registered successfully");
-
-        // return to login
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root, 800, 600));
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        User user = new User(id, username, "hardCodedInput", "sample@gmail.com",rawPassword,Role.STUDENT);
+        boolean registered = authService.register(user);
+        if (registered){
+            statusLabel.setText("Registered successfully");
+        }else{
+            statusLabel.setText("Registeration failed");
         }
+
+//        // return to login
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+//            Parent root = loader.load();
+//            Stage stage = (Stage) usernameField.getScene().getWindow();
+//            stage.setScene(new Scene(root, 800, 600));
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
     }
     @FXML
     private void goToLogin(){

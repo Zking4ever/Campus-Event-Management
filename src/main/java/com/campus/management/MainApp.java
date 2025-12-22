@@ -21,7 +21,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         primaryStage.setTitle("Campus Management");
         primaryStage.setScene(scene);
-        primaryStage.setWidth(800);
+        primaryStage.setWidth(890);
         primaryStage.setHeight(600);
         primaryStage.show();
     }

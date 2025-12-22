@@ -31,7 +31,7 @@ public class OrganizerController {
     public void initialize() {
         User current = AppContext.getCurrentUser();
         if (current != null) {
-            organizerId = current.getId();
+            organizerId = current.getUserid();
             loadMyEvents();
         }
         eventsListView.setCellFactory(param -> new ListCell<>() {

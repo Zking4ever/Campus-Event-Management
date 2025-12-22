@@ -3,6 +3,7 @@ module com.campus.management {
     requires javafx.fxml;
     requires java.logging;
     requires java.sql;
+    requires mysql.connector.j;
 
     exports com.campus.management.model;
     exports com.campus.management.service;
@@ -14,4 +15,5 @@ module com.campus.management {
     exports com.campus.management.controller;
     exports com.campus.management;
     opens com.campus.management to javafx.graphics, javafx.fxml;
+    exports com.campus.management.service.database;
 }
