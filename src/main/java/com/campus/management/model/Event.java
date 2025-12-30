@@ -20,15 +20,19 @@ public class Event {
 
     private ArrayList<String> feedBack;
 
-    public Event(String id, String title, String description, String organizerId,
-                 String start, String end, EventStatus status) {
+    public Event(String id, String title, String description, String organizerId,LocalDateTime date,
+                 String start, String end, EventStatus status, String category, String location, String imageURL) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.organizerId = organizerId;
+        this.date = date;
         this.start = start;
         this.end = end;
         this.status = status;
+        this.category = category;
+        this.location = location;
+        this.imageURL = imageURL;
     }
 
     // getters / setters

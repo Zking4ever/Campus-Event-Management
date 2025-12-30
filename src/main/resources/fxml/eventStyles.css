@@ -1,0 +1,20 @@
+.eventInputContainer{
+    -fx-background-color:white;
+    -fx-alignment:center;
+    -fx-max-width:300;
+    -fx-padding:20;
+    -fx-border-radius:5;
+    -fx-background-radius: 5px;
+}
+.image-container{
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+.image-container:hover{
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+.image-preview:hover{
+    -fx-cursor: hand;
+}
+

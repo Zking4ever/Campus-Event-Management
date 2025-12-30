@@ -2,28 +2,48 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.campus.management.controller.OrganizerController"
       alignment="TOP_CENTER" spacing="20" prefWidth="800" prefHeight="600"
-      style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);">
+      style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);"
+      stylesheets="@eventStyles.css">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
+
+<!--    <Pane>-->
+    <VBox spacing="5" styleClass="eventInputContainer">
+        <Label text="Create an Event" style="-fx-alignment: center; -fx-font-weight:bold;-fx-font-size:26"/>
+        <StackPane onMouseClicked="#uploadImage" styleClass="image-container">
+            <ImageView fx:id="imagePreview" fitWidth="200" fitHeight="200" preserveRatio="true" styleClass="image-preview"/>
+        </StackPane>
+        <TextField fx:id="titleField" promptText="Event Title" maxWidth="300"/>
+        <TextArea fx:id="descArea" promptText="Event Description" prefRowCount="5" maxWidth="300"/>
+        <HBox spacing="85">
+            <Label text="Start time"/>
+            <Label text="End time"/>
+        </HBox>
+        <HBox spacing="10">
+            <TextField fx:id="startTimePicker" promptText="HH:mm"/>
+            <TextField fx:id="endDatePicker" promptText="HH:mm"/>
+        </HBox>
+        <TextField fx:id="locationField" promptText="Event Location" maxWidth="300"/>
+        <ComboBox fx:id="catagorySelect" maxWidth="Infinity"/>
+        <Button text="Create Event" onAction="#onCreateEvent"
+          style="-fx-background-color: #0ea5e9; -fx-text-fill: white; -fx-font-size: 13px; -fx-background-radius: 8; -fx-padding: 10 18;"/>
+    </VBox>
+<!--    </Pane>-->
 
     <Label text="Organizer Dashboard" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
     <Label text="Create and manage your events" style="-fx-font-size: 14px; -fx-text-fill: #64748b;"/>
 
     <HBox spacing="15" alignment="CENTER">
         <VBox spacing="10">
-            <TextField fx:id="titleField" promptText="Event Title" maxWidth="300"/>
-            <TextArea fx:id="descArea" promptText="Event Description" prefRowCount="4" maxWidth="300"/>
-            <HBox spacing="10">
-                <DatePicker fx:id="startDatePicker"/>
-                <DatePicker fx:id="endDatePicker"/>
-            </HBox>
-            <Button text="Create Event" onAction="#onCreateEvent"
-                    style="-fx-background-color: #0ea5e9; -fx-text-fill: white; -fx-font-size: 13px; -fx-background-radius: 8; -fx-padding: 10 18;"/>
+
+
             <Button text="Edit Selected Event" onAction="#onEditEvent"
                     style="-fx-background-color: #f59e0b; -fx-text-fill: white; -fx-font-size: 13px; -fx-background-radius: 8; -fx-padding: 10 18;"/>
             <Button text="View Feedback" onAction="#onViewFeedback"

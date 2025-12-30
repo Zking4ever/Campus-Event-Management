@@ -9,8 +9,8 @@ import java.sql.SQLException;
 public class EventDao {
     public static Event addEvent(Event event){
         String sql = """
-        Insert into events(title,description,date,start_time,end_time,location,category,organizer_id,status)
-        values(?,?,?,?,?,?,?,?,?)
+        Insert into events(title,description,date,start_time,end_time,location,category,organizer_id,status,imgURL)
+        values(?,?,?,?,?,?,?,?,?,?)
     """;
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -26,6 +26,7 @@ public class EventDao {
             ps.setString(7,event.getCategory());
             ps.setString(8,event.getOrganizerId());
             ps.setString(9,event.getStatus().toString());
+            ps.setString(10,event.getImageUrl());
 
             ps.execute();
             return event;

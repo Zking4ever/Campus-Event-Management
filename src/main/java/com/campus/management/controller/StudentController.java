@@ -72,8 +72,6 @@ public class StudentController {
 
 
         List<Event> approved = List.of(
-                new Event("IMG", "2323", "time", "Location", "10:32", "11:00",EventStatus.APPROVED),
-                new Event("IsdG", "2323", "sdfddd", "Location", "2:00", "4:00",EventStatus.APPROVED)
         );
         eventList = approved;
     }
