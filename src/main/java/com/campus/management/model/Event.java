@@ -9,17 +9,19 @@ public class Event {
     private String id;
     private String title;
     private String description;
-    private String organizerId;
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private LocalDateTime date;
+    private String start;
+    private String end;
+    private String location;
+    private String imageURL;
     private EventStatus status;
-    private String imageUrl;
-    private LocalDateTime dateCreated;
-    private Image image;
+    private String category;
+    private String organizerId;
+
     private ArrayList<String> feedBack;
 
     public Event(String id, String title, String description, String organizerId,
-                 LocalDateTime start, LocalDateTime end, EventStatus status) {
+                 String start, String end, EventStatus status) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -31,28 +33,39 @@ public class Event {
 
     // getters / setters
     public String getId() { return id; }
+
     public String getTitle() { return title; }
     public  void  setTitle(String title) { this.title = title; }
+
     public String getDescription() { return description; }
     public  void  setDescription(String description) { this.description = description; }
-    public String getOrganizerId() { return organizerId; }
-    public LocalDateTime getStart() { return start; }
-    public  void  setStart(LocalDateTime start) { this.start = start; }
-    public LocalDateTime getEnd() { return end; }
+
+    public String getStart() { return start; }
+    public  void  setStart(String start) { this.start = start; }
+
+    public String getEnd() { return end; }
+    public  void  setEnd(String end) { this.end = end; }
+
+
+    public LocalDateTime getDate() { return date; }
+    public void setDate(LocalDateTime date) { this.date = date; }
+
+    public String getImageUrl() { return imageURL; }
+    public void setImageUrl(String imageURL) { this.imageURL = imageURL; }
+
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
+
     public EventStatus getStatus() { return status; }
-    public  void  setEnd(LocalDateTime end) { this.end = end; }
     public void setStatus(EventStatus status) { this.status = status; }
-    public String getImageUrl() {
-        // Placeholder image URL, in real scenario this would be a field
-        return "https://via.placeholder.com/80";
-    }
-    public LocalDateTime getDateCreated() { return dateCreated; }
-    public void setDateCreated(LocalDateTime dateCreated) { this.dateCreated = dateCreated; }
-    public Image getImage() { return image; }
-    public void setImage(Image image) { this.image = image; }
+
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
+
+    public String getOrganizerId() { return organizerId; }
+
     public ArrayList<String> getFeedBack() { return feedBack; }
     public  void setFeedback(ArrayList<String> feedBack) {
         this.feedBack = feedBack;
     }
-
 }

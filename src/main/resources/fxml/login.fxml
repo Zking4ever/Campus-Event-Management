@@ -17,8 +17,8 @@
               prefWidth="400"
         >
 
-            <Label text="Campus Event Manager"
-                   style="-fx-font-size:28px; -fx-text-fill:white; -fx-font-weight:bold;"/>
+            <Label text="Campus Event Management"
+                   style="-fx-font-size:24px; -fx-text-fill:white; -fx-font-weight:bold;"/>
 
             <Label text="Register, manage, and attend all campus events seamlessly."
                    wrapText="true"
@@ -42,7 +42,7 @@
 
             <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
                 <Label text="👤" styleClass="icon"/>
-                <TextField fx:id="usernameField" promptText="Username"/>
+                <TextField fx:id="usernameField" promptText="Username or Email"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">

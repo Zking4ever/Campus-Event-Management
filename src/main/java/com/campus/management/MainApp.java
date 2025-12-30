@@ -1,6 +1,8 @@
 // java
 package com.campus.management;
 
+import com.campus.management.controller.EventCardController;
+import com.campus.management.controller.StudentController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,7 +17,7 @@ public class MainApp extends Application {
         AppContext.init();
 
         // load initial scene (login)
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/student.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

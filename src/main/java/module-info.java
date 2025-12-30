@@ -4,6 +4,7 @@ module com.campus.management {
     requires java.logging;
     requires java.sql;
     requires mysql.connector.j;
+    requires javafx.graphics;
 
     exports com.campus.management.model;
     exports com.campus.management.service;

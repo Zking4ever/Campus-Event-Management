@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class OrganizerController {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    imageView.setImage(new Image(e.getImageUrl(), 60, 60, true, true));
+//                    imageView.setImage(new Image(e.getImageUrl(), 60, 60, true, true));
                     setText(e.getTitle() + " (" + e.getStatus() + ") \n" +
                             "Start: " + e.getStart() + " | End: " + e.getEnd());
                     setGraphic(imageView);
@@ -63,8 +64,8 @@ public class OrganizerController {
                 titleField.getText(),
                 descArea.getText(),
                 organizerId,
-                startDatePicker.getValue().atStartOfDay(),
-                endDatePicker.getValue().atStartOfDay(),
+                startDatePicker.getValue().format(DateTimeFormatter.ofPattern("HH:mm")),
+                endDatePicker.getValue().format(DateTimeFormatter.ofPattern("HH:mm")),
                 EventStatus.PENDING);
         e.setFeedback(new ArrayList<>());
         eventService.createEvent(e);
@@ -89,8 +90,8 @@ public class OrganizerController {
         }
         selected.setTitle(titleField.getText());
         selected.setDescription(descArea.getText());
-        selected.setStart(startDatePicker.getValue().atStartOfDay());
-        selected.setEnd(endDatePicker.getValue().atStartOfDay());
+//        selected.setStart(startDatePicker.getValue().atStartOfDay());
+//        selected.setEnd(endDatePicker.getValue().atStartOfDay());
         eventService.updateEvent(selected);
         loadMyEvents();
         statusLabel.setText("Event updated!");

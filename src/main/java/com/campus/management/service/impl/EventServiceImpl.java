@@ -3,6 +3,7 @@ package com.campus.management.service.impl;
 import com.campus.management.model.Event;
 import com.campus.management.model.EventStatus;
 import com.campus.management.service.EventService;
+import com.campus.management.service.database.EventDao;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,12 +18,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event createEvent(Event event) {
-        Event e = new Event(UUID.randomUUID().toString(), event.getTitle(), event.getDescription(),
-                event.getOrganizerId(), event.getStart(), event.getEnd(), EventStatus.PENDING);
-        e.setDateCreated(LocalDateTime.now());
-        e.setFeedback(new ArrayList<>());
-        events.add(e);
-        return e;
+        return EventDao.addEvent(event);
     }
 
     @Override

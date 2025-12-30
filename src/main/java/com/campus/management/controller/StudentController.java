@@ -2,31 +2,39 @@ package com.campus.management.controller;
 
 import com.campus.management.AppContext;
 import com.campus.management.model.Event;
+import com.campus.management.model.EventStatus;
 import com.campus.management.model.User;
 import com.campus.management.service.EventService;
 import com.campus.management.service.impl.EventServiceImpl;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAmount;
 import java.util.List;
 
 public class StudentController {
 
     @FXML private Label usernameLabel;
     @FXML private Label statusLabel;
-    @FXML private ListView<Event> eventsListView;
+    @FXML private List<Event> eventList;
+    @FXML private FlowPane eventContainer;
 
     private final EventService eventService = new EventServiceImpl();
+
 
     @FXML
     public void initialize() {
@@ -34,60 +42,40 @@ public class StudentController {
         if (current != null) {
             usernameLabel.setText(current.getUsername());
             statusLabel.setText("Status: Active"); // you can customize this
+        }else{
+            statusLabel.setText("Status: Inactive");
         }
-
         loadApprovedEvents();
-        setupEventListView();
+        renderEvents();
     }
 
-    private void setupEventListView() {
-        eventsListView.setCellFactory(lv -> new ListCell<>() {
-            @Override
-            protected void updateItem(Event event, boolean empty) {
-                super.updateItem(event, empty);
-                if (empty || event == null) {
-                    setGraphic(null);
-                } else {
-                    HBox container = new HBox(15);
-                    container.setPadding(new Insets(10));
-                    container.setStyle("-fx-background-color: white; -fx-background-radius: 8; " +
-                            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4,0,0,2);");
 
-                    // Event image
-                    ImageView img = new ImageView();
-                    try {
-                        img.setImage(new Image(event.getImageUrl(), 80, 80, true, true));
-                    } catch (Exception e) {
-                        // default image if not found
-                        img.setImage(new Image("/images/default_event.png", 80, 80, true, true));
-                    }
-
-                    // Event info
-                    VBox info = new VBox(5);
-                    Label title = new Label(event.getTitle());
-                    title.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-                    Label date = new Label("Date: " + event.getStart());
-                    date.setStyle("-fx-text-fill: #6b7280;");
-                    info.getChildren().addAll(title, date);
-
-                    // Register button
-                    Button regBtn = new Button("Register");
-                    regBtn.setStyle("-fx-background-color: #16a34a; -fx-text-fill: white; -fx-background-radius: 6;");
-                    regBtn.setOnAction(e -> registerEvent(event));
-
-                    container.getChildren().addAll(img, info, regBtn);
-                    setGraphic(container);
-                }
+    private void renderEvents() {
+        try {
+            for (Event event : eventList) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCard.fxml"));
+                Parent card = loader.load();
+                EventCardController controller = loader.getController();
+                controller.setEventData(event);
+                eventContainer.getChildren().add(card);
             }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     protected void loadApprovedEvents() {
-        List<Event> approved = eventService.listEvents().stream()
-                .filter(e -> e.getStatus().name().equals("APPROVED"))
-                .toList();
-        eventsListView.setItems(FXCollections.observableArrayList(approved));
+//       List<Event> approved = eventService.listEvents().stream()
+//                .filter(e -> e.getStatus().name().equals("APPROVED"))
+//                .toList();
+
+
+        List<Event> approved = List.of(
+                new Event("IMG", "2323", "time", "Location", "10:32", "11:00",EventStatus.APPROVED),
+                new Event("IsdG", "2323", "sdfddd", "Location", "2:00", "4:00",EventStatus.APPROVED)
+        );
+        eventList = approved;
     }
 
     private void registerEvent(Event event) {

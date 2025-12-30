@@ -47,7 +47,7 @@ public class LoginController {
             Stage stage = (Stage) usernameField.getScene().getWindow();
 
             stage.setScene(new Scene(root, 800, 600));
-            stage.setTitle("Dashboard - " + user.getUsername());
+            stage.setTitle("Welcome - " + user.getUsername());
         } catch (Exception ex) {
             statusLabel.setText("Failed to open dashboard");
             ex.printStackTrace();

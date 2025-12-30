@@ -42,7 +42,14 @@
                        style="-fx-text-fill: #64748b;"/>
             </VBox>
 
-            <ListView fx:id="eventsListView" prefHeight="400" maxWidth="600"/>
+<!--            <ScrollPane fitToWidth="true" prefHeight="400" >-->
+<!--                <content>-->
+                    <FlowPane fx:id="eventContainer"
+                              hgap="16"
+                              vgap="16"
+                              prefWrapLength="800" />
+<!--                </content>-->
+<!--            </ScrollPane>-->
         </VBox>
     </center>
 </BorderPane>
