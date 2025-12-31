@@ -38,6 +38,7 @@ public class EventActionController {
     private String organizerId = null;
     @FXML private HBox buttonsContainer;
     private final EventService eventService = new EventServiceImpl();
+    Event currentEvent;
 
     @FXML
     public void initialize() {
@@ -80,7 +81,6 @@ public class EventActionController {
 
     @FXML //here edit will also work
     protected void onCreateEvent() {
-        System.out.println(actionType.getText());
         if(titleField.getText().isBlank() || descArea.getText().isBlank() || dateField.getEditor().getText().isBlank() || startTimePicker.getText().isEmpty() || endTimePicker.getText().isEmpty() || locationField.getText().isBlank()) {
             statusLabel.getStyleClass().add("error");
             statusLabel.setText("All fields are required");
@@ -126,10 +126,9 @@ public class EventActionController {
         Event event = null;
         if(actionType.getText().contains("Create")) {
                 event = eventService.createEvent(e);
-                System.out.println("Add Event");
         }else{
+            e.setId(currentEvent.getId());
             event = eventService.updateEvent(e);
-            System.out.println("Update Event");
         }
         if(event==null){
             statusLabel.getStyleClass().add("error");
@@ -138,7 +137,11 @@ public class EventActionController {
         }
         statusLabel.getStyleClass().clear();
         statusLabel.getStyleClass().add("success");
-        statusLabel.setText("Event created successfully!");
+        if(actionType.getText().contains("Create")) {
+            statusLabel.setText("Event created successfully!");
+        }else{
+            statusLabel.setText("Event updated successfully!");
+        }
         setToDefault();
     }
 
@@ -149,6 +152,7 @@ public class EventActionController {
     }
 
     protected void setDataFields(Event event) {
+        currentEvent = event;
         titleField.setText(event.getTitle());
         descArea.setText(event.getDescription());
         locationField.setText(event.getLocation());
