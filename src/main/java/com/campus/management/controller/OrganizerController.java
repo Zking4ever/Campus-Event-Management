@@ -1,37 +1,82 @@
 package com.campus.management.controller;
 
+import com.campus.management.AppContext;
+import com.campus.management.model.Event;
+import com.campus.management.model.User;
+import com.campus.management.service.EventService;
+import com.campus.management.service.impl.EventServiceImpl;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.util.List;
 
 public class OrganizerController {
 
     // Optional: inject if you want to control them dynamically later
-    @FXML
-    private TabPane tabPane;
+    @FXML private TabPane tabPane;
+    @FXML private ProgressBar progressBar;
+    @FXML VBox EventContainer;
 
-    @FXML
-    private ProgressBar progressBar;
 
-    /**
-     * Called automatically after FXML is loaded
-     */
+    private final EventService eventService = new EventServiceImpl();;
+    List<Event> eventList;
+    Event selectedEvent;
+    String orgainizer_id;
+    String orgainizer_name;
+
     @FXML
     public void initialize() {
-        // Initial setup
+        User current = AppContext.getCurrentUser();
+        if (current != null) {
+            orgainizer_id = current.getUserid();
+            orgainizer_name = current.getName();
+        }
+        eventList = eventService.listEvents();
+        renderEventList();
         if (progressBar != null) {
             progressBar.setProgress(0.73); // 73% registration
         }
     }
 
-    /**
-     * Handle "Create New Event" button
-     */
+    private void renderEventList() {
+       try {
+           for (Event event : eventList) {
+               FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCardOrganizer.fxml"));
+               Parent root = loader.load();
+               EventCardOrganizerController controller = loader.getController();
+               controller.setEventData(event);
+               EventContainer.getChildren().add(root);
+           }
+       }catch (Exception e){
+           System.out.println(e);
+       }
+    }
+
     @FXML
     private void handleCreateEvent() {
-        showInfo("Create Event", "Create New Event clicked");
+       try{
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventActions.fxml"));
+           Parent root = loader.load();
+           EventActionController controller = loader.getController();
+//           controller.setDataFields(selectedEvent);
+           Scene scene = new Scene(root);
+           Stage stage = new Stage();
+           stage.setTitle("Create Event");
+           stage.setResizable(false);
+           stage.setScene(scene);
+           stage.show();
+       }catch (Exception e){
+           System.out.println(e);
+       }
     }
 
     /**

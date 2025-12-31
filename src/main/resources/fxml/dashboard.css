@@ -2,7 +2,13 @@
     -fx-font-family: "Segoe UI", sans-serif;
     -fx-background-color: #f6f7fb;
 }
-
+.Profile-card{
+    -fx-min-width:300;
+    -fx-height:700;
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 0 0 1 0;
+}
 /* Header */
 .header {
     -fx-background-color: white;
@@ -64,8 +70,6 @@
 .green { -fx-border-color: #16a34a; -fx-border-width: 0 0 0 4; }
 .purple { -fx-border-color: #7c3aed; -fx-border-width: 0 0 0 4; }
 .orange { -fx-border-color: #f97316; -fx-border-width: 0 0 0 4; }
-
-
 
 .badge {
     -fx-background-color: #dbeafe;

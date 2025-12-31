@@ -18,13 +18,14 @@ public class EventCardOrganizerController {
 
     // This method receives parameters
     public void setEventData(Event event) {
-        eventImage.setImage(new Image(getClass().getResource("/images/img.png").toExternalForm()));
+        System.out.println(event.getTitle());
+//        eventImage.setImage(new Image(getClass().getResource("/images/img.png").toExternalForm()));
         title.setText(event.getTitle());
-//        dateLabel.setText(event.getDateCreated().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        dateLabel.setText(event.getDate().toString());
         timeLabel.setText(event.getStart()+ " - " + event.getEnd());
-        locationLabel.setText("Location: " + event.getLocation());
-        attendeesLabel.setText("Attending: " + event.getOrganizerId() + " students");
-        descriptionLabel.setText(event.getDescription());
+        locationLabel.setText(event.getLocation());
+        attendeesLabel.setText("30 / 75");
+//        descriptionLabel.setText(event.getDescription());
     }
 
     @FXML

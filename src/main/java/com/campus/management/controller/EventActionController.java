@@ -133,7 +133,7 @@ public class EventActionController {
         setToDefault();
     }
 
-    private  void setDataFields(Event event) {
+    private void setDataFields(Event event) {
         titleField.setText(event.getTitle());
         descArea.setText(event.getDescription());
         locationField.setText(event.getLocation());

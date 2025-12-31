@@ -12,7 +12,7 @@
 
     <VBox styleClass="event-card-org" spacing="15">
         <HBox spacing="10">
-            <Label text="AI  Machine Learning Symposium"
+            <Label fx:id="title" text="AI  Machine Learning Symposium"
                    styleClass="event-title-org"/>
             <Label text="Academic" styleClass="badge"/>
             <Region HBox.hgrow="ALWAYS"/>
@@ -22,20 +22,20 @@
 
         <GridPane hgap="40" vgap="10">
             <Label text="Date"/>
-            <Label text="January 15, 2026" GridPane.columnIndex="1"/>
+            <Label fx:id="dateLabel" text="January 15, 2026" GridPane.columnIndex="1"/>
 
             <Label text="Time" GridPane.rowIndex="1"/>
-            <Label text="2:00 PM - 5:00 PM"
+            <Label fx:id="timeLabel" text="2:00 PM - 5:00 PM"
                    GridPane.columnIndex="1"
                    GridPane.rowIndex="1"/>
 
             <Label text="Location" GridPane.columnIndex="2"/>
-            <Label text="Main Auditorium, Engineering Building"
+            <Label fx:id="locationLabel" text="Main Auditorium, Engineering Building"
                    GridPane.columnIndex="3"/>
 
             <Label text="Registrations" GridPane.columnIndex="2"
                    GridPane.rowIndex="1"/>
-            <Label text="145 / 200"
+            <Label fx:id="attendeesLabel" text="145 / 200"
                    GridPane.columnIndex="3"
                    GridPane.rowIndex="1"/>
         </GridPane>
