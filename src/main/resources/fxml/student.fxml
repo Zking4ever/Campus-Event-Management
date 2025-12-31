@@ -42,14 +42,12 @@
                        style="-fx-text-fill: #64748b;"/>
             </VBox>
 
-<!--            <ScrollPane fitToWidth="true" prefHeight="400" >-->
-<!--                <content>-->
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-border-color:white;-fx-padding:5px;">
                     <FlowPane fx:id="eventContainer"
                               hgap="16"
                               vgap="16"
                               prefWrapLength="800" />
-<!--                </content>-->
-<!--            </ScrollPane>-->
+            </ScrollPane>
         </VBox>
     </center>
 </BorderPane>

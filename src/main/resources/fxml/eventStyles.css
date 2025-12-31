@@ -4,50 +4,42 @@
 .event-card {
     -fx-background-color: white;
     -fx-background-radius: 16;
-    -fx-padding: 16;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0.2, 0, 6);
     -fx-pref-width: 320;
+    -fx-overflow: hidden;
 }
-
-/* Image at top */
 .event-image {
-    -fx-background-radius: 16 16 0 0;
-    -fx-border-radius: 16 16 0 0;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
     -fx-smooth: true;
+    -fx-overflow: hidden;
 }
-
-/* Title */
+.event-image Image{
+    -fx-border-radius: 16;
+}
 .event-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #111827;
 }
-
-/* Meta info (date, time, location) */
 .event-meta {
     -fx-font-size: 13px;
     -fx-text-fill: #4B5563;
 }
-
-/* Attendees */
 .event-attendees {
     -fx-font-size: 13px;
     -fx-text-fill: #374151;
 }
-
-/* Description */
 .event-description {
     -fx-font-size: 13px;
     -fx-text-fill: #6B7280;
 }
-
-/* Button */
 .event-button {
     -fx-background-color: #2563EB;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-radius: 10;
-    -fx-padding: 10 0 10 0;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
 }
 
 .event-button:hover {

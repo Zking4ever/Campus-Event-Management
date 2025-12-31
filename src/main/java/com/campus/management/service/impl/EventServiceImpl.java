@@ -23,7 +23,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> listEvents() {
-        return new ArrayList<>(events);
+        return EventDao.readEvents();
     }
 
     @Override

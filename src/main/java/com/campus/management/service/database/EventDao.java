@@ -1,10 +1,15 @@
 package com.campus.management.service.database;
 
 import com.campus.management.model.Event;
+import com.campus.management.model.EventStatus;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventDao {
     public static Event addEvent(Event event){
@@ -36,5 +41,38 @@ public class EventDao {
             return null;
         }
     }
+    public static List<Event> readEvents() {
+        List<Event> events = new ArrayList<>();
+        String sql = """
+                    Select * from events
+                """;
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Event e = new Event(
+                        String.valueOf(rs.getInt("id")),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getString("organizer_id"),
+                        LocalDate.parse(rs.getString("date")),
+                        rs.getString("start_time"),
+                        rs.getString("end_time"),
+                        EventStatus.valueOf(rs.getString("status")),
+                        rs.getString("category"),
+                        rs.getString("location"),
+                        rs.getString("imgURL")
+                    );
+                events.add(e);
+            }
+            return events;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 }

@@ -9,36 +9,27 @@
       fx:controller="com.campus.management.controller.EventCardStudentController"
       spacing="10"
       styleClass="event-card"
-      stylesheets="@eventStyles.css">
+      stylesheets="@eventStyles.css"
+      fx:id="container">
 
     <ImageView fx:id="eventImage"
                fitHeight="180"
                fitWidth="320"
                preserveRatio="false"
                styleClass="event-image"/>
-
-    <Label fx:id="title"
-           text="AA"
-           styleClass="event-title"/>
-
-    <Label fx:id="dateLabel"
-           styleClass="event-meta"/>
-
-    <Label fx:id="timeLabel"
-           styleClass="event-meta"/>
-
-    <Label fx:id="locationLabel"
-           styleClass="event-meta"/>
-
-    <Label fx:id="attendeesLabel"
-           styleClass="event-attendees"/>
-
-    <Label fx:id="descriptionLabel"
-           wrapText="true"
-           styleClass="event-description"/>
-
-    <Button text="View Details"
-            onAction="#onViewDetails"
-            styleClass="event-button"/>
+    <VBox style="-fx-padding:14px">
+        <Label fx:id="title"  styleClass="event-title"/>
+        <Label fx:id="dateLabel" styleClass="event-meta"/>
+        <Label fx:id="timeLabel" styleClass="event-meta"/>
+        <Label fx:id="locationLabel" styleClass="event-meta"/>
+        <Label fx:id="attendeesLabel" styleClass="event-attendees"/>
+        <Label fx:id="descriptionLabel" wrapText="true" styleClass="event-description"/>
+    </VBox>
+    <VBox style="-fx-padding:14px">
+        <Button text="View Details"
+                onAction="#onViewDetails"
+                styleClass="event-button"
+                maxWidth="Infinity"/>
+    </VBox>
 
 </VBox>

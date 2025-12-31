@@ -59,8 +59,7 @@ public class StudentController {
 //                .toList();
 
 
-        List<Event> approved = List.of(
-        );
+        List<Event> approved = eventService.listEvents();
         eventList = approved;
     }
 

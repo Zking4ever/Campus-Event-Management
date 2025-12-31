@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 
 public class EventCardStudentController {
 
@@ -15,6 +17,7 @@ public class EventCardStudentController {
     @FXML private Label locationLabel;
     @FXML private Label attendeesLabel;
     @FXML private Label descriptionLabel;
+    @FXML private VBox container;
 
     // This method receives parameters
     public void setEventData(Event event) {
@@ -26,6 +29,10 @@ public class EventCardStudentController {
         attendeesLabel.setText("Attending: " + event.getOrganizerId() + " students");
         descriptionLabel.setText(event.getDescription());
     }
+    Rectangle clip = new Rectangle();
+
+
+
 
     @FXML
     private void onViewDetails() {
