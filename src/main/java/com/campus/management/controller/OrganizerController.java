@@ -1,97 +1,111 @@
 package com.campus.management.controller;
 
-import com.campus.management.AppContext;
-import com.campus.management.model.Event;
-import com.campus.management.model.EventStatus;
-import com.campus.management.model.User;
-import com.campus.management.service.AuthService;
-import com.campus.management.service.EventService;
-import com.campus.management.service.impl.EventServiceImpl;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
-
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TabPane;
 
 public class OrganizerController {
 
-    @FXML private ListView<Event> eventsListView;
-    @FXML private Label statusLabel;
+    // Optional: inject if you want to control them dynamically later
+    @FXML
+    private TabPane tabPane;
 
-    private final EventService eventService = new EventServiceImpl();
-    private String organizerId = "SENDERSID";
+    @FXML
+    private ProgressBar progressBar;
 
+    /**
+     * Called automatically after FXML is loaded
+     */
     @FXML
     public void initialize() {
-        User current = AppContext.getCurrentUser();
-        if (current != null) {
-            organizerId = current.getUserid();
-            loadMyEvents();
+        // Initial setup
+        if (progressBar != null) {
+            progressBar.setProgress(0.73); // 73% registration
         }
-        eventsListView.setCellFactory(param -> new ListCell<>() {
-            private final ImageView imageView = new ImageView();
-            @Override
-            protected void updateItem(Event e, boolean empty) {
-                super.updateItem(e, empty);
-                if (empty || e == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-//                    imageView.setImage(new Image(e.getImageUrl(), 60, 60, true, true));
-                    setText(e.getTitle() + " (" + e.getStatus() + ") \n" +
-                            "Start: " + e.getStart() + " | End: " + e.getEnd());
-                    setGraphic(imageView);
-                }
-            }
-        });
     }
 
+    /**
+     * Handle "Create New Event" button
+     */
     @FXML
-    protected void onCreateEvent() {
-
-
-//        eventService.createEvent(e);
-        statusLabel.setText("Event created successfully!");
-        loadMyEvents();
+    private void handleCreateEvent() {
+        showInfo("Create Event", "Create New Event clicked");
     }
 
+    /**
+     * Handle View Event button
+     */
     @FXML
-    protected void loadMyEvents() {
-        List<Event> myEvents = eventService.listEventsByOrganizer(organizerId);
-        eventsListView.setItems(FXCollections.observableArrayList(myEvents));
+    private void handleViewEvent() {
+        showInfo("View Event", "Viewing event details");
     }
 
+    /**
+     * Handle Edit Event button
+     */
     @FXML
-    protected void onEditEvent() {
-        Event selected = eventsListView.getSelectionModel().getSelectedItem();
-        if (selected == null) {
-            statusLabel.setText("Select an event to edit");
-            return;
-        }
-        eventService.updateEvent(selected);
-        loadMyEvents();
-        statusLabel.setText("Event updated!");
+    private void handleEditEvent() {
+        showInfo("Edit Event", "Editing event");
     }
 
+    /**
+     * Handle Switch Role button
+     */
     @FXML
-    protected void onViewFeedback() {
-        Event selected = eventsListView.getSelectionModel().getSelectedItem();
-        if (selected == null || selected.getFeedBack().isEmpty()) {
-            statusLabel.setText("No feedback available");
-            return;
-        }
+    private void handleSwitchRole() {
+        showInfo("Switch Role", "Role switching not implemented yet");
+    }
+
+    /**
+     * Utility method for alerts
+     */
+    private void showInfo(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Feedback");
-        alert.setHeaderText(selected.getTitle() + " Feedback");
-        alert.setContentText(String.join("\n", selected.getFeedBack()));
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
         alert.showAndWait();
     }
 }
+
+//protected void onCreateEvent() {
+//
+//
+////        eventService.createEvent(e);
+//    statusLabel.setText("Event created successfully!");
+//    loadMyEvents();
+//}
+//
+//@FXML
+//protected void loadMyEvents() {
+//    List<Event> myEvents = eventService.listEventsByOrganizer(organizerId);
+//    eventsListView.setItems(FXCollections.observableArrayList(myEvents));
+//}
+//
+//@FXML
+//protected void onEditEvent() {
+//    Event selected = eventsListView.getSelectionModel().getSelectedItem();
+//    if (selected == null) {
+//        statusLabel.setText("Select an event to edit");
+//        return;
+//    }
+//    eventService.updateEvent(selected);
+//    loadMyEvents();
+//    statusLabel.setText("Event updated!");
+//}
+//
+//@FXML
+//protected void onViewFeedback() {
+//    Event selected = eventsListView.getSelectionModel().getSelectedItem();
+//    if (selected == null || selected.getFeedBack().isEmpty()) {
+//        statusLabel.setText("No feedback available");
+//        return;
+//    }
+//    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//    alert.setTitle("Feedback");
+//    alert.setHeaderText(selected.getTitle() + " Feedback");
+//    alert.setContentText(String.join("\n", selected.getFeedBack()));
+//    alert.showAndWait();
+//}

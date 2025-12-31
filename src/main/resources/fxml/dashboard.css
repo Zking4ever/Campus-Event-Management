@@ -1,0 +1,91 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #f6f7fb;
+}
+
+/* Header */
+.header {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 0 0 1 0;
+}
+
+.title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.subtitle {
+    -fx-text-fill: #6b7280;
+}
+
+/* Buttons */
+.primary-button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20;
+}
+
+.secondary-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 8;
+    -fx-padding: 8 15;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 8;
+}
+
+/* Stat Cards */
+.stat-card {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-spacing: 10;
+    -fx-min-width: 170;
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+}
+
+.stat-label {
+    -fx-text-fill: #6b7280;
+}
+
+.stat-value {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.blue { -fx-border-color: #2563eb; -fx-border-width: 0 0 0 4; }
+.green { -fx-border-color: #16a34a; -fx-border-width: 0 0 0 4; }
+.purple { -fx-border-color: #7c3aed; -fx-border-width: 0 0 0 4; }
+.orange { -fx-border-color: #f97316; -fx-border-width: 0 0 0 4; }
+
+/* Event Card */
+.event-card {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);
+}
+
+.event-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.badge {
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #1d4ed8;
+    -fx-padding: 4 10;
+    -fx-background-radius: 10;
+}
+
+/* Progress Bar */
+.progress-bar {
+    -fx-accent: #2563eb;
+}
