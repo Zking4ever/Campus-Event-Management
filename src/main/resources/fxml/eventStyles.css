@@ -18,11 +18,11 @@
     -fx-cursor: hand;
 }
 .success{
-    -fx-color:green;
+    -fx-text-fill:green;
     -fx-font-size:22px;
 }
 .error{
-    -fx-color:red;
-    -fx-font-size:22px;
+    -fx-text-fill:red;
+    -fx-font-size:16px;
 }
 

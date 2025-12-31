@@ -1,7 +1,6 @@
 package com.campus.management.model;
 
-import javafx.scene.image.Image;
-
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -9,7 +8,7 @@ public class Event {
     private String id;
     private String title;
     private String description;
-    private LocalDateTime date;
+    private LocalDate date;
     private String start;
     private String end;
     private String location;
@@ -20,7 +19,7 @@ public class Event {
 
     private ArrayList<String> feedBack;
 
-    public Event(String id, String title, String description, String organizerId,LocalDateTime date,
+    public Event(String id, String title, String description, String organizerId, LocalDate date,
                  String start, String end, EventStatus status, String category, String location, String imageURL) {
         this.id = id;
         this.title = title;
@@ -51,8 +50,8 @@ public class Event {
     public  void  setEnd(String end) { this.end = end; }
 
 
-    public LocalDateTime getDate() { return date; }
-    public void setDate(LocalDateTime date) { this.date = date; }
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
 
     public String getImageUrl() { return imageURL; }
     public void setImageUrl(String imageURL) { this.imageURL = imageURL; }
