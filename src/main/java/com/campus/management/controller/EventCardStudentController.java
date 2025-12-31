@@ -19,9 +19,17 @@ public class EventCardStudentController {
     @FXML private Label descriptionLabel;
     @FXML private VBox container;
 
+    public void initialize(){
+        Rectangle clip = new Rectangle(eventImage.getFitWidth(),eventImage.getFitHeight());
+        clip.setArcHeight(32);
+        clip.setArcWidth(32);
+        clip.widthProperty().bind(container.widthProperty());
+        clip.heightProperty().bind(container.heightProperty());
+        container.setClip(clip);
+    }
     // This method receives parameters
     public void setEventData(Event event) {
-        eventImage.setImage(new Image(getClass().getResource("/images/img.png").toExternalForm()));
+        eventImage.setImage(new Image(event.getImageUrl()));
         title.setText(event.getTitle());
 //        dateLabel.setText(event.getDateCreated().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         timeLabel.setText(event.getStart()+ " - " + event.getEnd());
@@ -29,7 +37,7 @@ public class EventCardStudentController {
         attendeesLabel.setText("Attending: " + event.getOrganizerId() + " students");
         descriptionLabel.setText(event.getDescription());
     }
-    Rectangle clip = new Rectangle();
+
 
 
 

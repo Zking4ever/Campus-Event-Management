@@ -17,6 +17,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -45,10 +46,10 @@ public class OrganizerController {
         if (current != null) {
             orgainizer_id = current.getUserid();
             orgainizer_name.setText(current.getName());
-            orgainizer_username.setText(current.getUsername());
+            orgainizer_username.setText("@"+current.getUsername());
         }
         profileImage.setImage(new Image(getClass().getResource("/images/person.png").toExternalForm()));
-        eventList = eventService.listEvents();
+        loadEventLists();
         renderEventList();
         MainContentContainer.prefWidthProperty().bind(rootContainer.widthProperty().multiply(0.8));
         if (progressBar != null) {
@@ -56,7 +57,11 @@ public class OrganizerController {
         }
     }
 
+    private void loadEventLists() {
+        eventList = eventService.listEvents();
+    }
     private void renderEventList() {
+        EventContainer.getChildren().clear();
        try {
            for (Event event : eventList) {
                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCardOrganizer.fxml"));
@@ -82,7 +87,11 @@ public class OrganizerController {
            stage.setTitle("Create Event");
            stage.setResizable(false);
            stage.setScene(scene);
-           stage.show();
+           stage.initModality(Modality.WINDOW_MODAL);
+           stage.initOwner(EventContainer.getScene().getWindow());
+           stage.showAndWait();
+           loadEventLists();
+           renderEventList();
        }catch (Exception e){
            System.out.println(e);
        }
@@ -97,17 +106,7 @@ public class OrganizerController {
         showInfo("Edit Event", "Editing event");
     }
 
-    /**
-     * Handle Switch Role button
-     */
-    @FXML
-    private void handleSwitchRole() {
-        showInfo("Switch Role", "Role switching not implemented yet");
-    }
 
-    /**
-     * Utility method for alerts
-     */
     private void showInfo(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

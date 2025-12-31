@@ -128,6 +128,7 @@ public class EventActionController {
             statusLabel.setText("Event not created");
             return;
         }
+        statusLabel.getStyleClass().clear();
         statusLabel.getStyleClass().add("success");
         statusLabel.setText("Event created successfully!");
         setToDefault();
