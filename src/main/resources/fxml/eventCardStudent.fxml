@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.campus.management.controller.EventCardStudentController"
+      spacing="10"
+      styleClass="event-card"
+      stylesheets="@eventStyles.css">
+
+    <ImageView fx:id="eventImage"
+               fitHeight="180"
+               fitWidth="320"
+               preserveRatio="false"
+               styleClass="event-image"/>
+
+    <Label fx:id="title"
+           text="AA"
+           styleClass="event-title"/>
+
+    <Label fx:id="dateLabel"
+           styleClass="event-meta"/>
+
+    <Label fx:id="timeLabel"
+           styleClass="event-meta"/>
+
+    <Label fx:id="locationLabel"
+           styleClass="event-meta"/>
+
+    <Label fx:id="attendeesLabel"
+           styleClass="event-attendees"/>
+
+    <Label fx:id="descriptionLabel"
+           wrapText="true"
+           styleClass="event-description"/>
+
+    <Button text="View Details"
+            onAction="#onViewDetails"
+            styleClass="event-button"/>
+
+</VBox>

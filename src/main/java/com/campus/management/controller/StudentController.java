@@ -2,28 +2,16 @@ package com.campus.management.controller;
 
 import com.campus.management.AppContext;
 import com.campus.management.model.Event;
-import com.campus.management.model.EventStatus;
 import com.campus.management.model.User;
 import com.campus.management.service.EventService;
 import com.campus.management.service.impl.EventServiceImpl;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.time.LocalDateTime;
-import java.time.temporal.TemporalAmount;
 import java.util.List;
 
 public class StudentController {
@@ -53,9 +41,9 @@ public class StudentController {
     private void renderEvents() {
         try {
             for (Event event : eventList) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCard.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCardStudent.fxml"));
                 Parent card = loader.load();
-                EventCardController controller = loader.getController();
+                EventCardStudentController controller = loader.getController();
                 controller.setEventData(event);
                 eventContainer.getChildren().add(card);
             }

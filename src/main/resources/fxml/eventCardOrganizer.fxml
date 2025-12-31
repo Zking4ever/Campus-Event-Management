@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.campus.management.controller.EventCardOrganizerController"
+      spacing="8"
+      stylesheets="@eventStyles.css">
+
+    <VBox styleClass="event-card-org" spacing="15">
+        <HBox spacing="10">
+            <Label text="AI  Machine Learning Symposium"
+                   styleClass="event-title-org"/>
+            <Label text="Academic" styleClass="badge"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="👁" styleClass="icon-button"/>
+            <Button text="✎" styleClass="icon-button"/>
+        </HBox>
+
+        <GridPane hgap="40" vgap="10">
+            <Label text="Date"/>
+            <Label text="January 15, 2026" GridPane.columnIndex="1"/>
+
+            <Label text="Time" GridPane.rowIndex="1"/>
+            <Label text="2:00 PM - 5:00 PM"
+                   GridPane.columnIndex="1"
+                   GridPane.rowIndex="1"/>
+
+            <Label text="Location" GridPane.columnIndex="2"/>
+            <Label text="Main Auditorium, Engineering Building"
+                   GridPane.columnIndex="3"/>
+
+            <Label text="Registrations" GridPane.columnIndex="2"
+                   GridPane.rowIndex="1"/>
+            <Label text="145 / 200"
+                   GridPane.columnIndex="3"
+                   GridPane.rowIndex="1"/>
+        </GridPane>
+
+        <Label text="Registration Progress"/>
+        <ProgressBar progress="0.73" maxWidth="Infinity"/>
+    </VBox>
+</VBox>
