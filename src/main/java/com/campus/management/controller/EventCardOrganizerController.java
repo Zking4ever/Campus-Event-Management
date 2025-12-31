@@ -89,6 +89,8 @@ public class EventCardOrganizerController {
         if(a.showAndWait().get()== ButtonType.OK){
             EventService eventService = new EventServiceImpl();
             eventService.deleteEvent(myevent.getId());
+            System.out.println("Event deleted successfully");
+            refreshPage();
         }
     }
     private void refreshPage() {

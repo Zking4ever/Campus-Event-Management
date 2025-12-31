@@ -116,4 +116,22 @@ public class EventDao {
         }
     }
 
+    public static void deleteEvent(String id){
+        String sql = """
+                Delete from events where id = ?;
+        """;
+        try (Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)) {
+            if(con == null) {
+                return;
+            }
+            ps.setInt(1, Integer.parseInt(id));
+            ps.execute();
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return;
+        }
+
+    }
 }

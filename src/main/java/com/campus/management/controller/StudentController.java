@@ -38,7 +38,6 @@ public class StudentController {
         renderEvents();
     }
 
-
     private void renderEvents() {
         try {
             for (Event event : eventList) {
