@@ -7,15 +7,12 @@ import com.campus.management.service.EventService;
 import com.campus.management.service.impl.EventServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,20 +22,29 @@ import java.util.List;
 public class OrganizerController {
 
     // Optional: inject if you want to control them dynamically later
-    @FXML private TabPane tabPane;
-    @FXML private ProgressBar progressBar;
-    @FXML VBox EventContainer;
-    @FXML HBox rootContainer;
-    @FXML VBox MainContentContainer;
+    @FXML
+    private TabPane tabPane;
+    @FXML
+    private ProgressBar progressBar;
+    @FXML
+    VBox EventContainer;
+    @FXML
+    HBox rootContainer;
+    @FXML
+    VBox MainContentContainer;
 
 
-    private final EventService eventService = new EventServiceImpl();;
+    private final EventService eventService = new EventServiceImpl();
+    ;
     List<Event> eventList;
     Event selectedEvent;
     String orgainizer_id;
-    @FXML ImageView profileImage;
-    @FXML Label orgainizer_name;
-    @FXML Label orgainizer_username;
+    @FXML
+    ImageView profileImage;
+    @FXML
+    Label orgainizer_name;
+    @FXML
+    Label orgainizer_username;
 
     @FXML
     public void initialize() {
@@ -46,7 +52,7 @@ public class OrganizerController {
         if (current != null) {
             orgainizer_id = current.getUserid();
             orgainizer_name.setText(current.getName());
-            orgainizer_username.setText("@"+current.getUsername());
+            orgainizer_username.setText("@" + current.getUsername());
         }
         profileImage.setImage(new Image(getClass().getResource("/images/person.png").toExternalForm()));
         loadEventLists();
@@ -60,59 +66,54 @@ public class OrganizerController {
     private void loadEventLists() {
         eventList = eventService.listEvents();
     }
+
     private void renderEventList() {
         EventContainer.getChildren().clear();
-       try {
-           for (Event event : eventList) {
-               FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCardOrganizer.fxml"));
-               Parent root = loader.load();
-               EventCardOrganizerController controller = loader.getController();
-               controller.setEventData(event);
-               EventContainer.getChildren().add(root);
-           }
-       }catch (Exception e){
-           System.out.println(e);
-       }
+        try {
+            for (Event event : eventList) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCardOrganizer.fxml"));
+                Parent root = loader.load();
+                EventCardOrganizerController controller = loader.getController();
+                controller.setEventData(event);
+                EventContainer.getChildren().add(root);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @FXML
     private void handleCreateEvent() {
-       try{
-           FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventActions.fxml"));
-           Parent root = loader.load();
-           EventActionController controller = loader.getController();
-//           controller.setDataFields(selectedEvent);
-           Scene scene = new Scene(root);
-           Stage stage = new Stage();
-           stage.setTitle("Create Event");
-           stage.setResizable(false);
-           stage.setScene(scene);
-           stage.initModality(Modality.WINDOW_MODAL);
-           stage.initOwner(EventContainer.getScene().getWindow());
-           stage.showAndWait();
-           loadEventLists();
-           renderEventList();
-       }catch (Exception e){
-           System.out.println(e);
-       }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventActions.fxml"));
+            Parent root = loader.load();
+            EventActionController controller = loader.getController();
+            controller.setToDefault();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Create Event");
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(EventContainer.getScene().getWindow());
+            stage.showAndWait();
+            loadEventLists();
+            renderEventList();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
-
-
-    /**
-     * Handle Edit Event button
-     */
     @FXML
-    private void handleEditEvent() {
-        showInfo("Edit Event", "Editing event");
-    }
-
-
-    private void showInfo(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    protected void onLogout() {
+        AppContext.setCurrentUser(null);
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+            javafx.scene.Parent root = loader.load();
+            Stage stage = (Stage) rootContainer.getScene().getWindow();
+            stage.setScene(new javafx.scene.Scene(root, 800, 600));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
@@ -130,17 +131,7 @@ public class OrganizerController {
 //    eventsListView.setItems(FXCollections.observableArrayList(myEvents));
 //}
 //
-//@FXML
-//protected void onEditEvent() {
-//    Event selected = eventsListView.getSelectionModel().getSelectedItem();
-//    if (selected == null) {
-//        statusLabel.setText("Select an event to edit");
-//        return;
-//    }
-//    eventService.updateEvent(selected);
-//    loadMyEvents();
-//    statusLabel.setText("Event updated!");
-//}
+
 //
 //@FXML
 //protected void onViewFeedback() {

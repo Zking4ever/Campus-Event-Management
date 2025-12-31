@@ -22,7 +22,7 @@
                             onAction="#handleCreateEvent"/>
                     <Button text=" Log out"
                             styleClass="secondary-button"
-                            onAction="#handleCreateEvent"/>
+                            onAction="#onLogout"/>
                 </VBox>
             </VBox>
         </VBox>

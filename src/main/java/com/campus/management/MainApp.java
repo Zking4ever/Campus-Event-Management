@@ -15,7 +15,7 @@ public class MainApp extends Application {
         AppContext.init();
 
         // load initial scene (login)
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/student.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/organizer.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

@@ -34,8 +34,8 @@
         <TextField fx:id="locationField" promptText="Event Location" maxWidth="350"/>
         <ComboBox fx:id="catagorySelect" maxWidth="Infinity"/>
         <HBox fx:id="buttonsContainer" spacing="10" style="-fx-padding: 20 5 5 5">
-            <Button text="Cancel" onAction="#onCreateEvent"
-                    style="-fx-background-color: lightgray; -fx-text-fill: #3040503; -fx-font-size: 13px; -fx-cursor:hand; -fx-background-radius: 8; -fx-padding: 8 10;"/>
+            <Button text="Cancel" onAction="#cancel"
+                    style="-fx-background-color:lightgray; -fx-text-fill: #3040503; -fx-font-size: 13px; -fx-cursor:hand; -fx-background-radius: 8; -fx-padding: 8 10;"/>
             <Button text="Create Event" onAction="#onCreateEvent"
                     style="-fx-background-color: #0ea5e9; -fx-text-fill: white; -fx-font-size: 13px; -fx-cursor:hand; -fx-background-radius: 8; -fx-padding: 8 10;"/>
         </HBox>

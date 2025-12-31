@@ -27,6 +27,10 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public Event updateEvent(Event updated) {
+        return  EventDao.updateEvent(updated);
+    }
+    @Override
     public Event findById(String id) {
         return events.stream().filter(e -> e.getId().equals(id)).findFirst().orElse(null);
     }
@@ -47,18 +51,7 @@ public class EventServiceImpl implements EventService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public Event updateEvent(Event updated) {
-        Event e = findById(updated.getId());
-        if (e != null) {
-            e.setTitle(updated.getTitle());
-            e.setDescription(updated.getDescription());
-            e.setStart(updated.getStart());
-            e.setEnd(updated.getEnd());
-            e.setStatus(updated.getStatus());
-        }
-        return e;
-    }
+
     public void deleteEvent(String id) {
         events.removeIf(e -> e.getId().equals(id));
     }

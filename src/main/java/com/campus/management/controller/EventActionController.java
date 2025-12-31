@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Window;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -23,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.function.UnaryOperator;
 
 public class EventActionController {
-    @FXML private Label actionType;
+    @FXML protected Label actionType;
     @FXML private Label statusLabel;
     @FXML private ImageView imagePreview;
     @FXML private TextField titleField;
@@ -77,8 +78,9 @@ public class EventActionController {
         }
     }
 
-    @FXML
+    @FXML //here edit will also work
     protected void onCreateEvent() {
+        System.out.println(actionType.getText());
         if(titleField.getText().isBlank() || descArea.getText().isBlank() || dateField.getEditor().getText().isBlank() || startTimePicker.getText().isEmpty() || endTimePicker.getText().isEmpty() || locationField.getText().isBlank()) {
             statusLabel.getStyleClass().add("error");
             statusLabel.setText("All fields are required");
@@ -121,8 +123,14 @@ public class EventActionController {
                 locationField.getText(),
                 selectedImagePath
         );
-
-        Event event = eventService.createEvent(e);
+        Event event = null;
+        if(actionType.getText().contains("Create")) {
+                event = eventService.createEvent(e);
+                System.out.println("Add Event");
+        }else{
+            event = eventService.updateEvent(e);
+            System.out.println("Update Event");
+        }
         if(event==null){
             statusLabel.getStyleClass().add("error");
             statusLabel.setText("Event not created");
@@ -134,7 +142,13 @@ public class EventActionController {
         setToDefault();
     }
 
-    private void setDataFields(Event event) {
+    @FXML
+    protected void cancel(){
+        Window stage = imagePreview.getScene().getWindow();
+        stage.hide();
+    }
+
+    protected void setDataFields(Event event) {
         titleField.setText(event.getTitle());
         descArea.setText(event.getDescription());
         locationField.setText(event.getLocation());
@@ -145,7 +159,7 @@ public class EventActionController {
         selectedImagePath = event.getImageUrl();
         catagorySelect.getSelectionModel().select(event.getCategory());
     }
-    private void setToDefault(){
+    protected void setToDefault(){
         titleField.clear();
         descArea.clear();
         imagePreview.setImage(new Image(getClass().getResource("/images/placeholder.png").toExternalForm()));

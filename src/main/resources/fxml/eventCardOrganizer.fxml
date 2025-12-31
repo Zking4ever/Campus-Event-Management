@@ -10,36 +10,45 @@
       spacing="8"
       stylesheets="@eventStyles.css">
 
-    <VBox styleClass="event-card-org" spacing="15">
-        <HBox spacing="10">
-            <Label fx:id="title" text="AI  Machine Learning Symposium"
-                   styleClass="event-title-org"/>
-            <Label text="Academic" styleClass="badge"/>
-            <Region HBox.hgrow="ALWAYS"/>
-            <Button text="👁" styleClass="icon-button"/>
-            <Button text="✎" styleClass="icon-button"/>
+    <VBox styleClass="event-card-org" spacing="6">
+        <HBox>
+            <ImageView fx:id="eventImage"
+                       fitHeight="200"
+                       fitWidth="335"
+                       smooth="true"
+                       preserveRatio="false"
+                       styleClass="event-image"/>
+            <VBox spacing="7" style=" -fx-padding:0 15px" HBox.hgrow="ALWAYS">
+                <HBox spacing="10">
+                    <Label fx:id="title" text="AI  Machine Learning Symposium"
+                           styleClass="event-title-org" style="-fx-font-size:28px"/>
+                    <Label fx:id="catagoryLabel" text="Academic" styleClass="badge"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="🗑"  onAction="#handleDeletEvent" styleClass="icon-button"/>
+                    <Button text="✎" onAction="#handleEditEvent" styleClass="icon-button"/>
+                </HBox>
+                <Label text="Description" fx:id="descriptionLabel" />
+                <GridPane hgap="40" vgap="10" style="-fx-padding:20 0;-fx-font-size:18px">
+                <Label text="📆 Date"/>
+                <Label fx:id="dateLabel" text="January 15, 2026" GridPane.rowIndex="1"/>
+
+                <Label text="🕐 Time" GridPane.columnIndex="1"/>
+                <Label fx:id="timeLabel" text="2:00 PM - 5:00 PM"
+                       GridPane.columnIndex="1"
+                       GridPane.rowIndex="1"/>
+
+                <Label text="📍 Location" GridPane.columnIndex="2"/>
+                <Label fx:id="locationLabel" text="Main Auditorium, Engineering Building"
+                       GridPane.columnIndex="2"
+                        GridPane.rowIndex="1"/>
+
+                <Label text="Registrations" GridPane.columnIndex="3"/>
+                <Label fx:id="attendeesLabel" text="145 / 200"
+                       GridPane.columnIndex="3"
+                       GridPane.rowIndex="1"/>
+            </GridPane>
+            </VBox>
         </HBox>
-
-        <GridPane hgap="40" vgap="10">
-            <Label text="Date"/>
-            <Label fx:id="dateLabel" text="January 15, 2026" GridPane.columnIndex="1"/>
-
-            <Label text="Time" GridPane.rowIndex="1"/>
-            <Label fx:id="timeLabel" text="2:00 PM - 5:00 PM"
-                   GridPane.columnIndex="1"
-                   GridPane.rowIndex="1"/>
-
-            <Label text="Location" GridPane.columnIndex="2"/>
-            <Label fx:id="locationLabel" text="Main Auditorium, Engineering Building"
-                   GridPane.columnIndex="3"/>
-
-            <Label text="Registrations" GridPane.columnIndex="2"
-                   GridPane.rowIndex="1"/>
-            <Label fx:id="attendeesLabel" text="145 / 200"
-                   GridPane.columnIndex="3"
-                   GridPane.rowIndex="1"/>
-        </GridPane>
-
         <Label text="Registration Progress"/>
         <ProgressBar progress="0.73" maxWidth="Infinity"/>
     </VBox>

@@ -12,8 +12,6 @@
             prefHeight="600"
             style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);"
             stylesheets="@dashboard.css">
-
-    <!-- Left Panel: Profile Info -->
     <left>
         <VBox spacing="20" alignment="TOP_CENTER"
               style="-fx-background-color: #4f46e5;"
@@ -32,8 +30,6 @@
             </VBox>
         </VBox>
     </left>
-
-    <!-- Center Panel: Events List -->
     <center>
         <VBox spacing="15">
             <padding>
@@ -47,12 +43,24 @@
                        style="-fx-text-fill: #64748b;"/>
             </VBox>
 
-            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-border-color:white;-fx-padding:5px;">
-                    <FlowPane fx:id="eventContainer"
-                              hgap="16"
-                              vgap="16"
-                              prefWrapLength="800" />
-            </ScrollPane>
+            <TabPane styleClass="my-tabpane">
+                <Tab text="Explore" closable="false">
+                    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-border-color:white;-fx-padding:5px;">
+                        <FlowPane fx:id="eventContainer"
+                                  hgap="16"
+                                  vgap="16"
+                                  prefWrapLength="800" />
+                    </ScrollPane>
+                </Tab>
+                <Tab text="Registered" closable="false">
+                    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-border-color:white;-fx-padding:5px;">
+                        <FlowPane fx:id="registeredEventContainer"
+                                  hgap="16"
+                                  vgap="16"
+                                  prefWrapLength="800" />
+                    </ScrollPane>
+                </Tab>
+            </TabPane>
         </VBox>
     </center>
 </BorderPane>

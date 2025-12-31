@@ -103,4 +103,11 @@
     -fx-background-radius: 10;
 }
 
+.tab-pane .tab-header-area .tab {
+    -fx-padding:7 20;
+}
+.my-tabpane .tab-header-area {
+    -fx-background-color: red;
+}
+
 
