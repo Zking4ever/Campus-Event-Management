@@ -7,13 +7,15 @@ import com.campus.management.service.EventService;
 import com.campus.management.service.impl.EventServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -25,23 +27,30 @@ public class OrganizerController {
     @FXML private TabPane tabPane;
     @FXML private ProgressBar progressBar;
     @FXML VBox EventContainer;
+    @FXML HBox rootContainer;
+    @FXML VBox MainContentContainer;
 
 
     private final EventService eventService = new EventServiceImpl();;
     List<Event> eventList;
     Event selectedEvent;
     String orgainizer_id;
-    String orgainizer_name;
+    @FXML ImageView profileImage;
+    @FXML Label orgainizer_name;
+    @FXML Label orgainizer_username;
 
     @FXML
     public void initialize() {
         User current = AppContext.getCurrentUser();
         if (current != null) {
             orgainizer_id = current.getUserid();
-            orgainizer_name = current.getName();
+            orgainizer_name.setText(current.getName());
+            orgainizer_username.setText(current.getUsername());
         }
+        profileImage.setImage(new Image(getClass().getResource("/images/person.png").toExternalForm()));
         eventList = eventService.listEvents();
         renderEventList();
+        MainContentContainer.prefWidthProperty().bind(rootContainer.widthProperty().multiply(0.8));
         if (progressBar != null) {
             progressBar.setProgress(0.73); // 73% registration
         }
@@ -79,13 +88,6 @@ public class OrganizerController {
        }
     }
 
-    /**
-     * Handle View Event button
-     */
-    @FXML
-    private void handleViewEvent() {
-        showInfo("View Event", "Viewing event details");
-    }
 
     /**
      * Handle Edit Event button

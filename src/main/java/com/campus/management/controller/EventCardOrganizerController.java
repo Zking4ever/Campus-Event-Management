@@ -18,7 +18,6 @@ public class EventCardOrganizerController {
 
     // This method receives parameters
     public void setEventData(Event event) {
-        System.out.println(event.getTitle());
 //        eventImage.setImage(new Image(getClass().getResource("/images/img.png").toExternalForm()));
         title.setText(event.getTitle());
         dateLabel.setText(event.getDate().toString());

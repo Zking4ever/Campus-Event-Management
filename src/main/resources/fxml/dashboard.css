@@ -2,12 +2,19 @@
     -fx-font-family: "Segoe UI", sans-serif;
     -fx-background-color: #f6f7fb;
 }
-.Profile-card{
+.Profile-container{
     -fx-min-width:300;
-    -fx-height:700;
-    -fx-background-color: white;
+    -fx-min-height:500;
+    -fx-padding:40 10 10 10;
     -fx-border-color: #e5e7eb;
     -fx-border-width: 0 0 1 0;
+}
+.Profile-card{
+    -fx-background-color: white;
+    -fx-padding:10;
+    -fx-background-radius:10;
+    -fx-min-width:270;
+    -fx-min-height:300;
 }
 /* Header */
 .header {
@@ -32,6 +39,8 @@
     -fx-font-weight: bold;
     -fx-background-radius: 10;
     -fx-padding: 10 20;
+    -fx-width: 200;
+    -fx-cursor:hand;
 }
 
 .secondary-button {
@@ -39,6 +48,15 @@
     -fx-border-color: #d1d5db;
     -fx-border-radius: 8;
     -fx-padding: 8 15;
+    -fx-min-width: 150;
+    -fx-cursor:hand;
+}
+.secondary-button:hover {
+    -fx-background-color: rgba(255, 0, 0, 0.35);
+    -fx-border-color: #d1d5db;
+    -fx-border-width: 0;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
 }
 
 .icon-button {

@@ -2,38 +2,41 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.Insets?>
 
 <StackPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.campus.management.controller.OrganizerController"
-            stylesheets="@dashboard.css"
-            fx:id="rootContainer">
+            stylesheets="@dashboard.css">
 
-    <HBox>
-        <VBox styleClass="Profile-card">
-            <Label text="Profile"></Label>
-            <Label text="Logged in as: Organizer" styleClass="subtitle"/>
+    <HBox fx:id="rootContainer" alignment="center">
+        <VBox styleClass="Profile-container">
+            <VBox styleClass="Profile-card" alignment="center">
+                <ImageView fitWidth="160" preserveRatio="true" fx:id="profileImage">
+
+                </ImageView>
+                <Label fx:id="orgainizer_name" text="Profile"/>
+                <Label fx:id="orgainizer_username" text="Logged in as: Organizer" styleClass="subtitle"/>
+                <VBox style="-fx-padding:15px 0" spacing="5" alignment="center">
+                    <Button text="+ Create New Event"
+                            styleClass="primary-button"
+                            onAction="#handleCreateEvent"/>
+                    <Button text=" Log out"
+                            styleClass="secondary-button"
+                            onAction="#handleCreateEvent"/>
+                </VBox>
+            </VBox>
         </VBox>
-    <!-- Main Content -->
-        <VBox spacing="25" style="-fx-padding:20px;">
+        <VBox spacing="25" fx:id="MainContentContainer" style="-fx-padding:20px; -fx-background-color:white">
             <HBox spacing="20" styleClass="header" >
                 <VBox>
                     <Label text="Campus Event Management" styleClass="title"/>
                 </VBox>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Button text="+ Create New Event"
-                        styleClass="primary-button"
-                        onAction="#handleCreateEvent"/>
-
-                <Button text="⟶ Switch Role"
-                        styleClass="secondary-button"
-                        onAction="#handleSwitchRole"/>
-
             </HBox>
             <!-- Stats Cards -->
             <HBox spacing="20">
-                <VBox styleClass="stat-card blue">
+                <VBox styleClass="blue stat-card ">
                     <Label text="My Events" styleClass="stat-label"/>
                     <Label text="4" styleClass="stat-value"/>
                 </VBox>
@@ -52,9 +55,6 @@
                     <Label text="Avg Attendance" styleClass="stat-label"/>
                     <Label text="82%" styleClass="stat-value"/>
                 </VBox>
-
-                <Region HBox.hgrow="ALWAYS"/>
-                <Button text="+ Create New Event" styleClass="primary-button"/>
             </HBox>
             <!-- Tabs -->
             <TabPane>
