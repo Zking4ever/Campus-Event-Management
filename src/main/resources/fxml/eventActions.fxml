@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.campus.management.controller.EventActionController"
+      alignment="TOP_CENTER" spacing="20" prefWidth="800" prefHeight="600"
+      style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);"
+      stylesheets="@eventStyles.css">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    <VBox spacing="5" styleClass="eventInputContainer">
+        <Label text="Create an Event" style="-fx-alignment: center; -fx-font-weight:bold;-fx-font-size:26"/>
+        <Label fx:id="statusLabel" />
+        <StackPane onMouseClicked="#uploadImage" styleClass="image-container">
+            <ImageView fx:id="imagePreview" fitWidth="200" fitHeight="200" preserveRatio="true" styleClass="image-preview"/>
+        </StackPane>
+        <TextField fx:id="titleField" promptText="Event Title" maxWidth="350"/>
+        <TextArea fx:id="descArea" promptText="Event Description" prefRowCount="5" maxWidth="350"/>
+        <HBox spacing="100">
+            <Label text="Start time"/>
+            <Label text="End time"/>
+        </HBox>
+        <HBox spacing="10">
+            <TextField fx:id="startTimePicker" promptText="HH:mm"/>
+            <TextField fx:id="endDatePicker" promptText="HH:mm"/>
+        </HBox>
+        <TextField fx:id="locationField" promptText="Event Location" maxWidth="350"/>
+        <ComboBox fx:id="catagorySelect" maxWidth="Infinity"/>
+        <HBox fx:id="buttonsContainer" spacing="10" style="-fx-padding: 20 5 5 5">
+            <Button text="Create Event" onAction="#onCreateEvent"
+                    style="-fx-background-color: lightgray; -fx-text-fill: #3040503; -fx-font-size: 13px; -fx-cursor:hand; -fx-background-radius: 8; -fx-padding: 8 10;"/>
+            <Button text="Create Event" onAction="#onCreateEvent"
+                    style="-fx-background-color: #0ea5e9; -fx-text-fill: white; -fx-font-size: 13px; -fx-cursor:hand; -fx-background-radius: 8; -fx-padding: 8 10;"/>
+        </HBox>
+    </VBox>
+</VBox>

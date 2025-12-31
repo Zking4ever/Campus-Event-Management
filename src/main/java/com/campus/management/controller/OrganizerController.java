@@ -22,15 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrganizerController {
-    @FXML private ImageView imagePreview;
-    @FXML private TextField titleField;
-    @FXML private TextArea descArea;
-    @FXML private TextField startTimePicker;
-    @FXML private TextField endDatePicker;
-    @FXML private TextField locationField;
-    @FXML private ComboBox<String> catagorySelect;
-    private String selectedImagePath = null;
-
 
     @FXML private ListView<Event> eventsListView;
     @FXML private Label statusLabel;
@@ -45,17 +36,6 @@ public class OrganizerController {
             organizerId = current.getUserid();
             loadMyEvents();
         }
-        imagePreview.setImage(
-                new Image(getClass().getResource("/images/placeholder.png").toExternalForm())
-        );
-        catagorySelect.getItems().addAll(
-                "Academy",
-                "Sport",
-                "Art",
-                "Entertainment",
-                "Tech"
-        );
-        catagorySelect.getSelectionModel().select(0);
         eventsListView.setCellFactory(param -> new ListCell<>() {
             private final ImageView imageView = new ImageView();
             @Override
@@ -75,47 +55,11 @@ public class OrganizerController {
     }
 
     @FXML
-    protected void uploadImage(MouseEvent event) {
-        FileChooser chooser = new FileChooser();
-        chooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
-        );
-
-        File file = chooser.showOpenDialog(imagePreview.getScene().getWindow());
-        if (file != null) {
-            imagePreview.setImage(
-                    new Image(file.toURI().toString())
-            );
-            selectedImagePath = file.toURI().toString();
-        }
-    }
-    @FXML
     protected void onCreateEvent() {
-        if (titleField.getText().isBlank() || descArea.getText().isBlank()) {
-            statusLabel.setText("Title and description required");
-            return;
-        }
-        if(imagePreview.getImage() == null) {
-            statusLabel.setText("Image not found");
-        }
 
-        Event e = new Event(null,
-                titleField.getText(),
-                descArea.getText(),
-                organizerId,
-                LocalDateTime.now(),
-                startTimePicker.getText(),
-                endDatePicker.getText(),
-                EventStatus.PENDING,
-                catagorySelect.getSelectionModel().getSelectedItem(),
-                locationField.getText(),
-                selectedImagePath
-                );
 
-        eventService.createEvent(e);
+//        eventService.createEvent(e);
         statusLabel.setText("Event created successfully!");
-        titleField.clear();
-        descArea.clear();
         loadMyEvents();
     }
 
@@ -132,10 +76,6 @@ public class OrganizerController {
             statusLabel.setText("Select an event to edit");
             return;
         }
-        selected.setTitle(titleField.getText());
-        selected.setDescription(descArea.getText());
-//        selected.setStart(startDatePicker.getValue().atStartOfDay());
-//        selected.setEnd(endDatePicker.getValue().atStartOfDay());
         eventService.updateEvent(selected);
         loadMyEvents();
         statusLabel.setText("Event updated!");

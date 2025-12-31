@@ -1,8 +1,8 @@
 .eventInputContainer{
     -fx-background-color:white;
     -fx-alignment:center;
-    -fx-max-width:300;
-    -fx-padding:20;
+    -fx-max-width:350;
+    -fx-padding:20 20 5 20;
     -fx-border-radius:5;
     -fx-background-radius: 5px;
 }
@@ -16,5 +16,13 @@
 }
 .image-preview:hover{
     -fx-cursor: hand;
+}
+.success{
+    -fx-color:green;
+    -fx-font-size:22px;
+}
+.error{
+    -fx-color:red;
+    -fx-font-size:22px;
 }
 
