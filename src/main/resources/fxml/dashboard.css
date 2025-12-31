@@ -16,6 +16,13 @@
     -fx-min-width:270;
     -fx-min-height:300;
 }
+.Profile-card-student{
+    -fx-background-color: white;
+    -fx-padding:10;
+    -fx-background-radius:10;
+    -fx-min-width:200;
+    -fx-min-height:200;
+}
 /* Header */
 .header {
     -fx-background-color: white;

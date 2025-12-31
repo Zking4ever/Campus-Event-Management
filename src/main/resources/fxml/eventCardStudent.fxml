@@ -14,10 +14,11 @@
 
     <ImageView fx:id="eventImage"
                fitHeight="180"
-               fitWidth="320"
+               fitWidth="315"
+               smooth="true"
                preserveRatio="false"
                styleClass="event-image"/>
-    <VBox style="-fx-padding:14px">
+    <VBox style="-fx-padding:10px 15px 15px 10px">
         <Label fx:id="title"  styleClass="event-title"/>
         <Label fx:id="dateLabel" styleClass="event-meta"/>
         <Label fx:id="timeLabel" styleClass="event-meta"/>

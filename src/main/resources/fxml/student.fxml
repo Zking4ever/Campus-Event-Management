@@ -2,29 +2,34 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.campus.management.controller.StudentController"
             prefWidth="900"
             prefHeight="600"
-            style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);">
+            style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);"
+            stylesheets="@dashboard.css">
 
     <!-- Left Panel: Profile Info -->
     <left>
         <VBox spacing="20" alignment="TOP_CENTER"
               style="-fx-background-color: #4f46e5;"
-              prefWidth="250">
+              prefWidth="200">
             <padding>
-                <Insets top="30" right="30" bottom="30" left="30"/>
+                <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
-
-            <Label fx:id="usernameLabel" text="Student Name"
-                   style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
-            <Label fx:id="statusLabel" text="Status: Active"
-                   style="-fx-text-fill: white; -fx-font-size: 14px;"/>
-            <Button text="Logout" onAction="#onLogout"
-                    style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 8 20;"/>
+            <VBox styleClass="Profile-card-student" alignment="center">
+                <Label fx:id="usernameLabel" text="Student Name" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <ImageView fitWidth="120" preserveRatio="true" fx:id="profileImage" />
+                <VBox style="-fx-padding:15px 0" spacing="5" alignment="center">
+                    <Button text=" Log out"
+                            styleClass="secondary-button"
+                            onAction="#onLogout"/>
+                </VBox>
+            </VBox>
         </VBox>
     </left>
 

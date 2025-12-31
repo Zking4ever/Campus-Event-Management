@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
@@ -20,19 +22,18 @@ public class StudentController {
     @FXML private Label statusLabel;
     @FXML private List<Event> eventList;
     @FXML private FlowPane eventContainer;
+    @FXML private ImageView profileImage;
 
     private final EventService eventService = new EventServiceImpl();
-
+    List<Event> registeredEvents;
 
     @FXML
     public void initialize() {
         User current = AppContext.getCurrentUser();
         if (current != null) {
             usernameLabel.setText(current.getUsername());
-            statusLabel.setText("Status: Active"); // you can customize this
-        }else{
-            statusLabel.setText("Status: Inactive");
         }
+        profileImage.setImage(new Image(getClass().getResource("/images/person.png").toExternalForm()));
         loadApprovedEvents();
         renderEvents();
     }
