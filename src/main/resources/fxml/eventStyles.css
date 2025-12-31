@@ -4,7 +4,7 @@
     -fx-background-color: white;
     -fx-background-radius: 16;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0.2, 0, 6);
-    -fx-pref-width: 315;
+    -fx-pref-width: 310;
     -fx-overflow: hidden;
 }
 .event-image {

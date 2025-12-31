@@ -59,7 +59,7 @@ public class StudentController {
 //                .filter(e -> e.getStatus().name().equals("APPROVED"))
 //                .toList();
 
-    List<Event> eventList = eventService.listEvents();
+         eventList = eventService.listEvents();
     }
 
     private void registerEvent(Event event) {

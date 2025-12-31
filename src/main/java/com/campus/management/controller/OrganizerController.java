@@ -27,7 +27,7 @@ public class OrganizerController {
     @FXML
     private ProgressBar progressBar;
     @FXML
-    VBox EventContainer;
+    public VBox EventContainer;
     @FXML
     HBox rootContainer;
     @FXML
@@ -36,7 +36,7 @@ public class OrganizerController {
 
     private final EventService eventService = new EventServiceImpl();
     ;
-    List<Event> eventList;
+    static  List<Event> eventList;
     Event selectedEvent;
     String orgainizer_id;
     @FXML
@@ -63,7 +63,7 @@ public class OrganizerController {
         }
     }
 
-    private void loadEventLists() {
+    protected void loadEventLists() {
         eventList = eventService.listEvents();
     }
 
@@ -115,6 +115,8 @@ public class OrganizerController {
             e.printStackTrace();
         }
     }
+
+
 }
 
 //protected void onCreateEvent() {

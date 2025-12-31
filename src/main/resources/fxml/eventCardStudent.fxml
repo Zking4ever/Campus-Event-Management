@@ -14,7 +14,7 @@
 
     <ImageView fx:id="eventImage"
                fitHeight="180"
-               fitWidth="315"
+               fitWidth="310"
                smooth="true"
                preserveRatio="false"
                styleClass="event-image"/>

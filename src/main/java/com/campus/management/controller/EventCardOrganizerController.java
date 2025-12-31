@@ -12,11 +12,16 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+
+import static com.campus.management.controller.OrganizerController.eventList;
 
 public class EventCardOrganizerController {
 
+    @FXML private VBox eventCardContainer;
     @FXML private ImageView eventImage;
     @FXML private Label title;
     @FXML private Label catagoryLabel;
@@ -40,7 +45,6 @@ public class EventCardOrganizerController {
         descriptionLabel.setText(event.getDescription());
     }
 
-
     @FXML
     private void handleEditEvent() {
         try{
@@ -57,12 +61,27 @@ public class EventCardOrganizerController {
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(title.getScene().getWindow());
             stage.showAndWait();
+            refreshPage();
         }catch (Exception e){
             System.out.println(e);
         }
     }
+
+    private void renderEventList() {
+        try {
+            for (Event event : eventList) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCardOrganizer.fxml"));
+                Parent root = loader.load();
+                EventCardOrganizerController controller = loader.getController();
+                controller.setEventData(event);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     @FXML
-    private void handleDeletEvent() {
+    private void handleDeletEvent(){
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setTitle("Confirm Deletion");
         a.setHeaderText("Delete Event");
@@ -70,6 +89,16 @@ public class EventCardOrganizerController {
         if(a.showAndWait().get()== ButtonType.OK){
             EventService eventService = new EventServiceImpl();
             eventService.deleteEvent(myevent.getId());
+        }
+    }
+    private void refreshPage() {
+        try {
+            Stage stage = (Stage) title.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/organizer.fxml"));
+            Parent root = loader.load();
+            stage.getScene().setRoot(root);
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

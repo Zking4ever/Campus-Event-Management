@@ -8,7 +8,8 @@
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.campus.management.controller.EventCardOrganizerController"
       spacing="8"
-      stylesheets="@eventStyles.css">
+      stylesheets="@eventStyles.css"
+      fx:id="eventCardContainer">
 
     <VBox styleClass="event-card-org" spacing="6">
         <HBox>
