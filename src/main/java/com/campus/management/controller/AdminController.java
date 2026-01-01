@@ -47,13 +47,13 @@ public class AdminController {
 
                         javafx.scene.control.Label titleLbl = new javafx.scene.control.Label(item.getTitle());
                         titleLbl.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
-                        titleLbl.setPrefWidth(200);
+                        titleLbl.setPrefWidth(180);
 
                         javafx.scene.control.Label dateLbl = new javafx.scene.control.Label(item.getDate().toString());
-                        dateLbl.setPrefWidth(100);
+                        dateLbl.setPrefWidth(90);
 
                         javafx.scene.control.Label detailsLbl = new javafx.scene.control.Label(item.getLocation());
-                        detailsLbl.setPrefWidth(150);
+                        detailsLbl.setPrefWidth(120);
 
                         javafx.scene.control.Label statusLbl = new javafx.scene.control.Label(
                                 item.getStatus().toString());
@@ -66,11 +66,59 @@ public class AdminController {
                                 "-fx-text-fill: orange; -fx-background-color: #ffedd5; -fx-padding: 3 8; -fx-background-radius: 10;";
                         };
                         statusLbl.setStyle(statusStyle);
+                        statusLbl.setPrefWidth(80);
+                        statusLbl.setAlignment(javafx.geometry.Pos.CENTER);
 
                         javafx.scene.layout.Region spacer = new javafx.scene.layout.Region();
                         javafx.scene.layout.HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
 
-                        container.getChildren().addAll(titleLbl, dateLbl, detailsLbl, spacer, statusLbl);
+                        // inline actions
+                        javafx.scene.layout.HBox actions = new javafx.scene.layout.HBox(5);
+                        actions.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
+
+                        if (item.getStatus() == EventStatus.PENDING) {
+                            javafx.scene.control.Button approveBtn = new javafx.scene.control.Button("✓");
+                            approveBtn.setStyle(
+                                    "-fx-text-fill: white; -fx-background-color: #10b981; -fx-cursor: hand; -fx-font-weight: bold;");
+                            approveBtn.setTooltip(new javafx.scene.control.Tooltip("Approve"));
+                            approveBtn.setOnAction(e -> {
+                                eventService.updateStatus(item.getId(), "APPROVED");
+                                loadPendingEvents(); // Refresh view
+                            });
+
+                            javafx.scene.control.Button rejectBtn = new javafx.scene.control.Button("✗");
+                            rejectBtn.setStyle(
+                                    "-fx-text-fill: white; -fx-background-color: #f59e0b; -fx-cursor: hand; -fx-font-weight: bold;");
+                            rejectBtn.setTooltip(new javafx.scene.control.Tooltip("Reject"));
+                            rejectBtn.setOnAction(e -> {
+                                eventService.updateStatus(item.getId(), "REJECTED");
+                                loadPendingEvents(); // Refresh view
+                            });
+                            actions.getChildren().addAll(approveBtn, rejectBtn);
+                        }
+
+                        javafx.scene.control.Button deleteBtn = new javafx.scene.control.Button("🗑");
+                        deleteBtn.setStyle("-fx-text-fill: white; -fx-background-color: #ef4444; -fx-cursor: hand;");
+                        deleteBtn.setTooltip(new javafx.scene.control.Tooltip("Delete"));
+                        deleteBtn.setOnAction(e -> {
+                            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                                    javafx.scene.control.Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Delete Event");
+                            alert.setHeaderText("Are you sure you want to delete '" + item.getTitle() + "'?");
+                            if (alert.showAndWait().orElse(
+                                    javafx.scene.control.ButtonType.CANCEL) == javafx.scene.control.ButtonType.OK) {
+                                eventService.deleteEvent(item.getId());
+                                // Refresh current view (either all or pending)
+                                if (statusLabel.getText().toLowerCase().contains("pending")) {
+                                    loadPendingEvents();
+                                } else {
+                                    loadAllEvents();
+                                }
+                            }
+                        });
+                        actions.getChildren().add(deleteBtn);
+
+                        container.getChildren().addAll(titleLbl, dateLbl, detailsLbl, statusLbl, spacer, actions);
                         setGraphic(container);
                     }
                 }
@@ -106,7 +154,24 @@ public class AdminController {
                         roleLbl.setStyle(
                                 "-fx-background-color: #e2e8f0; -fx-padding: 2 6; -fx-background-radius: 4; -fx-font-size: 11px;");
 
-                        container.getChildren().addAll(nameLbl, userLbl, emailLbl, roleLbl);
+                        javafx.scene.layout.Region spacer = new javafx.scene.layout.Region();
+                        javafx.scene.layout.HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+
+                        javafx.scene.control.Button deleteBtn = new javafx.scene.control.Button("🗑");
+                        deleteBtn.setStyle("-fx-text-fill: white; -fx-background-color: #ef4444; -fx-cursor: hand;");
+                        deleteBtn.setOnAction(e -> {
+                            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                                    javafx.scene.control.Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Remove User");
+                            alert.setHeaderText("Remove " + item.getUsername() + "?");
+                            if (alert.showAndWait().orElse(
+                                    javafx.scene.control.ButtonType.CANCEL) == javafx.scene.control.ButtonType.OK) {
+                                com.campus.management.service.database.UserDao.deleteUser(item.getUserid());
+                                loadAllUsers();
+                            }
+                        });
+
+                        container.getChildren().addAll(nameLbl, userLbl, emailLbl, roleLbl, spacer, deleteBtn);
                         setGraphic(container);
                     }
                 }

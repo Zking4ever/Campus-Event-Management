@@ -3,6 +3,7 @@ package com.campus.management.controller;
 import com.campus.management.AppContext;
 import com.campus.management.model.Event;
 import com.campus.management.model.EventRegistration;
+import com.campus.management.model.EventStatus;
 import com.campus.management.model.User;
 import com.campus.management.service.EventService;
 import com.campus.management.service.database.UserDao;
@@ -79,7 +80,7 @@ public class StudentController {
     @FXML
     protected void loadApprovedEvents() {
         eventList = eventService.listEvents().stream()
-                .filter(e -> e.getStatus() == com.campus.management.model.EventStatus.APPROVED)
+                .filter(e -> e.getStatus() == EventStatus.APPROVED)
                 .collect(Collectors.toList());
         registrations = UserDao.readRegistrations();
         for (EventRegistration registration : registrations) {

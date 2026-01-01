@@ -74,9 +74,7 @@
                         <Button text="All Events" onAction="#loadAllEvents" styleClass="secondary-button"/>
                         <Button text="Pending" onAction="#loadPendingEvents" styleClass="primary-button" style="-fx-background-color: #0ea5e9;"/>
                         <Region HBox.hgrow="ALWAYS"/>
-                        <Button text="Approve" onAction="#approveSelected" styleClass="primary-button" style="-fx-background-color: #10b981;"/>
-                        <Button text="Reject" onAction="#rejectSelected" styleClass="primary-button" style="-fx-background-color: #f59e0b;"/>
-                        <Button text="Delete" onAction="#deleteSelected" styleClass="primary-button" style="-fx-background-color: #ef4444;"/>
+                        <!-- Inline actions for individual Events are now provided in the list -->
                     </HBox>
 
                     <!-- Event List -->
@@ -100,11 +98,8 @@
                     <HBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);">
                         <Button text="Load All Users" onAction="#loadAllUsers" styleClass="secondary-button"/>
                         <Region HBox.hgrow="ALWAYS"/>
-                        <Button text="Block User" onAction="#blockSelectedUser" styleClass="primary-button" style="-fx-background-color: #f97316;"/>
-                        <Button text="Remove User" onAction="#removeSelectedUser" styleClass="primary-button" style="-fx-background-color: #ef4444;"/>
                     </HBox>
 
-                    <!-- User List -->
                     <VBox VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1); -fx-padding: 0;">
                         <ListView fx:id="usersListView" VBox.vgrow="ALWAYS" style="-fx-background-insets: 0; -fx-padding: 10; -fx-background-color: transparent;"/>
                     </VBox>
