@@ -36,12 +36,12 @@
             <HBox spacing="20">
                 <VBox styleClass="blue stat-card ">
                     <Label text="My Events" styleClass="stat-label"/>
-                    <Label text="4" styleClass="stat-value"/>
+                    <Label fx:id="eventNoLabel" text="4" styleClass="stat-value"/>
                 </VBox>
 
                 <VBox styleClass="stat-card green">
                     <Label text="Total Attendees" styleClass="stat-label"/>
-                    <Label text="1203" styleClass="stat-value"/>
+                    <Label fx:id="attendersLabel" text="1203" styleClass="stat-value"/>
                 </VBox>
 
                 <VBox styleClass="stat-card purple">

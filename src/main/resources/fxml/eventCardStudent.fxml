@@ -27,8 +27,8 @@
         <Label fx:id="descriptionLabel" wrapText="true" styleClass="event-description"/>
     </VBox>
     <VBox style="-fx-padding:14px">
-        <Button text="View Details"
-                onAction="#onViewDetails"
+        <Button text="Register"
+                onAction="#registerToEvent"
                 styleClass="event-button"
                 maxWidth="Infinity"/>
     </VBox>

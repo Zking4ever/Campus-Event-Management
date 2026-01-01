@@ -1,11 +1,14 @@
 package com.campus.management.service.database;
 
+import com.campus.management.model.EventRegistration;
 import com.campus.management.model.Role;
 import com.campus.management.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao {
     public static  User registerUser(User u){
@@ -70,6 +73,39 @@ public class UserDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void EvetRegister(String userid,int event_id){
+        String sql = """
+        Insert into eventRegistrations(user_id,event_id)
+        values(?,?)
+    """;
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, userid);
+                ps.setInt(2, event_id);
+                ps.execute();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public static List<EventRegistration> readRegistrations(){
+        String sql = """
+        Select * from eventRegistrations
+        """;
+        try(Connection conn = DBConnection.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql)) {
+            List<EventRegistration> registrationList = new ArrayList<>();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                EventRegistration event = new EventRegistration(rs.getString("user_id"),rs.getInt("event_id"));
+                registrationList.add(event);
+            }
+            return registrationList;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }
 

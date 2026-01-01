@@ -6,6 +6,7 @@ import com.campus.management.model.Role;
 import com.campus.management.model.User;
 import com.campus.management.service.AuthService;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -33,7 +33,6 @@ public class OrganizerController {
     @FXML
     VBox MainContentContainer;
 
-
     private final EventService eventService = new EventServiceImpl();
     ;
     static  List<Event> eventList;
@@ -41,6 +40,7 @@ public class OrganizerController {
     String orgainizer_id;
     @FXML
     ImageView profileImage;
+    @FXML Label eventNoLabel;
     @FXML
     Label orgainizer_name;
     @FXML
@@ -57,6 +57,7 @@ public class OrganizerController {
         profileImage.setImage(new Image(getClass().getResource("/images/person.png").toExternalForm()));
         loadEventLists();
         renderEventList();
+        eventNoLabel.setText(String.valueOf(eventList.size()));
         MainContentContainer.prefWidthProperty().bind(rootContainer.widthProperty().multiply(0.8));
         if (progressBar != null) {
             progressBar.setProgress(0.73); // 73% registration
@@ -64,7 +65,8 @@ public class OrganizerController {
     }
 
     protected void loadEventLists() {
-        eventList = eventService.listEvents();
+        List<Event> all = eventService.listEvents();
+        eventList = all.stream().filter(e-> orgainizer_id.equals(e.getOrganizerId())).toList();
     }
 
     private void renderEventList() {
@@ -81,7 +83,6 @@ public class OrganizerController {
             System.out.println(e);
         }
     }
-
     @FXML
     private void handleCreateEvent() {
         try {
@@ -116,35 +117,4 @@ public class OrganizerController {
         }
     }
 
-
 }
-
-//protected void onCreateEvent() {
-//
-//
-////        eventService.createEvent(e);
-//    statusLabel.setText("Event created successfully!");
-//    loadMyEvents();
-//}
-//
-//@FXML
-//protected void loadMyEvents() {
-//    List<Event> myEvents = eventService.listEventsByOrganizer(organizerId);
-//    eventsListView.setItems(FXCollections.observableArrayList(myEvents));
-//}
-//
-
-//
-//@FXML
-//protected void onViewFeedback() {
-//    Event selected = eventsListView.getSelectionModel().getSelectedItem();
-//    if (selected == null || selected.getFeedBack().isEmpty()) {
-//        statusLabel.setText("No feedback available");
-//        return;
-//    }
-//    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//    alert.setTitle("Feedback");
-//    alert.setHeaderText(selected.getTitle() + " Feedback");
-//    alert.setContentText(String.join("\n", selected.getFeedBack()));
-//    alert.showAndWait();
-//}
