@@ -2,8 +2,10 @@ package com.campus.management.controller;
 
 import com.campus.management.AppContext;
 import com.campus.management.model.Event;
+import com.campus.management.model.EventRegistration;
 import com.campus.management.model.User;
 import com.campus.management.service.EventService;
+import com.campus.management.service.database.UserDao;
 import com.campus.management.service.impl.EventServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,22 +16,26 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentController {
 
     @FXML private Label usernameLabel;
     @FXML private Label statusLabel;
-    @FXML private List<Event> eventList;
     @FXML private FlowPane eventContainer;
+    @FXML private FlowPane registeredEventContainer;
     @FXML private ImageView profileImage;
 
     private final EventService eventService = new EventServiceImpl();
-    List<Event> registeredEvents;
+    @FXML private List<Event> eventList;
+    List<Event> registeredEvents = new ArrayList<>();
+    List<EventRegistration> registrations;
+    User current;
 
     @FXML
     public void initialize() {
-        User current = AppContext.getCurrentUser();
+        current = AppContext.getCurrentUser();
         if (current != null) {
             usernameLabel.setText(current.getUsername());
         }
@@ -40,12 +46,20 @@ public class StudentController {
 
     private void renderEvents() {
         try {
+            eventList.removeAll(registeredEvents);
             for (Event event : eventList) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCardStudent.fxml"));
                 Parent card = loader.load();
                 EventCardStudentController controller = loader.getController();
                 controller.setEventData(event);
                 eventContainer.getChildren().add(card);
+            }
+            for (Event event : registeredEvents) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCardStudent.fxml"));
+                Parent card = loader.load();
+                EventCardStudentController controller = loader.getController();
+                controller.setEventData(event);
+                registeredEventContainer.getChildren().add(card);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,11 +68,17 @@ public class StudentController {
 
     @FXML
     protected void loadApprovedEvents() {
-//       List<Event> approved = eventService.listEvents().stream()
-//                .filter(e -> e.getStatus().name().equals("APPROVED"))
-//                .toList();
-
-         eventList = eventService.listEvents();
+        eventList = eventService.listEvents();
+        registrations = UserDao.readRegistrations();
+        for (EventRegistration registration : registrations) {
+            if (registration.getUser_id().equals(current.getUserid())) {
+                for (Event event : eventList) {
+                    if (registration.getEvent_id() == Integer.parseInt(event.getId())){
+                        registeredEvents.add(event);
+                    }
+                }
+            }
+        }
     }
 
     private void registerEvent(Event event) {
