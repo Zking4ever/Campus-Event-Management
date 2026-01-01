@@ -27,7 +27,91 @@ public class AdminController {
 
     @FXML
     public void initialize() {
+        setupEventListView();
+        setupUserListView();
         loadAllEvents();
+    }
+
+    private void setupEventListView() {
+        if (eventsListView != null) {
+            eventsListView.setCellFactory(param -> new javafx.scene.control.ListCell<>() {
+                @Override
+                protected void updateItem(Event item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        javafx.scene.layout.HBox container = new javafx.scene.layout.HBox(10);
+                        container.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+
+                        javafx.scene.control.Label titleLbl = new javafx.scene.control.Label(item.getTitle());
+                        titleLbl.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+                        titleLbl.setPrefWidth(200);
+
+                        javafx.scene.control.Label dateLbl = new javafx.scene.control.Label(item.getDate().toString());
+                        dateLbl.setPrefWidth(100);
+
+                        javafx.scene.control.Label detailsLbl = new javafx.scene.control.Label(item.getLocation());
+                        detailsLbl.setPrefWidth(150);
+
+                        javafx.scene.control.Label statusLbl = new javafx.scene.control.Label(
+                                item.getStatus().toString());
+                        String statusStyle = switch (item.getStatus()) {
+                            case APPROVED ->
+                                "-fx-text-fill: green; -fx-background-color: #dcfce7; -fx-padding: 3 8; -fx-background-radius: 10;";
+                            case REJECTED ->
+                                "-fx-text-fill: red; -fx-background-color: #fee2e2; -fx-padding: 3 8; -fx-background-radius: 10;";
+                            default ->
+                                "-fx-text-fill: orange; -fx-background-color: #ffedd5; -fx-padding: 3 8; -fx-background-radius: 10;";
+                        };
+                        statusLbl.setStyle(statusStyle);
+
+                        javafx.scene.layout.Region spacer = new javafx.scene.layout.Region();
+                        javafx.scene.layout.HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+
+                        container.getChildren().addAll(titleLbl, dateLbl, detailsLbl, spacer, statusLbl);
+                        setGraphic(container);
+                    }
+                }
+            });
+        }
+    }
+
+    private void setupUserListView() {
+        if (usersListView != null) {
+            usersListView.setCellFactory(param -> new javafx.scene.control.ListCell<>() {
+                @Override
+                protected void updateItem(User item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        javafx.scene.layout.HBox container = new javafx.scene.layout.HBox(10);
+                        container.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+
+                        javafx.scene.control.Label nameLbl = new javafx.scene.control.Label(item.getName());
+                        nameLbl.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+                        nameLbl.setPrefWidth(150);
+
+                        javafx.scene.control.Label userLbl = new javafx.scene.control.Label("@" + item.getUsername());
+                        userLbl.setStyle("-fx-text-fill: #64748b;");
+                        userLbl.setPrefWidth(120);
+
+                        javafx.scene.control.Label emailLbl = new javafx.scene.control.Label(item.getEmail());
+                        emailLbl.setPrefWidth(200);
+
+                        javafx.scene.control.Label roleLbl = new javafx.scene.control.Label(item.getRole().toString());
+                        roleLbl.setStyle(
+                                "-fx-background-color: #e2e8f0; -fx-padding: 2 6; -fx-background-radius: 4; -fx-font-size: 11px;");
+
+                        container.getChildren().addAll(nameLbl, userLbl, emailLbl, roleLbl);
+                        setGraphic(container);
+                    }
+                }
+            });
+        }
     }
 
     @FXML
