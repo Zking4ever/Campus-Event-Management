@@ -5,6 +5,7 @@ import com.campus.management.model.Event;
 import com.campus.management.model.EventRegistration;
 import com.campus.management.model.User;
 import com.campus.management.service.EventService;
+import com.campus.management.service.database.UserDao;
 import com.campus.management.service.impl.EventServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,33 +20,30 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class OrganizerController {
 
     // Optional: inject if you want to control them dynamically later
-    @FXML
-    private TabPane tabPane;
-    @FXML
-    private ProgressBar progressBar;
+    @FXML private TabPane tabPane;
+    @FXML private ProgressBar progressBar;
     @FXML
     public VBox EventContainer;
     @FXML
     HBox rootContainer;
-    @FXML
-    VBox MainContentContainer;
+    @FXML Label attendersLabel;
+    @FXML VBox MainContentContainer;
 
     private final EventService eventService = new EventServiceImpl();
     protected EventRegistration eventRegistration;
     static  List<Event> eventList;
     Event selectedEvent;
     String orgainizer_id;
-    @FXML
-    ImageView profileImage;
+    @FXML ImageView profileImage;
     @FXML Label eventNoLabel;
-    @FXML
-    Label orgainizer_name;
-    @FXML
-    Label orgainizer_username;
+    @FXML Label orgainizer_name;
+    @FXML Label orgainizer_username;
 
     @FXML
     public void initialize() {
@@ -68,6 +66,12 @@ public class OrganizerController {
     protected void loadEventLists() {
         List<Event> all = eventService.listEvents();
         eventList = all.stream().filter(e-> orgainizer_id.equals(e.getOrganizerId())).toList();
+        Set<String> eventids = eventList.stream()
+                .map(Event::getId)
+                .collect(Collectors.toSet());
+        List<EventRegistration> myRegister = UserDao.readRegistrations();
+        myRegister.removeIf(e-> !eventids.contains(String.valueOf(e.getEvent_id())));
+        attendersLabel.setText(String.valueOf(myRegister.size()));
     }
 
     private void renderEventList() {

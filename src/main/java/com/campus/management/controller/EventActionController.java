@@ -34,6 +34,7 @@ public class EventActionController {
     @FXML private TextField endTimePicker;
     @FXML private TextField locationField;
     @FXML private ComboBox<String> catagorySelect;
+    @FXML protected Button actionButton;
     private String selectedImagePath = null;
     private String organizerId = null;
     @FXML private HBox buttonsContainer;
@@ -164,6 +165,8 @@ public class EventActionController {
         catagorySelect.getSelectionModel().select(event.getCategory());
     }
     protected void setToDefault(){
+        actionType.setText("Create an Event");
+        actionButton.setText("Create");
         titleField.clear();
         descArea.clear();
         imagePreview.setImage(new Image(getClass().getResource("/images/placeholder.png").toExternalForm()));

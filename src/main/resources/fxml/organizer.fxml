@@ -44,15 +44,6 @@
                     <Label fx:id="attendersLabel" text="1203" styleClass="stat-value"/>
                 </VBox>
 
-                <VBox styleClass="stat-card purple">
-                    <Label text="Upcoming Events" styleClass="stat-label"/>
-                    <Label text="4" styleClass="stat-value"/>
-                </VBox>
-
-                <VBox styleClass="stat-card orange">
-                    <Label text="Avg Attendance" styleClass="stat-label"/>
-                    <Label text="82%" styleClass="stat-value"/>
-                </VBox>
             </HBox>
             <!-- Tabs -->
             <TabPane>

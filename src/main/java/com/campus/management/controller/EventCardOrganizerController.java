@@ -1,7 +1,9 @@
 package com.campus.management.controller;
 
 import com.campus.management.model.Event;
+import com.campus.management.model.EventRegistration;
 import com.campus.management.service.EventService;
+import com.campus.management.service.database.UserDao;
 import com.campus.management.service.impl.EventServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +17,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import static com.campus.management.controller.OrganizerController.eventList;
+import java.util.List;
 
 public class EventCardOrganizerController {
 
@@ -31,6 +32,7 @@ public class EventCardOrganizerController {
     @FXML private Label attendeesLabel;
     @FXML private Label descriptionLabel;
     Event myevent;
+    String registeredNo;
 
     // This method receives parameters
     public void setEventData(Event event) {
@@ -43,6 +45,10 @@ public class EventCardOrganizerController {
         locationLabel.setText(event.getLocation());
         attendeesLabel.setText("30 / 75");
         descriptionLabel.setText(event.getDescription());
+        List<EventRegistration> eventRegistered = UserDao.readRegistrations();
+        eventRegistered.removeIf(e -> e.getEvent_id()!=Integer.parseInt(myevent.getId()));
+        registeredNo = String.valueOf(eventRegistered.size());
+        attendeesLabel.setText(registeredNo);
     }
 
     @FXML
@@ -53,6 +59,7 @@ public class EventCardOrganizerController {
             EventActionController controller = loader.getController();
             controller.setDataFields(myevent);
             controller.actionType.setText("Edit Event");
+            controller.actionButton.setText("Edit");
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setTitle("Create Event");
@@ -67,18 +74,6 @@ public class EventCardOrganizerController {
         }
     }
 
-    private void renderEventList() {
-        try {
-            for (Event event : eventList) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCardOrganizer.fxml"));
-                Parent root = loader.load();
-                EventCardOrganizerController controller = loader.getController();
-                controller.setEventData(event);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
 
     @FXML
     private void handleDeletEvent(){

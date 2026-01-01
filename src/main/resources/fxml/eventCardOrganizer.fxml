@@ -29,28 +29,25 @@
                     <Button text="✎" onAction="#handleEditEvent" styleClass="icon-button"/>
                 </HBox>
                 <Label text="Description" fx:id="descriptionLabel" />
-                <GridPane hgap="40" vgap="10" style="-fx-padding:20 0;-fx-font-size:18px">
-                <Label text="📆 Date"/>
-                <Label fx:id="dateLabel" text="January 15, 2026" GridPane.rowIndex="1"/>
+                <GridPane hgap="40" vgap="8" style="-fx-padding:15 0;-fx-font-size:14px">
+                    <Label text="📆 Date"/>
+                    <Label fx:id="dateLabel" text="January 15, 2026" GridPane.rowIndex="1"/>
 
-                <Label text="🕐 Time" GridPane.columnIndex="1"/>
-                <Label fx:id="timeLabel" text="2:00 PM - 5:00 PM"
-                       GridPane.columnIndex="1"
-                       GridPane.rowIndex="1"/>
+                    <Label text="🕐 Time" GridPane.columnIndex="1"/>
+                    <Label fx:id="timeLabel" text="2:00 PM - 5:00 PM"
+                           GridPane.columnIndex="1"
+                           GridPane.rowIndex="1"/>
 
-                <Label text="📍 Location" GridPane.columnIndex="2"/>
-                <Label fx:id="locationLabel" text="Main Auditorium, Engineering Building"
-                       GridPane.columnIndex="2"
-                        GridPane.rowIndex="1"/>
-
-                <Label text="Registrations" GridPane.columnIndex="3"/>
-                <Label fx:id="attendeesLabel" text="145 / 200"
-                       GridPane.columnIndex="3"
-                       GridPane.rowIndex="1"/>
+                    <Label text="📍 Location" GridPane.columnIndex="2"/>
+                    <Label fx:id="locationLabel" text="Main Auditorium, Engineering Building"
+                           GridPane.columnIndex="2"
+                            GridPane.rowIndex="1"/>
+                    <Label text="Registrations" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <Label fx:id="attendeesLabel" text="145 / 200"
+                           GridPane.columnIndex="0"
+                           GridPane.rowIndex="4"/>
             </GridPane>
             </VBox>
         </HBox>
-        <Label text="Registration Progress"/>
-        <ProgressBar progress="0.73" maxWidth="Infinity"/>
     </VBox>
 </VBox>
