@@ -30,7 +30,8 @@
         <Button text="Register"
                 onAction="#registerToEvent"
                 styleClass="event-button"
-                maxWidth="Infinity"/>
+                maxWidth="Infinity"
+                fx:id="eventButton"/>
     </VBox>
 
 </VBox>

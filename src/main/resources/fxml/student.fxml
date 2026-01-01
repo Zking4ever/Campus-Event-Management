@@ -20,8 +20,8 @@
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
             <VBox styleClass="Profile-card-student" alignment="center">
-                <Label fx:id="usernameLabel" text="Student Name" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
                 <ImageView fitWidth="120" preserveRatio="true" fx:id="profileImage" />
+                <Label fx:id="usernameLabel" text="Student Name" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
                 <VBox style="-fx-padding:15px 0" spacing="5" alignment="center">
                     <Button text=" Log out"
                             styleClass="secondary-button"

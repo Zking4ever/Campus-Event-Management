@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -29,6 +30,7 @@ public class EventCardStudentController {
     @FXML private Label attendeesLabel;
     @FXML private Label descriptionLabel;
     @FXML private VBox container;
+    @FXML private Button eventButton;
     private Event event;
 
     public void initialize(){
@@ -40,7 +42,7 @@ public class EventCardStudentController {
         container.setClip(clip);
     }
     // This method receives parameters
-    public void setEventData(Event event) {
+    public void setEventData(Event event,String status) {
         this.event = event;
         eventImage.setImage(new Image(event.getImageUrl()));
         title.setText(event.getTitle());
@@ -49,6 +51,10 @@ public class EventCardStudentController {
         locationLabel.setText("Location: " + event.getLocation());
         attendeesLabel.setText("Attending: " + event.getOrganizerId() + " students");
         descriptionLabel.setText(event.getDescription());
+        if (status.equals("registered")){
+            eventButton.setVisible(false);
+            eventButton.setManaged(false);
+        }
     }
 
 

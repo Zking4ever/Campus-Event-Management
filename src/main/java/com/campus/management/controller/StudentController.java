@@ -37,7 +37,7 @@ public class StudentController {
     public void initialize() {
         current = AppContext.getCurrentUser();
         if (current != null) {
-            usernameLabel.setText(current.getUsername());
+            usernameLabel.setText("Welcome "+current.getUsername());
         }
         profileImage.setImage(new Image(getClass().getResource("/images/person.png").toExternalForm()));
         loadApprovedEvents();
@@ -51,14 +51,14 @@ public class StudentController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCardStudent.fxml"));
                 Parent card = loader.load();
                 EventCardStudentController controller = loader.getController();
-                controller.setEventData(event);
+                controller.setEventData(event,"new");
                 eventContainer.getChildren().add(card);
             }
             for (Event event : registeredEvents) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCardStudent.fxml"));
                 Parent card = loader.load();
                 EventCardStudentController controller = loader.getController();
-                controller.setEventData(event);
+                controller.setEventData(event,"registered");
                 registeredEventContainer.getChildren().add(card);
             }
         } catch (Exception e) {
