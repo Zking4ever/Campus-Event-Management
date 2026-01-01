@@ -35,13 +35,16 @@
             <padding>
                 <Insets top="30" right="30" bottom="30" left="30"/>
             </padding>
-
-            <VBox spacing="5">
-                <Label text="Approved Events"
-                       style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
-                <Label text="Browse and register for campus events"
-                       style="-fx-text-fill: #64748b;"/>
-            </VBox>
+            <HBox spacing="10" >
+                <VBox spacing="5">
+                    <Label text="Approved Events"
+                           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+                    <Label text="Browse and register for campus events"
+                           style="-fx-text-fill: #64748b;"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="searchField" promptText="Search events..." onKeyReleased="#onSearchKey" />
+            </HBox>
 
             <TabPane styleClass="my-tabpane">
                 <Tab text="Explore" closable="false">

@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -18,6 +19,8 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class StudentController {
 
@@ -26,9 +29,10 @@ public class StudentController {
     @FXML private FlowPane eventContainer;
     @FXML private FlowPane registeredEventContainer;
     @FXML private ImageView profileImage;
+    @FXML private TextField searchField;
 
     private final EventService eventService = new EventServiceImpl();
-    @FXML private List<Event> eventList;
+    private List<Event> eventList;
     List<Event> registeredEvents = new ArrayList<>();
     List<EventRegistration> registrations;
     User current;
@@ -81,12 +85,43 @@ public class StudentController {
         }
     }
 
-    private void registerEvent(Event event) {
-        if (event != null) {
-            // TODO: call RegistrationService.register(...) to register student for event
-            System.out.println("Registered for event: " + event.getTitle());
+    // apply filter from search query and re-render
+    private void applyFilter(String query) {
+        String q = query == null ? "" : query.trim().toLowerCase();
+        List<Event> allEvents = eventService.listEvents();
+        System.out.println(allEvents.size());
+        Set<String> registeredIds = registeredEvents.stream()
+                .map(Event::getId)
+                .collect(Collectors.toSet());
+        allEvents.removeIf(e -> registeredIds.contains(e.getId()));
+        List<Event> filtered = allEvents.stream()
+                .filter(e -> {
+                    if (q.isEmpty()) return true;
+                    boolean titleMatches = e.getTitle() != null && e.getTitle().toLowerCase().contains(q);
+                    boolean descMatches = e.getDescription() != null && e.getDescription().toLowerCase().contains(q);
+                    return titleMatches || descMatches;
+                })
+                .collect(Collectors.toList());
+        eventContainer.getChildren().clear();
+        try{
+            for (Event event : filtered) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/eventCardStudent.fxml"));
+                Parent card = loader.load();
+                EventCardStudentController controller = loader.getController();
+                controller.setEventData(event,"new");
+                eventContainer.getChildren().add(card);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
+
+    // optional FXML handler if you prefer onKeyReleased in FXML
+    @FXML
+    protected void onSearchKey() {
+        applyFilter(searchField != null ? searchField.getText() : "");
+    }
+
 
     @FXML
     protected void onLogout() {

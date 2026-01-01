@@ -2,6 +2,7 @@ package com.campus.management.controller;
 
 import com.campus.management.AppContext;
 import com.campus.management.model.Event;
+import com.campus.management.model.EventRegistration;
 import com.campus.management.model.User;
 import com.campus.management.service.EventService;
 import com.campus.management.service.impl.EventServiceImpl;
@@ -34,7 +35,7 @@ public class OrganizerController {
     VBox MainContentContainer;
 
     private final EventService eventService = new EventServiceImpl();
-    ;
+    protected EventRegistration eventRegistration;
     static  List<Event> eventList;
     Event selectedEvent;
     String orgainizer_id;
