@@ -11,8 +11,10 @@ import javafx.scene.control.ListView;
 
 public class AdminController {
 
-    @FXML private ListView<Event> eventsListView;
-    @FXML private Label statusLabel;
+    @FXML
+    private ListView<Event> eventsListView;
+    @FXML
+    private Label statusLabel;
 
     private final EventService eventService = new EventServiceImpl();
 
@@ -32,8 +34,7 @@ public class AdminController {
         eventsListView.getItems().setAll(
                 eventService.listEvents().stream()
                         .filter(e -> e.getStatus() == EventStatus.PENDING)
-                        .toList()
-        );
+                        .toList());
         statusLabel.setText("Showing pending events");
     }
 
@@ -64,6 +65,18 @@ public class AdminController {
             eventService.deleteEvent(selected.getId());
             loadAllEvents();
             statusLabel.setText("Event deleted");
+        }
+    }
+
+    @FXML
+    protected void onLogout() {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+            javafx.scene.Parent root = loader.load();
+            javafx.stage.Stage stage = (javafx.stage.Stage) eventsListView.getScene().getWindow();
+            stage.setScene(new javafx.scene.Scene(root, 800, 600));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

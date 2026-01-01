@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventDao {
-    public static Event addEvent(Event event){
+    public static Event addEvent(Event event) {
         String sql = """
-        Insert into events(title,description,date,start_time,end_time,location,category,organizer_id,status,imgURL)
-        values(?,?,?,?,?,?,?,?,?,?)
-    """;
+                    Insert into events(title,description,date,start_time,end_time,location,category,organizer_id,status,imgURL)
+                    values(?,?,?,?,?,?,?,?,?,?)
+                """;
         try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            if(con == null) {
+                PreparedStatement ps = con.prepareStatement(sql)) {
+            if (con == null) {
                 return null;
             }
             ps.setString(1, event.getTitle());
@@ -31,23 +31,24 @@ public class EventDao {
             ps.setString(7, event.getCategory());
             ps.setString(8, event.getOrganizerId());
             ps.setString(9, event.getStatus().toString());
-            ps.setString(10,event.getImageUrl());
+            ps.setString(10, event.getImageUrl());
 
             ps.execute();
             return event;
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
+
     public static List<Event> readEvents() {
         List<Event> events = new ArrayList<>();
         String sql = """
                     Select * from events
                 """;
         try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+                PreparedStatement ps = con.prepareStatement(sql)) {
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -62,8 +63,7 @@ public class EventDao {
                         EventStatus.valueOf(rs.getString("status")),
                         rs.getString("category"),
                         rs.getString("location"),
-                        rs.getString("imgURL")
-                    );
+                        rs.getString("imgURL"));
                 events.add(e);
             }
             return events;
@@ -74,64 +74,93 @@ public class EventDao {
         }
     }
 
-    public static Event updateEvent(Event event){
+    public static Event updateEvent(Event event) {
         String sql = """
-        UPDATE events
-            SET title = ?,
-                description = ?,
-                date = ?,
-                start_time = ?,
-                end_time = ?,
-                location = ?,
-                category = ?,
-                organizer_id = ?,
-                status = ?,
-                imgURL = ?
-            WHERE id = ?;
-    """;
+                    UPDATE events
+                        SET title = ?,
+                            description = ?,
+                            date = ?,
+                            start_time = ?,
+                            end_time = ?,
+                            location = ?,
+                            category = ?,
+                            organizer_id = ?,
+                            status = ?,
+                            imgURL = ?
+                        WHERE id = ?;
+                """;
         try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            if(con == null) {
+                PreparedStatement ps = con.prepareStatement(sql)) {
+            if (con == null) {
                 return null;
             }
             ps.setString(1, event.getTitle());
             ps.setString(2, event.getDescription());
             ps.setString(3, event.getDate().toString());
-            ps.setString(4,event.getStart());
-            ps.setString(5,event.getEnd());
-            ps.setString(6,event.getLocation());
-            ps.setString(7,event.getCategory());
-            ps.setString(8,event.getOrganizerId());
-            ps.setString(9,event.getStatus().toString());
-            ps.setString(10,event.getImageUrl());
-            ps.setString(11,event.getId());
-
+            ps.setString(4, event.getStart());
+            ps.setString(5, event.getEnd());
+            ps.setString(6, event.getLocation());
+            ps.setString(7, event.getCategory());
+            ps.setString(8, event.getOrganizerId());
+            ps.setString(9, event.getStatus().toString());
+            ps.setString(10, event.getImageUrl());
+            ps.setString(11, event.getId());
 
             ps.execute();
             return event;
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static void deleteEvent(String id){
+    public static void deleteEvent(String id) {
         String sql = """
-                Delete from events where id = ?;
-        """;
+                        Delete from events where id = ?;
+                """;
         try (Connection con = DBConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql)) {
-            if(con == null) {
+                PreparedStatement ps = con.prepareStatement(sql)) {
+            if (con == null) {
                 return;
             }
             ps.setInt(1, Integer.parseInt(id));
             ps.execute();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return;
         }
 
+    }
+
+    public static List<Event> getEventsByOrganizer(String organizerId) {
+        List<Event> events = new ArrayList<>();
+        String sql = "SELECT * FROM events WHERE organizer_id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, organizerId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                events.add(new Event(
+                        String.valueOf(rs.getInt("id")),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getString("organizer_id"),
+                        LocalDate.parse(rs.getString("date")),
+                        rs.getString("start_time"),
+                        rs.getString("end_time"),
+                        EventStatus.valueOf(rs.getString("status")),
+                        rs.getString("category"),
+                        rs.getString("location"),
+                        rs.getString("imgURL")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return events;
     }
 }

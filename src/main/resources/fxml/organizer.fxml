@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
 
 <StackPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -54,7 +55,29 @@
                     </ScrollPane>
                 </Tab>
 
-                <Tab text="Analytics" closable="false"/>
+                <Tab text="Analytics" closable="false">
+                    <ScrollPane fitToWidth="true">
+                        <VBox spacing="20" style="-fx-padding: 20;">
+                            <HBox spacing="20">
+                                <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                                    <Label text="Events by Category" styleClass="subtitle"/>
+                                    <PieChart fx:id="categoryChart" legendSide="RIGHT"/>
+                                </VBox>
+                                <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                                    <Label text="Attendance Overview" styleClass="subtitle"/>
+                                    <BarChart fx:id="attendanceChart" legendVisible="false">
+                                        <xAxis>
+                                            <CategoryAxis label="Event" fx:id="xAxis"/>
+                                        </xAxis>
+                                        <yAxis>
+                                            <NumberAxis label="Attendees" fx:id="yAxis"/>
+                                        </yAxis>
+                                    </BarChart>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </ScrollPane>
+                </Tab>
             </TabPane>
 
         </VBox>

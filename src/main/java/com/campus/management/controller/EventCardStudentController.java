@@ -22,42 +22,58 @@ import javafx.stage.Window;
 
 public class EventCardStudentController {
 
-    @FXML private ImageView eventImage;
-    @FXML private Label title;
-    @FXML private Label dateLabel;
-    @FXML private Label timeLabel;
-    @FXML private Label locationLabel;
-    @FXML private Label attendeesLabel;
-    @FXML private Label descriptionLabel;
-    @FXML private VBox container;
-    @FXML private Button eventButton;
+    @FXML
+    private ImageView eventImage;
+    @FXML
+    private Label title;
+    @FXML
+    private Label dateLabel;
+    @FXML
+    private Label timeLabel;
+    @FXML
+    private Label locationLabel;
+    @FXML
+    private Label attendeesLabel;
+    @FXML
+    private Label descriptionLabel;
+    @FXML
+    private VBox container;
+    @FXML
+    private Button eventButton;
     private Event event;
 
-    public void initialize(){
-        Rectangle clip = new Rectangle(eventImage.getFitWidth(),eventImage.getFitHeight());
+    public void initialize() {
+        Rectangle clip = new Rectangle(eventImage.getFitWidth(), eventImage.getFitHeight());
         clip.setArcHeight(32);
         clip.setArcWidth(32);
         clip.widthProperty().bind(container.widthProperty());
         clip.heightProperty().bind(container.heightProperty());
         container.setClip(clip);
     }
+
     // This method receives parameters
-    public void setEventData(Event event,String status) {
+    public void setEventData(Event event, String status) {
         this.event = event;
         eventImage.setImage(new Image(event.getImageUrl()));
         title.setText(event.getTitle());
-//        dateLabel.setText(event.getDateCreated().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        timeLabel.setText(event.getStart()+ " - " + event.getEnd());
+        if (event.getDate() != null) {
+            dateLabel.setText(event.getDate().toString());
+        }
+        timeLabel.setText(event.getStart() + " - " + event.getEnd());
         locationLabel.setText("Location: " + event.getLocation());
-        attendeesLabel.setText("Attending: " + event.getOrganizerId() + " students");
+
+        // Count registrations
+        long count = UserDao.readRegistrations().stream()
+                .filter(r -> r.getEvent_id() == Integer.parseInt(event.getId()))
+                .count();
+        attendeesLabel.setText("Attending: " + count + " students");
+
         descriptionLabel.setText(event.getDescription());
-        if (status.equals("registered")){
+        if (status.equals("registered")) {
             eventButton.setVisible(false);
             eventButton.setManaged(false);
         }
     }
-
-
 
     @FXML
     private void registerToEvent() {
@@ -66,17 +82,16 @@ public class EventCardStudentController {
         alert.setHeaderText(null);
         alert.setContentText("Are you sure you want to register this event?");
         if (alert.showAndWait().orElse(null) == ButtonType.OK) {
-            UserDao.EvetRegister(AppContext.getCurrentUser().getUserid(),Integer.parseInt(event.getId()));
-            try{
-                FXMLLoader loader =  new FXMLLoader(getClass().getResource("/fxml/student.fxml"));
+            UserDao.EvetRegister(AppContext.getCurrentUser().getUserid(), Integer.parseInt(event.getId()));
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/student.fxml"));
                 Parent root = loader.load();
                 Stage stage = (Stage) eventImage.getScene().getWindow();
                 stage.setScene(new Scene(root));
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
 }
-

@@ -25,25 +25,38 @@ import java.util.stream.Collectors;
 
 public class OrganizerController {
 
-    // Optional: inject if you want to control them dynamically later
-    @FXML private TabPane tabPane;
-    @FXML private ProgressBar progressBar;
+    @FXML
+    private javafx.scene.chart.PieChart categoryChart;
+    @FXML
+    private javafx.scene.chart.BarChart<String, Number> attendanceChart;
+    @FXML
+    private javafx.scene.chart.CategoryAxis xAxis;
+    @FXML
+    private javafx.scene.chart.NumberAxis yAxis;
+    @FXML
+    private TabPane tabPane;
+    @FXML
+    private ProgressBar progressBar;
     @FXML
     public VBox EventContainer;
     @FXML
     HBox rootContainer;
-    @FXML Label attendersLabel;
-    @FXML VBox MainContentContainer;
+    @FXML
+    Label attendersLabel;
+    @FXML
+    VBox MainContentContainer;
 
     private final EventService eventService = new EventServiceImpl();
-    protected EventRegistration eventRegistration;
-    static  List<Event> eventList;
-    Event selectedEvent;
+    static List<Event> eventList;
     String orgainizer_id;
-    @FXML ImageView profileImage;
-    @FXML Label eventNoLabel;
-    @FXML Label orgainizer_name;
-    @FXML Label orgainizer_username;
+    @FXML
+    ImageView profileImage;
+    @FXML
+    Label eventNoLabel;
+    @FXML
+    Label orgainizer_name;
+    @FXML
+    Label orgainizer_username;
 
     @FXML
     public void initialize() {
@@ -53,28 +66,73 @@ public class OrganizerController {
             orgainizer_name.setText(current.getName());
             orgainizer_username.setText("@" + current.getUsername());
         }
-        profileImage.setImage(new Image(getClass().getResource("/images/person.png").toExternalForm()));
+        try {
+            profileImage.setImage(new Image(getClass().getResource("/images/person.png").toExternalForm()));
+        } catch (Exception e) {
+            System.out.println("Image load error: " + e.getMessage());
+        }
+
         loadEventLists();
         renderEventList();
-        eventNoLabel.setText(String.valueOf(eventList.size()));
-        MainContentContainer.prefWidthProperty().bind(rootContainer.widthProperty().multiply(0.8));
+        if (eventList != null) {
+            eventNoLabel.setText(String.valueOf(eventList.size()));
+        }
+
+        if (MainContentContainer != null && rootContainer != null) {
+            MainContentContainer.prefWidthProperty().bind(rootContainer.widthProperty().multiply(0.8));
+        }
+
         if (progressBar != null) {
-            progressBar.setProgress(0.73); // 73% registration
+            progressBar.setProgress(0.73);
+        }
+        loadAnalytics();
+    }
+
+    private void loadAnalytics() {
+        // Category Chart
+        if (categoryChart != null && eventList != null) {
+            categoryChart.getData().clear();
+            eventList.stream()
+                    .collect(Collectors.groupingBy(Event::getCategory, Collectors.counting()))
+                    .forEach((category, count) -> categoryChart.getData()
+                            .add(new javafx.scene.chart.PieChart.Data(category, count)));
+        }
+
+        // Attendance Chart
+        if (attendanceChart != null && eventList != null) {
+            attendanceChart.getData().clear();
+            javafx.scene.chart.XYChart.Series<String, Number> series = new javafx.scene.chart.XYChart.Series<>();
+            series.setName("Attendees");
+
+            List<EventRegistration> allRegistrations = UserDao.readRegistrations();
+
+            for (Event event : eventList) {
+                long count = allRegistrations.stream()
+                        .filter(r -> r.getEvent_id() == Integer.parseInt(event.getId()))
+                        .count();
+                series.getData().add(new javafx.scene.chart.XYChart.Data<>(event.getTitle(), count));
+            }
+            attendanceChart.getData().add(series);
         }
     }
 
     protected void loadEventLists() {
+        if (orgainizer_id == null)
+            return;
         List<Event> all = eventService.listEvents();
-        eventList = all.stream().filter(e-> orgainizer_id.equals(e.getOrganizerId())).toList();
+        eventList = all.stream().filter(e -> orgainizer_id.equals(e.getOrganizerId())).toList();
+
         Set<String> eventids = eventList.stream()
                 .map(Event::getId)
                 .collect(Collectors.toSet());
         List<EventRegistration> myRegister = UserDao.readRegistrations();
-        myRegister.removeIf(e-> !eventids.contains(String.valueOf(e.getEvent_id())));
+        myRegister.removeIf(e -> !eventids.contains(String.valueOf(e.getEvent_id())));
         attendersLabel.setText(String.valueOf(myRegister.size()));
     }
 
     private void renderEventList() {
+        if (EventContainer == null || eventList == null)
+            return;
         EventContainer.getChildren().clear();
         try {
             for (Event event : eventList) {
@@ -88,6 +146,7 @@ public class OrganizerController {
             System.out.println(e);
         }
     }
+
     @FXML
     private void handleCreateEvent() {
         try {
@@ -105,10 +164,12 @@ public class OrganizerController {
             stage.showAndWait();
             loadEventLists();
             renderEventList();
+            loadAnalytics();
         } catch (Exception e) {
             System.out.println(e);
         }
     }
+
     @FXML
     protected void onLogout() {
         AppContext.setCurrentUser(null);
@@ -121,5 +182,4 @@ public class OrganizerController {
             e.printStackTrace();
         }
     }
-
 }

@@ -28,7 +28,6 @@ public class DBConnection {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(URL);
-            System.out.println("Connected to SQLite database");
             connection = conn;
             if(!tablesCreated){
                 createUsersTable();
@@ -59,8 +58,6 @@ public class DBConnection {
     """;
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
-            System.out.println("Events table created successfully");
-
         } catch (SQLException e) {
             System.out.println("Error creating events table: " + e.getMessage());
         }
@@ -81,8 +78,6 @@ public class DBConnection {
         try ( Statement stmt = connection.createStatement()) {
 
             stmt.execute(sql);
-            System.out.println("Users table created successfully");
-
         } catch (SQLException e) {
             System.out.println("Error creating users table: " + e.getMessage());
         }
@@ -102,8 +97,6 @@ public class DBConnection {
         try (Statement stmt = connection.createStatement()) {
             stmt.execute("PRAGMA foreign_keys = ON;");
             stmt.execute(sql);
-
-            System.out.println("EventRegistrations table created successfully");
 
         } catch (SQLException e) {
             System.out.println("Error creating eventRegistrations table: " + e.getMessage());
