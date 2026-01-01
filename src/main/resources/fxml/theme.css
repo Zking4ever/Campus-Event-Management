@@ -1,0 +1,283 @@
+/* Modern Professional Theme */
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-base: #f8fafc;
+    -fx-background-color: #f8fafc;
+    -fx-font-size: 14px;
+}
+
+/* Typography */
+.label {
+    -fx-text-fill: #1e293b;
+}
+
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748b;
+}
+
+/* Inputs */
+.text-field,
+.password-field,
+.combo-box,
+.date-picker .text-field {
+    -fx-background-color: white;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 8 12;
+    -fx-pref-height: 40;
+}
+
+.text-field:focused,
+.password-field:focused,
+.combo-box:focused {
+    -fx-border-color: #4f46e5;
+    -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.2), 4, 0, 0, 0);
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #4f46e5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.button:hover {
+    -fx-background-color: #4338ca;
+}
+
+.button:pressed {
+    -fx-background-color: #3730a3;
+}
+
+/* Secondary Button (e.g. Cancel) */
+.button.secondary {
+    -fx-background-color: white;
+    -fx-text-fill: #475569;
+    -fx-border-color: #e2e8f0;
+}
+
+.button.secondary:hover {
+    -fx-background-color: #f1f5f9;
+}
+
+/* Links */
+.hyperlink,
+.signup-link {
+    -fx-text-fill: #4f46e5;
+    -fx-border-color: transparent;
+    -fx-underline: false;
+    -fx-padding: 0;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #4338ca;
+    -fx-underline: true;
+}
+
+/* Icons in Input Box */
+.input-box {
+    -fx-alignment: center-left;
+}
+
+.icon {
+    -fx-font-size: 16px;
+    -fx-text-fill: #94a3b8;
+    -fx-min-width: 24px;
+    -fx-alignment: center;
+}
+
+/* Login/Register Specific */
+.login-button,
+.register-button {
+    -fx-pref-width: 100%;
+    -fx-pref-height: 44;
+    -fx-font-size: 16px;
+}
+
+.error-label {
+    -fx-text-fill: #ef4444;
+    -fx-font-size: 12px;
+}
+
+/* Dashboard / Cards */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 2);
+    -fx-padding: 16;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane>.viewport {
+    -fx-background-color: transparent;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 4;
+}
+
+.list-cell:filled:selected:focused,
+.list-cell:filled:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: #1e293b;
+}
+
+.list-cell:even,
+.list-cell:odd {
+    -fx-background-color: transparent;
+}
+
+/* Dashboard Styles (Merged) */
+.Profile-container {
+    -fx-min-width: 300;
+    -fx-min-height: 500;
+    -fx-padding: 40 10 10 10;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.Profile-card {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-background-radius: 12;
+    -fx-min-width: 270;
+    -fx-min-height: 300;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 2);
+}
+
+.Profile-card-student {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-background-radius: 12;
+    -fx-min-width: 200;
+    -fx-min-height: 200;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 2);
+}
+
+.header {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Stat Cards */
+.stat-card {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-spacing: 12;
+    -fx-min-width: 170;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 8, 0, 0, 2);
+}
+
+.stat-label {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 13px;
+}
+
+.stat-value {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.blue {
+    -fx-border-color: #4f46e5;
+    -fx-border-width: 0 0 0 4;
+}
+
+.green {
+    -fx-border-color: #10b981;
+    -fx-border-width: 0 0 0 4;
+}
+
+.purple {
+    -fx-border-color: #8b5cf6;
+    -fx-border-width: 0 0 0 4;
+}
+
+.orange {
+    -fx-border-color: #f97316;
+    -fx-border-width: 0 0 0 4;
+}
+
+.badge {
+    -fx-background-color: #e0e7ff;
+    -fx-text-fill: #4338ca;
+    -fx-padding: 4 10;
+    -fx-background-radius: 12;
+}
+
+/* Tab Pane overrides */
+.tab-pane .tab-header-area .tab {
+    -fx-background-color: transparent;
+    -fx-text-fill: #64748b;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-border-color: transparent;
+}
+
+.tab-pane .tab-header-area .tab:selected {
+    -fx-text-fill: #4f46e5;
+    -fx-border-color: #4f46e5;
+    -fx-border-width: 0 0 2 0;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+/* Button aliases for compatibility with dashboard.css classes */
+.primary-button {
+    -fx-background-color: #4f46e5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #4338ca;
+}
+
+.secondary-button {
+    -fx-background-color: white;
+    -fx-text-fill: #475569;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #f1f5f9;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6;
+    -fx-cursor: hand;
+}
+
+.icon-button:hover {
+    -fx-background-color: #f1f5f9;
+}

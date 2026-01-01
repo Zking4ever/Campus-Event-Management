@@ -1,4 +1,3 @@
-// java
 package com.campus.management;
 
 import javafx.application.Application;
@@ -20,6 +19,8 @@ public class MainApp extends Application {
 
         Scene scene = new Scene(root);
         primaryStage.setTitle("Campus Management");
+        scene.getStylesheets().add(
+                getClass().getResource("/fxml/theme.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setWidth(890);
         primaryStage.setHeight(600);

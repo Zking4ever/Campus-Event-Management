@@ -11,7 +11,8 @@
       alignment="TOP_CENTER"
       prefWidth="900"
       prefHeight="600"
-      style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);">
+      style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);"
+      stylesheets="@theme.css">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>

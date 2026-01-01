@@ -8,7 +8,7 @@
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.campus.management.controller.RegistrationController"
-            stylesheets="@desktop.css">
+            stylesheets="@theme.css">
 
     <!-- Left Panel: Illustration + description -->
     <left>
@@ -63,7 +63,7 @@
                 <ChoiceBox fx:id="roleChoice" prefWidth="240"/>
             </HBox>
 
-            <Button text="Register" onAction="#onRegister" styleClass="register-button"/>
+            <Button text="Register" onAction="#onRegister" styleClass="register-button" defaultButton="true"/>
             <Label fx:id="statusLabel" styleClass="error-label"/>
 
             <HBox alignment="CENTER">

@@ -2,27 +2,31 @@
     -fx-font-family: "Segoe UI", sans-serif;
     -fx-background-color: #f6f7fb;
 }
-.Profile-container{
-    -fx-min-width:300;
-    -fx-min-height:500;
-    -fx-padding:40 10 10 10;
+
+.Profile-container {
+    -fx-min-width: 300;
+    -fx-min-height: 500;
+    -fx-padding: 40 10 10 10;
     -fx-border-color: #e5e7eb;
     -fx-border-width: 0 0 1 0;
 }
-.Profile-card{
+
+.Profile-card {
     -fx-background-color: white;
-    -fx-padding:10;
-    -fx-background-radius:10;
-    -fx-min-width:270;
-    -fx-min-height:300;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-min-width: 270;
+    -fx-min-height: 300;
 }
-.Profile-card-student{
+
+.Profile-card-student {
     -fx-background-color: white;
-    -fx-padding:10;
-    -fx-background-radius:10;
-    -fx-min-width:200;
-    -fx-min-height:200;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-min-width: 200;
+    -fx-min-height: 200;
 }
+
 /* Header */
 .header {
     -fx-background-color: white;
@@ -47,7 +51,7 @@
     -fx-background-radius: 10;
     -fx-padding: 10 20;
     -fx-width: 200;
-    -fx-cursor:hand;
+    -fx-cursor: hand;
 }
 
 .secondary-button {
@@ -56,8 +60,9 @@
     -fx-border-radius: 8;
     -fx-padding: 8 15;
     -fx-min-width: 150;
-    -fx-cursor:hand;
+    -fx-cursor: hand;
 }
+
 .secondary-button:hover {
     -fx-background-color: rgba(255, 0, 0, 0.35);
     -fx-border-color: #d1d5db;
@@ -79,7 +84,7 @@
     -fx-spacing: 10;
     -fx-min-width: 170;
     -fx-background-radius: 14;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 0, 2);
 }
 
 .stat-label {
@@ -91,10 +96,25 @@
     -fx-font-weight: bold;
 }
 
-.blue { -fx-border-color: #2563eb; -fx-border-width: 0 0 0 4; }
-.green { -fx-border-color: #16a34a; -fx-border-width: 0 0 0 4; }
-.purple { -fx-border-color: #7c3aed; -fx-border-width: 0 0 0 4; }
-.orange { -fx-border-color: #f97316; -fx-border-width: 0 0 0 4; }
+.blue {
+    -fx-border-color: #2563eb;
+    -fx-border-width: 0 0 0 4;
+}
+
+.green {
+    -fx-border-color: #16a34a;
+    -fx-border-width: 0 0 0 4;
+}
+
+.purple {
+    -fx-border-color: #7c3aed;
+    -fx-border-width: 0 0 0 4;
+}
+
+.orange {
+    -fx-border-color: #f97316;
+    -fx-border-width: 0 0 0 4;
+}
 
 .badge {
     -fx-background-color: #dbeafe;
@@ -104,10 +124,9 @@
 }
 
 .tab-pane .tab-header-area .tab {
-    -fx-padding:7 20;
+    -fx-padding: 7 20;
 }
+
 .my-tabpane .tab-header-area {
     -fx-background-color: red;
 }
-
-

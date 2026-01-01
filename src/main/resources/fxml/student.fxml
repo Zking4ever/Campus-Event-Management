@@ -11,7 +11,7 @@
             prefWidth="900"
             prefHeight="600"
             style="-fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0);"
-            stylesheets="@dashboard.css">
+            stylesheets="@theme.css">
     <left>
         <VBox spacing="20" alignment="TOP_CENTER"
               style="-fx-background-color: #4f46e5;"
