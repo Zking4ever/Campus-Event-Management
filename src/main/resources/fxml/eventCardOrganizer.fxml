@@ -27,6 +27,7 @@
                     <Region HBox.hgrow="ALWAYS"/>
                     <Button text="🗑"  onAction="#handleDeletEvent" styleClass="icon-button"/>
                     <Button text="✎" onAction="#handleEditEvent" styleClass="icon-button"/>
+                    <Button text="👥" onAction="#handleViewAttendees" styleClass="icon-button" tooltip="View Attendees"/>
                 </HBox>
                 <Label text="Description" fx:id="descriptionLabel" />
                 <GridPane hgap="40" vgap="8" style="-fx-padding:15 0;-fx-font-size:14px">

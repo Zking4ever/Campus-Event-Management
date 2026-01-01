@@ -10,7 +10,6 @@
             fx:controller="com.campus.management.controller.LoginController"
             stylesheets="@theme.css">
 
-    <!-- Left Panel: Illustration + description -->
     <left>
         <VBox alignment="CENTER" spacing="20"
               style="-fx-background-color: #4f46e5;-fx-padding: 40;"
@@ -34,23 +33,26 @@
         </VBox>
     </left>
 
-    <!-- Right Panel: Login Form -->
     <center>
         <VBox alignment="CENTER" spacing="18" style="-fx-padding: 60; -fx-background-color: #f8fafc;">
             <Label text="Sign in" styleClass="title"/>
             <Label text="Enter your campus account credentials" styleClass="subtitle"/>
 
-            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
+            <HBox spacing="10" alignment="CENTER" styleClass="input-box"
+            maxWidth="335">
                 <Label text="👤" styleClass="icon"/>
-                <TextField fx:id="usernameField" promptText="Username or Email"/>
+                <TextField fx:id="usernameField" promptText="Username or Email" maxWidth="Infinity"
+                           HBox.hgrow="ALWAYS"/>
             </HBox>
 
-            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
+            <HBox spacing="10" alignment="CENTER" styleClass="input-box"
+                  maxWidth="335">
                 <Label text="🔒" styleClass="icon"/>
-                <PasswordField fx:id="passwordField" promptText="Password"/>
+                <PasswordField fx:id="passwordField" promptText="Password" maxWidth="Infinity"
+                               HBox.hgrow="ALWAYS"/>
             </HBox>
 
-            <Button text="Login" onAction="#onLogin" styleClass="login-button" defaultButton="true"/>
+            <Button text="Login" onAction="#onLogin" styleClass="login-button" defaultButton="true"  minWidth="100"/>
             <Label fx:id="statusLabel" styleClass="error-label"/>
 
             <HBox alignment="CENTER">

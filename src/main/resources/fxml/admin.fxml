@@ -38,8 +38,8 @@
             <!-- Navigation -->
             <VBox spacing="10" VBox.vgrow="ALWAYS">
                 <Button text="Dashboard" maxWidth="Infinity" styleClass="icon-button" style="-fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-background-color: transparent;"/>
-                <Button text="Events" maxWidth="Infinity" styleClass="icon-button" style="-fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-background-color: rgba(255,255,255,0.1);"/>
-                <Button text="Users" maxWidth="Infinity" styleClass="icon-button" style="-fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-background-color: transparent;"/>
+                <Button text="Events" maxWidth="Infinity" styleClass="icon-button" style="-fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-background-color: rgba(255,255,255,0.1);" onAction="#showEventsView"/>
+                <Button text="Users" maxWidth="Infinity" styleClass="icon-button" style="-fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-background-color: transparent;" onAction="#showUsersView"/>
                 <Button text="Settings" maxWidth="Infinity" styleClass="icon-button" style="-fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-background-color: transparent;"/>
             </VBox>
 
@@ -54,30 +54,63 @@
                 <Insets top="30" right="30" bottom="30" left="30"/>
             </padding>
 
-            <!-- Header -->
-            <HBox alignment="CENTER_LEFT" spacing="15">
-                <VBox>
-                    <Label text="Event Management" styleClass="title"/>
-                    <Label text="Approve, reject, or delete events." styleClass="subtitle"/>
+            <!-- Main Content Stack -->
+            <StackPane VBox.vgrow="ALWAYS">
+                
+                <!-- Event Management View -->
+                <VBox fx:id="eventsView" spacing="20">
+                    <!-- Event Header -->
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <VBox>
+                            <Label text="Event Management" styleClass="title"/>
+                            <Label text="Approve, reject, or delete events." styleClass="subtitle"/>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="statusLabel" style="-fx-text-fill: #64748b;"/>
+                    </HBox>
+
+                    <!-- Event Action Toolbar -->
+                    <HBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);">
+                        <Button text="All Events" onAction="#loadAllEvents" styleClass="secondary-button"/>
+                        <Button text="Pending" onAction="#loadPendingEvents" styleClass="primary-button" style="-fx-background-color: #0ea5e9;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="Approve" onAction="#approveSelected" styleClass="primary-button" style="-fx-background-color: #10b981;"/>
+                        <Button text="Reject" onAction="#rejectSelected" styleClass="primary-button" style="-fx-background-color: #f59e0b;"/>
+                        <Button text="Delete" onAction="#deleteSelected" styleClass="primary-button" style="-fx-background-color: #ef4444;"/>
+                    </HBox>
+
+                    <!-- Event List -->
+                    <VBox VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1); -fx-padding: 0;">
+                        <ListView fx:id="eventsListView" VBox.vgrow="ALWAYS" style="-fx-background-insets: 0; -fx-padding: 10; -fx-background-color: transparent;"/>
+                    </VBox>
                 </VBox>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Label fx:id="statusLabel" style="-fx-text-fill: #64748b;"/>
-            </HBox>
 
-            <!-- Action Toolbar -->
-            <HBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);">
-                <Button text="All Events" onAction="#loadAllEvents" styleClass="secondary-button"/>
-                <Button text="Pending" onAction="#loadPendingEvents" styleClass="primary-button" style="-fx-background-color: #0ea5e9;"/>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Button text="Approve" onAction="#approveSelected" styleClass="primary-button" style="-fx-background-color: #10b981;"/>
-                <Button text="Reject" onAction="#rejectSelected" styleClass="primary-button" style="-fx-background-color: #f59e0b;"/>
-                <Button text="Delete" onAction="#deleteSelected" styleClass="primary-button" style="-fx-background-color: #ef4444;"/>
-            </HBox>
+                <!-- User Management View -->
+                <VBox fx:id="usersView" spacing="20" visible="false">
+                    <!-- User Header -->
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <VBox>
+                            <Label text="User Management" styleClass="title"/>
+                            <Label text="Manage registered users." styleClass="subtitle"/>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS"/>
+                    </HBox>
 
-            <!-- Event List -->
-            <VBox VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1); -fx-padding: 0;">
-                <ListView fx:id="eventsListView" VBox.vgrow="ALWAYS" style="-fx-background-insets: 0; -fx-padding: 10; -fx-background-color: transparent;"/>
-            </VBox>
+                    <!-- User Action Toolbar -->
+                    <HBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);">
+                        <Button text="Load All Users" onAction="#loadAllUsers" styleClass="secondary-button"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="Block User" onAction="#blockSelectedUser" styleClass="primary-button" style="-fx-background-color: #f97316;"/>
+                        <Button text="Remove User" onAction="#removeSelectedUser" styleClass="primary-button" style="-fx-background-color: #ef4444;"/>
+                    </HBox>
+
+                    <!-- User List -->
+                    <VBox VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1); -fx-padding: 0;">
+                        <ListView fx:id="usersListView" VBox.vgrow="ALWAYS" style="-fx-background-insets: 0; -fx-padding: 10; -fx-background-color: transparent;"/>
+                    </VBox>
+                </VBox>
+
+            </StackPane>
 
         </VBox>
     </center>

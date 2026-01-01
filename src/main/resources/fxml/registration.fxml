@@ -39,31 +39,41 @@
             <Label text="Create Account" styleClass="title"/>
             <Label text="Sign up for your campus account" styleClass="subtitle"/>
 
-            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box"
+                  maxWidth="335">
                 <Label text="👤" styleClass="icon"/>
-                <TextField fx:id="nameField" promptText="Full name"/>
+                <TextField fx:id="nameField" promptText="Full name" maxWidth="Infinity"
+                               HBox.hgrow="ALWAYS"/>
             </HBox>
-            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box"
+                  maxWidth="335">
                 <Label text="📧" styleClass="icon"/>
-                <TextField fx:id="emailField" promptText="Email"/>
+                <TextField fx:id="emailField" promptText="Email" maxWidth="Infinity"
+                               HBox.hgrow="ALWAYS"/>
             </HBox>
 
-            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box"
+                  maxWidth="335">
                 <Label text="👤" styleClass="icon"/>
-                <TextField fx:id="usernameField" promptText="Username"/>
+                <TextField fx:id="usernameField" promptText="Username" maxWidth="Infinity"
+                               HBox.hgrow="ALWAYS"/>
             </HBox>
 
-            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box"
+                  maxWidth="335">
                 <Label text="🔒" styleClass="icon"/>
-                <PasswordField fx:id="passwordField" promptText="Password"/>
+                <PasswordField fx:id="passwordField" promptText="Password" maxWidth="Infinity"
+                               HBox.hgrow="ALWAYS"/>
             </HBox>
 
-            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box">
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="input-box"
+                  maxWidth="335">
                 <Label text="🛠️" styleClass="icon"/>
-                <ChoiceBox fx:id="roleChoice" prefWidth="240"/>
+                <ChoiceBox fx:id="roleChoice"  maxWidth="Infinity"
+                               HBox.hgrow="ALWAYS"/>
             </HBox>
 
-            <Button text="Register" onAction="#onRegister" styleClass="register-button" defaultButton="true"/>
+            <Button text="Register" onAction="#onRegister" styleClass="register-button" defaultButton="true" minWidth="120"/>
             <Label fx:id="statusLabel" styleClass="error-label"/>
 
             <HBox alignment="CENTER">

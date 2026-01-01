@@ -112,4 +112,76 @@ public class UserDao {
             return null;
         }
     }
+
+    public static List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM users";
+        try (Connection con = DBConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                users.add(new User(
+                        rs.getString("userid"),
+                        rs.getString("username"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        "", // Don't allow password reading
+                        Role.valueOf(rs.getString("role"))));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    public static void deleteUser(String userId) {
+        String sql = "DELETE FROM users WHERE userid = ?";
+        try (Connection con = DBConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, userId);
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Using Role update for blocking logic as requested
+    public static void updateUserRole(String userId, String newRole) {
+        String sql = "UPDATE users SET role = ? WHERE userid = ?";
+        try (Connection con = DBConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, newRole);
+            ps.setString(2, userId);
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<User> getAttendeesForEvent(int eventId) {
+        List<User> users = new ArrayList<>();
+        String sql = """
+                    SELECT u.userid, u.username, u.name, u.email, u.role
+                    FROM users u
+                    JOIN eventRegistrations er ON u.userid = er.user_id
+                    WHERE er.event_id = ?
+                """;
+        try (Connection con = DBConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, eventId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                users.add(new User(
+                        rs.getString("userid"),
+                        rs.getString("username"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        "",
+                        Role.valueOf(rs.getString("role"))));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
 }

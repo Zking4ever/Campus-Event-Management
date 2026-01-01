@@ -3,6 +3,7 @@ package com.campus.management.controller;
 
 import com.campus.management.model.Event;
 import com.campus.management.model.EventStatus;
+import com.campus.management.model.User;
 import com.campus.management.service.EventService;
 import com.campus.management.service.impl.EventServiceImpl;
 import javafx.fxml.FXML;
@@ -14,7 +15,13 @@ public class AdminController {
     @FXML
     private ListView<Event> eventsListView;
     @FXML
+    private ListView<User> usersListView;
+    @FXML
     private Label statusLabel;
+    @FXML
+    private javafx.scene.layout.VBox eventsView;
+    @FXML
+    private javafx.scene.layout.VBox usersView;
 
     private final EventService eventService = new EventServiceImpl();
 
@@ -24,18 +31,39 @@ public class AdminController {
     }
 
     @FXML
+    protected void showEventsView() {
+        eventsView.setVisible(true);
+        usersView.setVisible(false);
+    }
+
+    @FXML
+    protected void showUsersView() {
+        eventsView.setVisible(false);
+        usersView.setVisible(true);
+        loadAllUsers();
+    }
+
+    // --- Event Logic ---
+
+    @FXML
     protected void loadAllEvents() {
-        eventsListView.getItems().setAll(eventService.listEvents());
-        statusLabel.setText("Loaded all events");
+        if (eventsListView != null) {
+            eventsListView.getItems().setAll(eventService.listEvents());
+            if (statusLabel != null)
+                statusLabel.setText("Loaded all events");
+        }
     }
 
     @FXML
     protected void loadPendingEvents() {
-        eventsListView.getItems().setAll(
-                eventService.listEvents().stream()
-                        .filter(e -> e.getStatus() == EventStatus.PENDING)
-                        .toList());
-        statusLabel.setText("Showing pending events");
+        if (eventsListView != null) {
+            eventsListView.getItems().setAll(
+                    eventService.listEvents().stream()
+                            .filter(e -> e.getStatus() == EventStatus.PENDING)
+                            .toList());
+            if (statusLabel != null)
+                statusLabel.setText("Showing pending events");
+        }
     }
 
     @FXML
@@ -44,7 +72,8 @@ public class AdminController {
         if (selected != null) {
             eventService.updateStatus(selected.getId(), "APPROVED");
             loadPendingEvents();
-            statusLabel.setText("Event approved");
+            if (statusLabel != null)
+                statusLabel.setText("Event approved");
         }
     }
 
@@ -54,7 +83,8 @@ public class AdminController {
         if (selected != null) {
             eventService.updateStatus(selected.getId(), "REJECTED");
             loadPendingEvents();
-            statusLabel.setText("Event rejected");
+            if (statusLabel != null)
+                statusLabel.setText("Event rejected");
         }
     }
 
@@ -64,7 +94,36 @@ public class AdminController {
         if (selected != null) {
             eventService.deleteEvent(selected.getId());
             loadAllEvents();
-            statusLabel.setText("Event deleted");
+            if (statusLabel != null)
+                statusLabel.setText("Event deleted");
+        }
+    }
+
+    // --- User Logic ---
+
+    @FXML
+    protected void loadAllUsers() {
+        if (usersListView != null) {
+            usersListView.getItems().setAll(com.campus.management.service.database.UserDao.getAllUsers());
+        }
+    }
+
+    @FXML
+    protected void blockSelectedUser() {
+        User selected = usersListView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            // Using "STUDENT" role change or some other logic. Request said "Block".
+            com.campus.management.service.database.UserDao.deleteUser(selected.getUserid());
+            loadAllUsers();
+        }
+    }
+
+    @FXML
+    protected void removeSelectedUser() {
+        User selected = usersListView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            com.campus.management.service.database.UserDao.deleteUser(selected.getUserid());
+            loadAllUsers();
         }
     }
 
