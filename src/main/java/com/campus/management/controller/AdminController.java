@@ -7,8 +7,10 @@ import com.campus.management.model.User;
 import com.campus.management.service.EventService;
 import com.campus.management.service.impl.EventServiceImpl;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 
 public class AdminController {
 
@@ -42,20 +44,20 @@ public class AdminController {
                         setText(null);
                         setGraphic(null);
                     } else {
-                        javafx.scene.layout.HBox container = new javafx.scene.layout.HBox(10);
+                        HBox container = new javafx.scene.layout.HBox(10);
                         container.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
-                        javafx.scene.control.Label titleLbl = new javafx.scene.control.Label(item.getTitle());
+                        Label titleLbl = new Label(item.getTitle());
                         titleLbl.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
                         titleLbl.setPrefWidth(180);
 
-                        javafx.scene.control.Label dateLbl = new javafx.scene.control.Label(item.getDate().toString());
+                        Label dateLbl = new Label(item.getDate().toString());
                         dateLbl.setPrefWidth(90);
 
-                        javafx.scene.control.Label detailsLbl = new javafx.scene.control.Label(item.getLocation());
+                        Label detailsLbl = new Label(item.getLocation());
                         detailsLbl.setPrefWidth(120);
 
-                        javafx.scene.control.Label statusLbl = new javafx.scene.control.Label(
+                        Label statusLbl = new Label(
                                 item.getStatus().toString());
                         String statusStyle = switch (item.getStatus()) {
                             case APPROVED ->
@@ -70,14 +72,14 @@ public class AdminController {
                         statusLbl.setAlignment(javafx.geometry.Pos.CENTER);
 
                         javafx.scene.layout.Region spacer = new javafx.scene.layout.Region();
-                        javafx.scene.layout.HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+                        HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
 
                         // inline actions
                         javafx.scene.layout.HBox actions = new javafx.scene.layout.HBox(5);
                         actions.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
 
                         if (item.getStatus() == EventStatus.PENDING) {
-                            javafx.scene.control.Button approveBtn = new javafx.scene.control.Button("✓");
+                            Button approveBtn = new Button("✓");
                             approveBtn.setStyle(
                                     "-fx-text-fill: white; -fx-background-color: #10b981; -fx-cursor: hand; -fx-font-weight: bold;");
                             approveBtn.setTooltip(new javafx.scene.control.Tooltip("Approve"));

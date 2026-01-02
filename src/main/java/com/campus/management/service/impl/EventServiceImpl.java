@@ -13,8 +13,7 @@ import java.util.stream.Collectors;
 
 public class EventServiceImpl implements EventService {
 
-
-    private final List<Event> events = new ArrayList<>();
+    private List<Event> events = new ArrayList<>();
 
     @Override
     public Event createEvent(Event event) {
@@ -28,10 +27,12 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event updateEvent(Event updated) {
-        return  EventDao.updateEvent(updated);
+        return EventDao.updateEvent(updated);
     }
+
     @Override
     public Event findById(String id) {
+        events = listEvents();
         return events.stream().filter(e -> e.getId().equals(id)).findFirst().orElse(null);
     }
 
@@ -40,6 +41,7 @@ public class EventServiceImpl implements EventService {
         Event e = findById(id);
         if (e != null) {
             e.setStatus(EventStatus.valueOf(status));
+            EventDao.updateEvent(e);
         }
         return e;
     }
@@ -50,7 +52,6 @@ public class EventServiceImpl implements EventService {
                 .filter(e -> e.getOrganizerId().equals(organizerId))
                 .collect(Collectors.toList());
     }
-
 
     public void deleteEvent(String id) {
         EventDao.deleteEvent(id);
