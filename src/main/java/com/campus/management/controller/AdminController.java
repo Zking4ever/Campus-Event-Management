@@ -192,8 +192,6 @@ public class AdminController {
         loadAllUsers();
     }
 
-    // --- Event Logic ---
-
     @FXML
     protected void loadAllEvents() {
         if (eventsListView != null) {

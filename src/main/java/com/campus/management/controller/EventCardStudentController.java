@@ -16,9 +16,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import com.campus.management.model.EventRegistration;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+
+import java.util.List;
 
 public class EventCardStudentController {
 
@@ -63,10 +66,18 @@ public class EventCardStudentController {
         locationLabel.setText("Location: " + event.getLocation());
 
         // Count registrations
-        long count = UserDao.readRegistrations().stream()
-                .filter(r -> r.getEvent_id() == Integer.parseInt(event.getId()))
-                .count();
-        attendeesLabel.setText("Attending: " + count + " students");
+        List<EventRegistration> registrations = UserDao.readRegistrations();
+        if (registrations != null) {
+            try {
+                int eventId = Integer.parseInt(event.getId()); // Corrected myevent to event
+                long count = registrations.stream().filter(r -> r.getEvent_id() == eventId).count();
+                attendeesLabel.setText("Attending: " + count + " students"); // Re-added "Attending: " and " students"
+            } catch (NumberFormatException e) {
+                attendeesLabel.setText("Attending: 0 students"); // Handle NFE case
+            }
+        } else {
+            attendeesLabel.setText("Attending: 0 students"); // Handle null registrations case
+        }
 
         descriptionLabel.setText(event.getDescription());
         if (status.equals("registered")) {

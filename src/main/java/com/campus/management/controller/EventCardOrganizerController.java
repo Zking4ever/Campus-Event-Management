@@ -55,8 +55,18 @@ public class EventCardOrganizerController {
         attendeesLabel.setText("30 / 75");
         descriptionLabel.setText(event.getDescription());
         List<EventRegistration> eventRegistered = UserDao.readRegistrations();
-        eventRegistered.removeIf(e -> e.getEvent_id() != Integer.parseInt(myevent.getId()));
-        registeredNo = String.valueOf(eventRegistered.size());
+        if (eventRegistered != null) {
+            try {
+                int eventId = Integer.parseInt(myevent.getId());
+                eventRegistered.removeIf(e -> e.getEvent_id() != eventId);
+                registeredNo = String.valueOf(eventRegistered.size());
+            } catch (NumberFormatException e) {
+                registeredNo = "0";
+                System.err.println("Invalid Event ID: " + myevent.getId());
+            }
+        } else {
+            registeredNo = "0";
+        }
         attendeesLabel.setText(registeredNo);
     }
 
