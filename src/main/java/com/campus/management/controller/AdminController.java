@@ -47,6 +47,15 @@ public class AdminController {
     @FXML
     private Label pendingEventsLabel;
 
+    @FXML
+    private javafx.scene.chart.BarChart<String, Number> eventCategoryChart;
+    @FXML
+    private javafx.scene.chart.CategoryAxis xAxis;
+    @FXML
+    private javafx.scene.chart.NumberAxis yAxis;
+    @FXML
+    private javafx.scene.chart.PieChart userRoleChart;
+
     private final EventService eventService = new EventServiceImpl();
 
     @FXML
@@ -119,6 +128,55 @@ public class AdminController {
 
         java.util.List<User> allUsers = com.campus.management.service.database.UserDao.getAllUsers();
         totalUsersLabel.setText(String.valueOf(allUsers.size()));
+
+        // --- Populate Charts ---
+
+        // 1. Events by Category (BarChart)
+        if (eventCategoryChart != null) {
+            eventCategoryChart.getData().clear();
+            javafx.scene.chart.XYChart.Series<String, Number> series = new javafx.scene.chart.XYChart.Series<>();
+            series.setName("Events");
+
+            java.util.Map<String, Long> categoryCounts = allEvents.stream()
+                    .filter(e -> e.getCategory() != null)
+                    .collect(java.util.stream.Collectors.groupingBy(
+                            e -> e.getCategory(),
+                            java.util.stream.Collectors.counting()));
+
+            // Ensure all fixed categories are present even if 0
+            String[] fixedCategories = { "Academic", "Art", "Sport", "Tech", "Entertainment" };
+            for (String cat : fixedCategories) {
+                series.getData().add(new javafx.scene.chart.XYChart.Data<>(cat, categoryCounts.getOrDefault(cat, 0L)));
+            }
+
+            // Add any other categories that might exist in DB but not in fixed list
+            for (String cat : categoryCounts.keySet()) {
+                boolean isFixed = false;
+                for (String fix : fixedCategories)
+                    if (fix.equalsIgnoreCase(cat))
+                        isFixed = true;
+                if (!isFixed) {
+                    series.getData().add(new javafx.scene.chart.XYChart.Data<>(cat, categoryCounts.get(cat)));
+                }
+            }
+
+            eventCategoryChart.getData().add(series);
+        }
+
+        // 2. Users by Role (PieChart)
+        if (userRoleChart != null) {
+            userRoleChart.getData().clear();
+            java.util.Map<com.campus.management.model.Role, Long> roleCounts = allUsers.stream()
+                    .collect(java.util.stream.Collectors.groupingBy(
+                            User::getRole,
+                            java.util.stream.Collectors.counting()));
+
+            for (java.util.Map.Entry<com.campus.management.model.Role, Long> entry : roleCounts.entrySet()) {
+                userRoleChart.getData().add(new javafx.scene.chart.PieChart.Data(
+                        entry.getKey().toString(),
+                        entry.getValue()));
+            }
+        }
     }
 
     // --- View Logic ---

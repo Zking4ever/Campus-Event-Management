@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
+<?import javafx.scene.chart.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -77,6 +78,26 @@
                          <VBox styleClass="stat-card-orange">
                              <Label text="⏳ Pending Approvals" styleClass="stat-label"/>
                              <Label fx:id="pendingEventsLabel" text="0" styleClass="stat-value"/>
+                         </VBox>
+                     </HBox>
+
+                     <!-- Statistics Charts -->
+                     <HBox spacing="20" VBox.vgrow="ALWAYS" alignment="CENTER_LEFT">
+                         <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1); -fx-padding: 15;">
+                             <Label text="Events by Category" styleClass="subtitle" style="-fx-font-size: 14px;"/>
+                             <BarChart fx:id="eventCategoryChart" animated="false" legendVisible="false" VBox.vgrow="ALWAYS">
+                                <xAxis>
+                                  <CategoryAxis fx:id="xAxis" label="Category"/>
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis fx:id="yAxis" label="Count"/>
+                                </yAxis>
+                             </BarChart>
+                         </VBox>
+
+                         <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1); -fx-padding: 15;">
+                             <Label text="Users by Role" styleClass="subtitle" style="-fx-font-size: 14px;"/>
+                             <PieChart fx:id="userRoleChart" animated="false" VBox.vgrow="ALWAYS" labelsVisible="true"/>
                          </VBox>
                      </HBox>
                 </VBox>
