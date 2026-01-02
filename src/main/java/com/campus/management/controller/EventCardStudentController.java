@@ -92,7 +92,7 @@ public class EventCardStudentController {
             dateLabel.setText(event.getDate().toString());
         }
         timeLabel.setText(event.getStart() + " - " + event.getEnd());
-        locationLabel.setText("Location: " + event.getLocation());
+        locationLabel.setText(event.getLocation());
 
         // Count registrations
         List<EventRegistration> registrations = UserDao.readRegistrations();
@@ -100,12 +100,12 @@ public class EventCardStudentController {
             try {
                 int eventId = Integer.parseInt(event.getId()); // Corrected myevent to event
                 long count = registrations.stream().filter(r -> r.getEvent_id() == eventId).count();
-                attendeesLabel.setText("Attending: " + count + " students"); // Re-added "Attending: " and " students"
+                attendeesLabel.setText(count + " Attending");
             } catch (NumberFormatException e) {
-                attendeesLabel.setText("Attending: 0 students"); // Handle NFE case
+                attendeesLabel.setText("0 Attending");
             }
         } else {
-            attendeesLabel.setText("Attending: 0 students"); // Handle null registrations case
+            attendeesLabel.setText("0 Attending");
         }
 
         descriptionLabel.setText(event.getDescription());

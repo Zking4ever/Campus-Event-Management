@@ -23,13 +23,28 @@
              <Label fx:id="categoryLabel" styleClass="category-badge" text="Category" />
         </FlowPane>
     </StackPane>
-    <VBox style="-fx-padding:10px 15px 15px 10px">
-        <Label fx:id="title"  styleClass="event-title"/>
-        <Label fx:id="dateLabel" styleClass="event-meta"/>
-        <Label fx:id="timeLabel" styleClass="event-meta"/>
-        <Label fx:id="locationLabel" styleClass="event-meta"/>
-        <Label fx:id="attendeesLabel" styleClass="event-attendees"/>
-        <Label fx:id="descriptionLabel" wrapText="true" styleClass="event-description"/>
+    <VBox style="-fx-padding:15px;" spacing="8">
+        <Label fx:id="title"  styleClass="event-title" wrapText="true"/>
+        
+        <HBox spacing="10" alignment="CENTER_LEFT">
+             <Label text="📅" styleClass="event-icon"/>
+             <Label fx:id="dateLabel" styleClass="event-meta"/>
+             <Region HBox.hgrow="ALWAYS" />
+             <Label text="⏰" styleClass="event-icon"/>
+             <Label fx:id="timeLabel" styleClass="event-meta"/>
+        </HBox>
+        
+        <HBox spacing="10" alignment="CENTER_LEFT">
+             <Label text="📍" styleClass="event-icon"/>
+             <Label fx:id="locationLabel" styleClass="event-meta" wrapText="true"/>
+        </HBox>
+        
+        <HBox spacing="10" alignment="CENTER_LEFT">
+             <Label text="👥" styleClass="event-icon"/>
+             <Label fx:id="attendeesLabel" styleClass="event-attendees"/>
+        </HBox>
+
+        <Label fx:id="descriptionLabel" wrapText="true" styleClass="event-description" style="-fx-padding: 5 0 0 0;"/>
     </VBox>
     <VBox style="-fx-padding:14px">
         <Button text="Register"

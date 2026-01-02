@@ -54,42 +54,28 @@
 
 /* Category Badges */
 .category-badge {
-    -fx-background-color: rgba(255, 255, 255, 0.9);
-    -fx-background-radius: 4;
-    -fx-padding: 4 8;
-    -fx-font-size: 12px;
+    -fx-background-radius: 20;
+    -fx-padding: 5 12;
+    -fx-font-size: 11px;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 0, 0, 1);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0, 0, 1);
 }
 
 .category-academic {
-    -fx-text-fill: #4f46e5;
-    -fx-border-color: #4f46e5;
-    -fx-border-width: 0 0 0 3;
+    -fx-background-color: #4f46e5;
 }
 
 .category-social {
-    -fx-text-fill: #db2777;
-    -fx-border-color: #db2777;
-    -fx-border-width: 0 0 0 3;
+    -fx-background-color: #059669;
 }
 
 .category-sports {
-    -fx-text-fill: #ea580c;
-    -fx-border-color: #ea580c;
-    -fx-border-width: 0 0 0 3;
-}
-
-.category-workshop {
-    -fx-text-fill: #059669;
-    -fx-border-color: #059669;
-    -fx-border-width: 0 0 0 3;
+    -fx-background-color: #ea580c;
 }
 
 .category-default {
-    -fx-text-fill: #4b5563;
-    -fx-border-color: #4b5563;
-    -fx-border-width: 0 0 0 3;
+    -fx-background-color: #64748b;
 }
 
 /* Event action style */
@@ -146,6 +132,6 @@
     -fx-background-radius: 6;
 }
 
-.progress-bar {
-    -fx-accent: #2563eb;
+.icon-button {
+    -fx-text-fill: black;
 }

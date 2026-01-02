@@ -12,19 +12,18 @@ import java.util.UUID;
 
 public class AuthServiceImpl implements AuthService {
 
-
     public AuthServiceImpl() {
         // seed admin
     }
 
     @Override
     public User authenticate(String username, String password) {
-       return  UserDao.authenticate(username, password);
+        return UserDao.authenticate(username, password);
     }
 
     @Override
     public User register(User user) {
-        //process the password to set it to hash in here
+        // process the password to set it to hash in here
         return UserDao.registerUser(user); // saves to db
     }
 }
