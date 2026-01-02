@@ -1,13 +1,11 @@
 package com.campus.management.controller;
 
 import com.campus.management.AppContext;
-import com.campus.management.model.Event;
-import com.campus.management.model.EventRegistration;
-import com.campus.management.model.EventStatus;
-import com.campus.management.model.User;
-import com.campus.management.service.EventService;
+import com.campus.management.model.*;
+import com.campus.management.service.*;
 import com.campus.management.service.database.UserDao;
 import com.campus.management.service.impl.EventServiceImpl;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -184,14 +182,20 @@ public class OrganizerController {
 
     @FXML
     protected void onLogout() {
-        AppContext.setCurrentUser(null);
-        try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-            javafx.scene.Parent root = loader.load();
-            Stage stage = (Stage) rootContainer.getScene().getWindow();
-            stage.setScene(new javafx.scene.Scene(root, 800, 600));
-        } catch (Exception e) {
-            e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("Are you sure you want to logout?");
+
+        if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+            AppContext.setCurrentUser(null);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) rootContainer.getScene().getWindow();
+                stage.setScene(new Scene(root, 800, 600));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

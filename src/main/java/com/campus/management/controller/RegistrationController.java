@@ -17,20 +17,29 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-
 public class RegistrationController {
-    @FXML private TextField usernameField;
-    @FXML private TextField nameField;
-    @FXML private TextField emailField;
-    @FXML private PasswordField passwordField;
-    @FXML private ChoiceBox<Role> roleChoice;
-    @FXML private Label statusLabel;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private ChoiceBox<Role> roleChoice;
+    @FXML
+    private Label statusLabel;
 
     private final AuthService authService = AppContext.getAuthService();
 
     @FXML
     public void initialize() {
-        roleChoice.setItems(FXCollections.observableArrayList(Role.values()));
+        // Exclude ADMIN from public registration
+        roleChoice.setItems(FXCollections.observableArrayList(
+                java.util.Arrays.stream(Role.values())
+                        .filter(r -> r != Role.ADMIN)
+                        .toList()));
         roleChoice.getSelectionModel().select(Role.STUDENT);
     }
 
@@ -39,7 +48,7 @@ public class RegistrationController {
         if (usernameField.getText().isEmpty() ||
                 nameField.getText().isEmpty() ||
                 emailField.getText().isEmpty() ||
-                passwordField.getText().isEmpty()){
+                passwordField.getText().isEmpty()) {
             statusLabel.setText("Please fill all the fields");
             return;
         }
@@ -50,15 +59,14 @@ public class RegistrationController {
 
         String userid = User.getRandomId();
 
-        // store raw password for the simple in-memory impl (replace with hashed in production)
         User user = new User(
-                            userid,
-                            usernameField.getText(),
-                            nameField.getText(),
-                            emailField.getText(),
-                            passwordField.getText(),
-                            roleChoice.getValue());
-        if (authService.register(user) == null){
+                userid,
+                usernameField.getText(),
+                nameField.getText(),
+                emailField.getText(),
+                passwordField.getText(),
+                roleChoice.getValue());
+        if (authService.register(user) == null) {
             statusLabel.setText("Registeration failed");
             return;
         }
@@ -82,9 +90,10 @@ public class RegistrationController {
             ex.printStackTrace();
         }
     }
+
     @FXML
-    private void goToLogin(){
-        try{
+    private void goToLogin() {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) usernameField.getScene().getWindow();
@@ -92,6 +101,5 @@ public class RegistrationController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        }
+    }
 }
-

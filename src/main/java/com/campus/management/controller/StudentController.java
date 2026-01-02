@@ -11,6 +11,8 @@ import com.campus.management.service.impl.EventServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -57,13 +59,9 @@ public class StudentController {
         profileImage.setImage(new Image(getClass().getResource("/images/person.png").toExternalForm()));
         loadApprovedEvents();
 
-        // Populate Categories
-        Set<String> categories = eventList.stream()
-                .map(Event::getCategory)
-                .filter(c -> c != null && !c.isEmpty())
-                .collect(Collectors.toSet());
+        // Populate Categories (Fixed List)
         categoryFilter.getItems().add("All Categories");
-        categoryFilter.getItems().addAll(categories.stream().sorted().toList());
+        categoryFilter.getItems().addAll("Academic", "Art", "Sport", "Tech", "Entertainment");
         categoryFilter.getSelectionModel().selectFirst();
 
         renderEvents();
@@ -141,7 +139,7 @@ public class StudentController {
 
                     boolean categoryMatch = true;
                     if (filterCategory) {
-                        categoryMatch = e.getCategory() != null && e.getCategory().equals(selectedCategory);
+                        categoryMatch = e.getCategory() != null && e.getCategory().equalsIgnoreCase(selectedCategory);
                     }
 
                     return textMatch && categoryMatch;
@@ -170,14 +168,20 @@ public class StudentController {
 
     @FXML
     protected void onLogout() {
-        AppContext.setCurrentUser(null);
-        try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-            javafx.scene.Parent root = loader.load();
-            Stage stage = (Stage) usernameLabel.getScene().getWindow();
-            stage.setScene(new javafx.scene.Scene(root, 800, 600));
-        } catch (Exception e) {
-            e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("Are you sure you want to logout?");
+
+        if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+            AppContext.setCurrentUser(null);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) usernameLabel.getScene().getWindow();
+                stage.setScene(new javafx.scene.Scene(root, 800, 600));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -7,9 +7,16 @@ import com.campus.management.model.User;
 import com.campus.management.service.EventService;
 import com.campus.management.service.impl.EventServiceImpl;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 public class AdminController {
@@ -263,7 +270,6 @@ public class AdminController {
         }
     }
 
-
     @FXML
     protected void loadAllEvents() {
         if (eventsListView != null) {
@@ -347,14 +353,98 @@ public class AdminController {
     }
 
     @FXML
+    protected void addNewAdmin() {
+        Dialog<User> dialog = new Dialog<>();
+        dialog.setTitle("Add New Admin");
+        dialog.setHeaderText("Create a new Administrator account");
+
+        ButtonType createButtonType = new ButtonType("Create", javafx.scene.control.ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(createButtonType, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField username = new TextField();
+        username.setPromptText("Username");
+        TextField name = new TextField();
+        name.setPromptText("Full Name");
+        TextField email = new TextField();
+        email.setPromptText("Email");
+        PasswordField password = new PasswordField();
+        password.setPromptText("Password");
+
+        grid.add(new Label("Username:"), 0, 0);
+        grid.add(username, 1, 0);
+        grid.add(new Label("Name:"), 0, 1);
+        grid.add(name, 1, 1);
+        grid.add(new Label("Email:"), 0, 2);
+        grid.add(email, 1, 2);
+        grid.add(new Label("Password:"), 0, 3);
+        grid.add(password, 1, 3);
+
+        dialog.getDialogPane().setContent(grid);
+
+        // Request focus on the username field by default
+        javafx.application.Platform.runLater(username::requestFocus);
+
+        // Convert the result to a user object when the create button is clicked
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == createButtonType) {
+                if (username.getText().isEmpty() || password.getText().isEmpty()) {
+                    return null;
+                }
+                return new User(
+                        User.getRandomId(),
+                        username.getText(),
+                        name.getText(),
+                        email.getText(),
+                        password.getText(),
+                        com.campus.management.model.Role.ADMIN);
+            }
+            return null;
+        });
+
+        java.util.Optional<User> result = dialog.showAndWait();
+
+        result.ifPresent(newUser -> {
+            // Use AppContext auth service to register (handles hashing if implemented
+            // there, or UserDao deals with it)
+            if (com.campus.management.AppContext.getAuthService().register(newUser) != null) {
+                javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                        javafx.scene.control.Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText(null);
+                alert.setContentText("Admin account created successfully!");
+                alert.showAndWait();
+                loadAllUsers(); // Refresh list
+            } else {
+                javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                        javafx.scene.control.Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to create account. Username or email might be taken.");
+                alert.showAndWait();
+            }
+        });
+    }
+
+    @FXML
     protected void onLogout() {
-        try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-            javafx.scene.Parent root = loader.load();
-            javafx.stage.Stage stage = (javafx.stage.Stage) eventsListView.getScene().getWindow();
-            stage.setScene(new javafx.scene.Scene(root, 800, 600));
-        } catch (Exception e) {
-            e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("Are you sure you want to logout?");
+
+        if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+            try {
+                javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+                javafx.scene.Parent root = loader.load();
+                javafx.stage.Stage stage = (javafx.stage.Stage) eventsListView.getScene().getWindow();
+                stage.setScene(new javafx.scene.Scene(root, 800, 600));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -121,6 +121,7 @@
                     <HBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1);">
                         <Button text="Load All Users" onAction="#loadAllUsers" styleClass="secondary-button"/>
                         <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="Add Admin" onAction="#addNewAdmin" styleClass="primary-button" style="-fx-background-color: #4f46e5;"/>
                     </HBox>
 
                     <VBox VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 1); -fx-padding: 0;">
