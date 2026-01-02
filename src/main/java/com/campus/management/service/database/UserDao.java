@@ -28,7 +28,7 @@ public class UserDao {
             ps.setString(3, u.getName());
             ps.setString(4, u.getEmail());
             // Hash the password
-            String hashedPassword = BCrypt.hashpw(u.getPasswordHash(), BCrypt.gensalt());
+                String hashedPassword = BCrypt.hashpw(u.getPasswordHash(), BCrypt.gensalt());
             ps.setString(5, hashedPassword);
             ps.setString(6, u.getRole().toString());
 

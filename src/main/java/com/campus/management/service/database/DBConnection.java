@@ -4,35 +4,38 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class DBConnection {
     static Connection connection;
     static boolean tablesCreated = false;
 
-//    private static final String URL =
-//            "jdbc:mysql://localhost:3306/campus-event-management?useSSL=false&serverTimezone=UTC";
+    // private static final String URL =
+    // "jdbc:mysql://localhost:3306/campus-event-management?useSSL=false&serverTimezone=UTC";
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
-//    public static Connection getConnection() {
-//        try {
-//            return DriverManager.getConnection(URL, USER, PASSWORD);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+    // public static Connection getConnection() {
+    // try {
+    // return DriverManager.getConnection(URL, USER, PASSWORD);
+    // } catch (SQLException e) {
+    // e.printStackTrace();
+    // return null;
+    // }
+    // }
 
     private static final String URL = "jdbc:sqlite:campusEvent.db";
+
     public static Connection getConnection() {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(URL);
             connection = conn;
-            if(!tablesCreated){
+            if (!tablesCreated) {
                 createUsersTable();
                 createEventsTable();
                 createEventRegistrationsTable();
+                createDefaultAdmin();
                 tablesCreated = true;
             }
         } catch (SQLException e) {
@@ -40,22 +43,23 @@ public class DBConnection {
         }
         return conn;
     }
+
     public static void createEventsTable() {
         String sql = """
-        CREATE TABLE IF NOT EXISTS events (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            description TEXT,
-            date TEXT NOT NULL,
-            start_time TEXT NOT NULL,
-            end_time TEXT NOT NULL,
-            location TEXT,
-            category TEXT,
-            organizer_id TEXT,
-            status TEXT,
-            imgURL TEXT
-        );
-    """;
+                    CREATE TABLE IF NOT EXISTS events (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        title TEXT NOT NULL,
+                        description TEXT,
+                        date TEXT NOT NULL,
+                        start_time TEXT NOT NULL,
+                        end_time TEXT NOT NULL,
+                        location TEXT,
+                        category TEXT,
+                        organizer_id TEXT,
+                        status TEXT,
+                        imgURL TEXT
+                    );
+                """;
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
         } catch (SQLException e) {
@@ -65,18 +69,17 @@ public class DBConnection {
 
     public static void createUsersTable() {
         String sql = """
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            userid TEXT NOT NULL,
-            username TEXT NOT NULL UNIQUE,
-            name TEXT NOT NULL,
-            email TEXT NOT NULL UNIQUE,
-            password TEXT NOT NULL,
-            role TEXT NOT NULL
-        );
-    """;
-        try ( Statement stmt = connection.createStatement()) {
-
+                    CREATE TABLE IF NOT EXISTS users (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        userid TEXT NOT NULL,
+                        username TEXT NOT NULL UNIQUE,
+                        name TEXT NOT NULL,
+                        email TEXT NOT NULL UNIQUE,
+                        password TEXT NOT NULL,
+                        role TEXT NOT NULL
+                    );
+                """;
+        try (Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
         } catch (SQLException e) {
             System.out.println("Error creating users table: " + e.getMessage());
@@ -85,21 +88,46 @@ public class DBConnection {
 
     public static void createEventRegistrationsTable() {
         String sql = """
-        CREATE TABLE IF NOT EXISTS eventRegistrations (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            event_id INTEGER NOT NULL,
-            UNIQUE (user_id, event_id),
-            FOREIGN KEY (user_id) REFERENCES users(userid),
-            FOREIGN KEY (event_id) REFERENCES events(id)
-        );
-    """;
+                    CREATE TABLE IF NOT EXISTS eventRegistrations (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        user_id INTEGER NOT NULL,
+                        event_id INTEGER NOT NULL,
+                        UNIQUE (user_id, event_id),
+                        FOREIGN KEY (user_id) REFERENCES users(userid),
+                        FOREIGN KEY (event_id) REFERENCES events(id)
+                    );
+                """;
         try (Statement stmt = connection.createStatement()) {
             stmt.execute("PRAGMA foreign_keys = ON;");
             stmt.execute(sql);
 
         } catch (SQLException e) {
             System.out.println("Error creating eventRegistrations table: " + e.getMessage());
+        }
+    }
+
+    private static void createDefaultAdmin() {
+        String sqlCheck = "SELECT count(*) FROM users WHERE username = 'admin'";
+        String sqlInsert = "INSERT INTO users(userid, username, name, email, password, role) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Statement stmt = connection.createStatement();
+                java.sql.ResultSet rs = stmt.executeQuery(sqlCheck)) {
+
+            if (rs.next() && rs.getInt(1) == 0) {
+                // Admin does not exist, create it
+                try (java.sql.PreparedStatement ps = connection.prepareStatement(sqlInsert)) {
+                    ps.setString(1, "admin-001");
+                    ps.setString(2, "admin");
+                    ps.setString(3, "System Admin");
+                    ps.setString(4, "admin@gmail.com");
+                    ps.setString(5, BCrypt.hashpw("admin", BCrypt.gensalt()));
+                    ps.setString(6, "ADMIN");
+                    ps.execute();
+                    System.out.println("Default admin created.");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error creating default admin: " + e.getMessage());
         }
     }
 
