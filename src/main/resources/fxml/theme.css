@@ -197,24 +197,49 @@
     -fx-text-fill: #0f172a;
 }
 
-.blue {
+.stat-card-blue {
+    -fx-background-color: #eef2ff;
     -fx-border-color: #4f46e5;
     -fx-border-width: 0 0 0 4;
+    -fx-padding: 20;
+    -fx-spacing: 12;
+    -fx-min-width: 170;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 8, 0, 0, 2);
 }
 
-.green {
+.stat-card-green {
+    -fx-background-color: #f0fdf4;
     -fx-border-color: #10b981;
     -fx-border-width: 0 0 0 4;
+    -fx-padding: 20;
+    -fx-spacing: 12;
+    -fx-min-width: 170;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 8, 0, 0, 2);
 }
 
-.purple {
+.stat-card-purple {
+    -fx-background-color: #f5f3ff;
+    /* Violet-50 */
     -fx-border-color: #8b5cf6;
     -fx-border-width: 0 0 0 4;
+    -fx-padding: 20;
+    -fx-spacing: 12;
+    -fx-min-width: 170;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 8, 0, 0, 2);
 }
 
-.orange {
+.stat-card-orange {
+    -fx-background-color: #fff7ed;
     -fx-border-color: #f97316;
     -fx-border-width: 0 0 0 4;
+    -fx-padding: 20;
+    -fx-spacing: 12;
+    -fx-min-width: 170;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 8, 0, 0, 2);
 }
 
 .badge {

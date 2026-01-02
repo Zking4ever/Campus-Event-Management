@@ -69,21 +69,24 @@ public class EventCardStudentController {
 
         if (cat != null) {
             String lowerCat = cat.toLowerCase();
-            if (lowerCat.contains("academic") || lowerCat.contains("education")) {
+            if (lowerCat.contains("academic")) {
                 emoji = "🎓";
                 styleClass = "category-academic";
-            } else if (lowerCat.contains("social") || lowerCat.contains("party")) {
-                emoji = "🎉";
-                styleClass = "category-social";
-            } else if (lowerCat.contains("sport") || lowerCat.contains("game")) {
+            } else if (lowerCat.contains("art")) {
+                emoji = "🎨";
+                styleClass = "category-art";
+            } else if (lowerCat.contains("sport")) {
                 emoji = "⚽";
-                styleClass = "category-sports";
-            } else if (lowerCat.contains("workshop") || lowerCat.contains("créatif")) {
-                emoji = "🛠";
-                styleClass = "category-workshop";
+                styleClass = "category-sport";
+            } else if (lowerCat.contains("tech")) {
+                emoji = "💻";
+                styleClass = "category-tech";
+            } else if (lowerCat.contains("entertainment")) {
+                emoji = "🎬";
+                styleClass = "category-entertainment";
             }
             categoryLabel.setText(emoji + " " + cat);
-            categoryLabel.getStyleClass().add(styleClass);
+            categoryLabel.getStyleClass().setAll("category-badge", styleClass);
         } else {
             categoryLabel.setVisible(false);
         }

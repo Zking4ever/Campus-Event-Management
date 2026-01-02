@@ -35,16 +35,20 @@
             </HBox>
             <!-- Stats Cards -->
             <HBox spacing="20">
-                <VBox styleClass="stat-card">
-                    <Label text="My Events" styleClass="stat-label"/>
-                    <Label fx:id="eventNoLabel" text="4" styleClass="stat-value"/>
+                <VBox styleClass="stat-card-blue">
+                    <Label text="📅 My Events" styleClass="stat-label"/>
+                    <Label fx:id="eventNoLabel" text="0" styleClass="stat-value"/>
                 </VBox>
 
-                <VBox styleClass="stat-card">
-                    <Label text="Total Attendees" styleClass="stat-label"/>
-                    <Label fx:id="attendersLabel" text="1203" styleClass="stat-value"/>
+                <VBox styleClass="stat-card-green">
+                    <Label text="👥 Total Attendees" styleClass="stat-label"/>
+                    <Label fx:id="attendersLabel" text="0" styleClass="stat-value"/>
                 </VBox>
 
+                <VBox styleClass="stat-card-orange">
+                    <Label text="⏳ Pending Approvals" styleClass="stat-label"/>
+                    <Label fx:id="pendingEventsLabel" text="0" styleClass="stat-value"/>
+                </VBox>
             </HBox>
             <!-- Tabs -->
             <TabPane>

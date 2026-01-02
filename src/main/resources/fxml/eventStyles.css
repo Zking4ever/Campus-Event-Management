@@ -66,13 +66,27 @@
     -fx-background-color: #4f46e5;
 }
 
-.category-social {
-    -fx-background-color: #059669;
+/* Blue */
+.category-art {
+    -fx-background-color: #d946ef;
 }
 
-.category-sports {
+/* Pink/Magenta */
+.category-sport {
     -fx-background-color: #ea580c;
 }
+
+/* Orange */
+.category-tech {
+    -fx-background-color: #0891b2;
+}
+
+/* Cyan/Teal */
+.category-entertainment {
+    -fx-background-color: #e11d48;
+}
+
+/* Red */
 
 .category-default {
     -fx-background-color: #64748b;

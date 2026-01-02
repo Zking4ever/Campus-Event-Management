@@ -48,12 +48,42 @@ public class EventCardOrganizerController {
         myevent = event;
         eventImage.setImage(new Image(event.getImageUrl()));
         title.setText(event.getTitle());
-        catagoryLabel.setText(event.getCategory());
-        dateLabel.setText(event.getDate().toString());
-        timeLabel.setText(event.getStart() + " - " + event.getEnd());
-        locationLabel.setText(event.getLocation());
-        attendeesLabel.setText("30 / 75");
-        descriptionLabel.setText(event.getDescription());
+        if (myevent.getDate() != null) {
+            dateLabel.setText(myevent.getDate().toString());
+        }
+        timeLabel.setText(myevent.getStart() + " - " + myevent.getEnd());
+        locationLabel.setText(myevent.getLocation());
+
+        // Category Logic
+        String cat = myevent.getCategory();
+        String emoji = "📅";
+        String styleClass = "category-default";
+
+        if (cat != null) {
+            String lowerCat = cat.toLowerCase();
+            if (lowerCat.contains("academic")) {
+                emoji = "🎓";
+                styleClass = "category-academic";
+            } else if (lowerCat.contains("art")) {
+                emoji = "🎨";
+                styleClass = "category-art";
+            } else if (lowerCat.contains("sport")) {
+                emoji = "⚽";
+                styleClass = "category-sport";
+            } else if (lowerCat.contains("tech")) {
+                emoji = "💻";
+                styleClass = "category-tech";
+            } else if (lowerCat.contains("entertainment")) {
+                emoji = "🎬";
+                styleClass = "category-entertainment";
+            }
+            catagoryLabel.setText(emoji + " " + cat);
+            catagoryLabel.getStyleClass().setAll("category-badge", styleClass);
+        } else {
+            catagoryLabel.setVisible(false);
+        }
+
+        // Count registrations
         List<EventRegistration> eventRegistered = UserDao.readRegistrations();
         if (eventRegistered != null) {
             try {

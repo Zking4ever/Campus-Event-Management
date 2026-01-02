@@ -3,6 +3,7 @@ package com.campus.management.controller;
 import com.campus.management.AppContext;
 import com.campus.management.model.Event;
 import com.campus.management.model.EventRegistration;
+import com.campus.management.model.EventStatus;
 import com.campus.management.model.User;
 import com.campus.management.service.EventService;
 import com.campus.management.service.database.UserDao;
@@ -44,6 +45,8 @@ public class OrganizerController {
     HBox rootContainer;
     @FXML
     Label attendersLabel;
+    @FXML
+    Label pendingEventsLabel;
     @FXML
     VBox MainContentContainer;
 
@@ -129,6 +132,14 @@ public class OrganizerController {
         List<EventRegistration> myRegister = UserDao.readRegistrations();
         myRegister.removeIf(e -> !eventids.contains(String.valueOf(e.getEvent_id())));
         attendersLabel.setText(String.valueOf(myRegister.size()));
+
+        // Pending Events Count
+        long pendingCount = eventList.stream()
+                .filter(e -> e.getStatus() == EventStatus.PENDING)
+                .count();
+        if (pendingEventsLabel != null) {
+            pendingEventsLabel.setText(String.valueOf(pendingCount));
+        }
     }
 
     private void renderEventList() {
