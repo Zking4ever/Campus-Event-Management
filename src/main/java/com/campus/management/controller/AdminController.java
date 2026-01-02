@@ -21,9 +21,24 @@ public class AdminController {
     @FXML
     private Label statusLabel;
     @FXML
+    private javafx.scene.layout.VBox dashboardView;
+    @FXML
     private javafx.scene.layout.VBox eventsView;
     @FXML
     private javafx.scene.layout.VBox usersView;
+    @FXML
+    private javafx.scene.control.Button dashboardBtn;
+    @FXML
+    private javafx.scene.control.Button eventsBtn;
+    @FXML
+    private javafx.scene.control.Button usersBtn;
+
+    @FXML
+    private Label totalEventsLabel;
+    @FXML
+    private Label totalUsersLabel;
+    @FXML
+    private Label pendingEventsLabel;
 
     private final EventService eventService = new EventServiceImpl();
 
@@ -31,8 +46,75 @@ public class AdminController {
     public void initialize() {
         setupEventListView();
         setupUserListView();
+        showDashboard(); // Default view
+    }
+
+    // --- Navigation Logic ---
+
+    @FXML
+    protected void showDashboard() {
+        dashboardView.setVisible(true);
+        eventsView.setVisible(false);
+        usersView.setVisible(false);
+        updateNavigationState(dashboardBtn);
+        loadDashboardStats();
+    }
+
+    @FXML
+    protected void showEventsView() {
+        dashboardView.setVisible(false);
+        eventsView.setVisible(true);
+        usersView.setVisible(false);
+        updateNavigationState(eventsBtn);
         loadAllEvents();
     }
+
+    @FXML
+    protected void showUsersView() {
+        dashboardView.setVisible(false);
+        eventsView.setVisible(false);
+        usersView.setVisible(true);
+        updateNavigationState(usersBtn);
+        loadAllUsers();
+    }
+
+    private void updateNavigationState(Button activeBtn) {
+        // Reset all
+        setStyleForNavBtn(dashboardBtn, false);
+        setStyleForNavBtn(eventsBtn, false);
+        setStyleForNavBtn(usersBtn, false);
+
+        // Highlight active
+        setStyleForNavBtn(activeBtn, true);
+    }
+
+    private void setStyleForNavBtn(Button btn, boolean isActive) {
+        if (btn == null)
+            return;
+        if (isActive) {
+            btn.setStyle(
+                    "-fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-background-color: rgba(255,255,255,0.1); -fx-border-color: #4f46e5; -fx-border-width: 0 0 0 3;");
+        } else {
+            btn.setStyle(
+                    "-fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-background-color: transparent; -fx-border-width: 0;");
+        }
+    }
+
+    private void loadDashboardStats() {
+        if (totalEventsLabel == null)
+            return;
+
+        java.util.List<Event> allEvents = eventService.listEvents();
+        totalEventsLabel.setText(String.valueOf(allEvents.size()));
+
+        long pending = allEvents.stream().filter(e -> e.getStatus() == EventStatus.PENDING).count();
+        pendingEventsLabel.setText(String.valueOf(pending));
+
+        java.util.List<User> allUsers = com.campus.management.service.database.UserDao.getAllUsers();
+        totalUsersLabel.setText(String.valueOf(allUsers.size()));
+    }
+
+    // --- View Logic ---
 
     private void setupEventListView() {
         if (eventsListView != null) {
@@ -181,18 +263,6 @@ public class AdminController {
         }
     }
 
-    @FXML
-    protected void showEventsView() {
-        eventsView.setVisible(true);
-        usersView.setVisible(false);
-    }
-
-    @FXML
-    protected void showUsersView() {
-        eventsView.setVisible(false);
-        usersView.setVisible(true);
-        loadAllUsers();
-    }
 
     @FXML
     protected void loadAllEvents() {
