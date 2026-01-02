@@ -43,6 +43,8 @@ public class EventCardStudentController {
     private VBox container;
     @FXML
     private Button eventButton;
+    @FXML
+    private Label categoryLabel;
     private Event event;
 
     public void initialize() {
@@ -59,6 +61,33 @@ public class EventCardStudentController {
         this.event = event;
         eventImage.setImage(new Image(event.getImageUrl()));
         title.setText(event.getTitle());
+
+        // Category Logic
+        String cat = event.getCategory();
+        String emoji = "📅";
+        String styleClass = "category-default";
+
+        if (cat != null) {
+            String lowerCat = cat.toLowerCase();
+            if (lowerCat.contains("academic") || lowerCat.contains("education")) {
+                emoji = "🎓";
+                styleClass = "category-academic";
+            } else if (lowerCat.contains("social") || lowerCat.contains("party")) {
+                emoji = "🎉";
+                styleClass = "category-social";
+            } else if (lowerCat.contains("sport") || lowerCat.contains("game")) {
+                emoji = "⚽";
+                styleClass = "category-sports";
+            } else if (lowerCat.contains("workshop") || lowerCat.contains("créatif")) {
+                emoji = "🛠";
+                styleClass = "category-workshop";
+            }
+            categoryLabel.setText(emoji + " " + cat);
+            categoryLabel.getStyleClass().add(styleClass);
+        } else {
+            categoryLabel.setVisible(false);
+        }
+
         if (event.getDate() != null) {
             dateLabel.setText(event.getDate().toString());
         }

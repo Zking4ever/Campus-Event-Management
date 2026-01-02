@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -101,7 +102,7 @@ public class OrganizerController {
         // Attendance Chart
         if (attendanceChart != null && eventList != null) {
             attendanceChart.getData().clear();
-            javafx.scene.chart.XYChart.Series<String, Number> series = new javafx.scene.chart.XYChart.Series<>();
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
             series.setName("Attendees");
 
             List<EventRegistration> allRegistrations = UserDao.readRegistrations();
@@ -110,7 +111,7 @@ public class OrganizerController {
                 long count = allRegistrations.stream()
                         .filter(r -> r.getEvent_id() == Integer.parseInt(event.getId()))
                         .count();
-                series.getData().add(new javafx.scene.chart.XYChart.Data<>(event.getTitle(), count));
+                series.getData().add(new XYChart.Data<>(event.getTitle(), count));
             }
             attendanceChart.getData().add(series);
         }

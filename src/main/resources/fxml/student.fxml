@@ -43,6 +43,7 @@
                            style="-fx-text-fill: #64748b;"/>
                 </VBox>
                 <Region HBox.hgrow="ALWAYS"/>
+                <ComboBox fx:id="categoryFilter" promptText="Filter by Category" onAction="#onCategorySelect" prefWidth="150" style="-fx-border-color:#cbd5e1" />
                 <TextField fx:id="searchField" promptText="Search events..." onKeyReleased="#onSearchKey" />
             </HBox>
 

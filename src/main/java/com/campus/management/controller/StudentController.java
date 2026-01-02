@@ -11,6 +11,7 @@ import com.campus.management.service.impl.EventServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -45,6 +46,9 @@ public class StudentController {
     User current;
 
     @FXML
+    private ComboBox<String> categoryFilter;
+
+    @FXML
     public void initialize() {
         current = AppContext.getCurrentUser();
         if (current != null) {
@@ -52,6 +56,16 @@ public class StudentController {
         }
         profileImage.setImage(new Image(getClass().getResource("/images/person.png").toExternalForm()));
         loadApprovedEvents();
+
+        // Populate Categories
+        Set<String> categories = eventList.stream()
+                .map(Event::getCategory)
+                .filter(c -> c != null && !c.isEmpty())
+                .collect(Collectors.toSet());
+        categoryFilter.getItems().add("All Categories");
+        categoryFilter.getItems().addAll(categories.stream().sorted().toList());
+        categoryFilter.getSelectionModel().selectFirst();
+
         renderEvents();
     }
 
@@ -94,24 +108,46 @@ public class StudentController {
         }
     }
 
+    @FXML
+    protected void onCategorySelect() {
+        applyFilter(searchField != null ? searchField.getText() : "");
+    }
+
     // apply filter from search query and re-render
     private void applyFilter(String query) {
         String q = query == null ? "" : query.trim().toLowerCase();
-        List<Event> allEvents = eventService.listEvents();
-        System.out.println(allEvents.size());
+        String selectedCategory = categoryFilter.getSelectionModel().getSelectedItem();
+        boolean filterCategory = selectedCategory != null && !selectedCategory.equals("All Categories");
+
+        List<Event> allEvents = eventService.listEvents().stream()
+                .filter(e -> e.getStatus() == EventStatus.APPROVED)
+                .collect(Collectors.toList());
+
         Set<String> registeredIds = registeredEvents.stream()
                 .map(Event::getId)
                 .collect(Collectors.toSet());
+
         allEvents.removeIf(e -> registeredIds.contains(e.getId()));
+
         List<Event> filtered = allEvents.stream()
                 .filter(e -> {
-                    if (q.isEmpty())
-                        return true;
-                    boolean titleMatches = e.getTitle() != null && e.getTitle().toLowerCase().contains(q);
-                    boolean descMatches = e.getDescription() != null && e.getDescription().toLowerCase().contains(q);
-                    return titleMatches || descMatches;
+                    boolean textMatch = true;
+                    if (!q.isEmpty()) {
+                        boolean titleMatches = e.getTitle() != null && e.getTitle().toLowerCase().contains(q);
+                        boolean descMatches = e.getDescription() != null
+                                && e.getDescription().toLowerCase().contains(q);
+                        textMatch = titleMatches || descMatches;
+                    }
+
+                    boolean categoryMatch = true;
+                    if (filterCategory) {
+                        categoryMatch = e.getCategory() != null && e.getCategory().equals(selectedCategory);
+                    }
+
+                    return textMatch && categoryMatch;
                 })
                 .collect(Collectors.toList());
+
         eventContainer.getChildren().clear();
         try {
             for (Event event : filtered) {

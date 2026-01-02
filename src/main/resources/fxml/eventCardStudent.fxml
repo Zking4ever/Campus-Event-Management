@@ -12,12 +12,17 @@
       stylesheets="@eventStyles.css"
       fx:id="container">
 
-    <ImageView fx:id="eventImage"
-               fitHeight="180"
-               fitWidth="310"
-               smooth="true"
-               preserveRatio="false"
-               styleClass="event-image"/>
+    <StackPane>
+        <ImageView fx:id="eventImage"
+                   fitHeight="180"
+                   fitWidth="310"
+                   smooth="true"
+                   preserveRatio="false"
+                   styleClass="event-image"/>
+        <FlowPane alignment="TOP_RIGHT" hgap="10" vgap="10" style="-fx-padding: 10;">
+             <Label fx:id="categoryLabel" styleClass="category-badge" text="Category" />
+        </FlowPane>
+    </StackPane>
     <VBox style="-fx-padding:10px 15px 15px 10px">
         <Label fx:id="title"  styleClass="event-title"/>
         <Label fx:id="dateLabel" styleClass="event-meta"/>

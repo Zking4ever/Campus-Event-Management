@@ -1,38 +1,44 @@
-
 /* Event card student */
 .event-card {
     -fx-background-color: white;
     -fx-background-radius: 16;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0.2, 0, 6);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 20, 0.2, 0, 6);
     -fx-pref-width: 310;
     -fx-overflow: hidden;
 }
+
 .event-image {
     -fx-background-radius: 16;
     -fx-border-radius: 16;
     -fx-smooth: true;
     -fx-overflow: hidden;
 }
-.event-image Image{
+
+.event-image Image {
     -fx-border-radius: 16;
 }
+
 .event-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #111827;
 }
+
 .event-meta {
     -fx-font-size: 13px;
     -fx-text-fill: #4B5563;
 }
+
 .event-attendees {
     -fx-font-size: 13px;
     -fx-text-fill: #374151;
 }
+
 .event-description {
     -fx-font-size: 13px;
     -fx-text-fill: #6B7280;
 }
+
 .event-button {
     -fx-background-color: #2563EB;
     -fx-text-fill: white;
@@ -46,33 +52,78 @@
     -fx-cursor: hand;
 }
 
+/* Category Badges */
+.category-badge {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 4;
+    -fx-padding: 4 8;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 0, 0, 1);
+}
+
+.category-academic {
+    -fx-text-fill: #4f46e5;
+    -fx-border-color: #4f46e5;
+    -fx-border-width: 0 0 0 3;
+}
+
+.category-social {
+    -fx-text-fill: #db2777;
+    -fx-border-color: #db2777;
+    -fx-border-width: 0 0 0 3;
+}
+
+.category-sports {
+    -fx-text-fill: #ea580c;
+    -fx-border-color: #ea580c;
+    -fx-border-width: 0 0 0 3;
+}
+
+.category-workshop {
+    -fx-text-fill: #059669;
+    -fx-border-color: #059669;
+    -fx-border-width: 0 0 0 3;
+}
+
+.category-default {
+    -fx-text-fill: #4b5563;
+    -fx-border-color: #4b5563;
+    -fx-border-width: 0 0 0 3;
+}
+
 /* Event action style */
-.eventInputContainer{
-    -fx-background-color:white;
-    -fx-alignment:center;
-    -fx-max-width:350;
-    -fx-padding:20 20 5 20;
-    -fx-border-radius:5;
+.eventInputContainer {
+    -fx-background-color: white;
+    -fx-alignment: center;
+    -fx-max-width: 350;
+    -fx-padding: 20 20 5 20;
+    -fx-border-radius: 5;
     -fx-background-radius: 5px;
 }
-.image-container{
+
+.image-container {
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
 }
-.image-container:hover{
+
+.image-container:hover {
     -fx-border-color: black;
     -fx-border-width: 1px;
 }
-.image-preview:hover{
+
+.image-preview:hover {
     -fx-cursor: hand;
 }
-.success{
-    -fx-text-fill:green;
-    -fx-font-size:22px;
+
+.success {
+    -fx-text-fill: green;
+    -fx-font-size: 22px;
 }
-.error{
-    -fx-text-fill:red;
-    -fx-font-size:16px;
+
+.error {
+    -fx-text-fill: red;
+    -fx-font-size: 16px;
 }
 
 /* Organizer Event Card */
@@ -80,19 +131,21 @@
     -fx-background-color: white;
     -fx-padding: 20;
     -fx-background-radius: 14;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.06), 8, 0, 0, 2);
 }
 
 .event-title-org {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
 }
+
 .badge {
     -fx-background-color: lightblue;
-    -fx-padding:5 8;
-    -fx-text-fill:white;
-    -fx-background-radius:6;
+    -fx-padding: 5 8;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
 }
+
 .progress-bar {
     -fx-accent: #2563eb;
 }
