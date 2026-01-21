@@ -18,7 +18,7 @@ public class MainApp extends Application {
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
-        primaryStage.setTitle("Campus Management");
+        primaryStage.setTitle("Campus Evvent Management System");
         scene.getStylesheets().add(
                 getClass().getResource("/fxml/theme.css").toExternalForm());
         primaryStage.setScene(scene);
